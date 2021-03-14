@@ -1,0 +1,28 @@
+---
+title: "Analysis"
+author: "ollon"
+date: "3/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown text analysis script
+In this script we will analyze the text data from the job descriptions from our scraper. The data we scraped fromt the indeed website contains a text for each job with a description of the job, job tasks and required qualifications etc. We want to analyze the frequency of certain job skills such as programming languages, database knowledge and other technical knowledge. 
+
+First we will install and then load the required packages for text analysis
+```{r}
+install.packages("tidytext", "readtext")
+library(tidytext)
+library(readtext)
+```
+
+
+
+```{r}
+
+```
+
+

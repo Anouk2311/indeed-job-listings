@@ -1,0 +1,79 @@
+---
+title: "Analysis"
+author: "ollon"
+date: "3/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown text analysis script
+In this script we will analyze the text data from the job descriptions from our scraper. The data we scraped fromt the indeed website contains a text for each job with a description of the job, job tasks and required qualifications etc. We want to analyze the frequency of certain job skills such as programming languages, database knowledge and other technical knowledge. 
+
+First we will install and then load the required packages for text analysis
+```{r}
+
+
+library( dplyr )
+library(stringr)
+library(tidyr)
+library(ggplot2)
+```
+
+The next step is to add a column for the count for each skill in each job description. 
+
+```{r}
+df1 <- read.csv("./data_cleaned.csv")
+
+df1 <- df1 %>% distinct(id, .keep_all = TRUE)
+#get the skill counts for the most important skills in data analysis
+skills <- df1 %>%
+mutate(SQL = str_count(df1$description, "SQL" )) %>%
+mutate(Python = str_count(df1$description, "Python" )) %>%
+mutate(Hadoop = str_count(df1$description, "Hadoop" )) %>%
+mutate(Java = str_count(df1$description, "Java" )) %>%
+mutate(Apache = str_count(df1$description, "Apache" )) %>%
+mutate(Excel = str_count(df1$description, "Excel")) %>%
+mutate(AWS = str_count(df1$description, "AWS"))%>%
+mutate(Azure = str_count(df1$description, "Azure"))%>% 
+mutate(Tableau = str_count(df1$description, "Tableau" )) %>%
+mutate(TensorFlow = str_count(df1$description, "TensorFlow" )) %>%  
+mutate(big_data = str_count(df1$description, "big data" )) %>% 
+mutate(machine_learning = str_count(df1$description, "machine learning" )) %>%
+mutate(SAS = str_count(df1$description, "SAS" )) %>% 
+mutate(R = str_count(df1$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence. 
+```
+Next step is to extract the skills and their counts from the entire dataframe and then make a plot for the count of each skill
+```{r}
+#get only skills and their counts from the entire skills dataframe
+table <- gather(skills, "skill", "Count", 12:25) %>%  arrange( Count) 
+#make a plot of the counts for each skill
+count_plot <- ggplot(data=table, aes(x=skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
+
+count_plot
+
+
+
+```
+
+
+Because some skills might be mentioned more than once in an job advertisement, we can also look at the percentage of ads where a skill is mentioned in a job advertisement at least once 
+
+```{r}
+#get the count data from the entire dataset
+subset <- skills[12:25]  
+#count the number of advertisements in which each skill is mentioned
+occurences <- colSums(subset != 0)
+#percentage of total number of advertisements
+percentage_occurence <- occurences/852
+percentage_occurence
+#add skillnames into the dataframe 
+percentage <- as.data.frame(percentage_occurence)
+percentage$row_names <- c("SQL", "Python", "Hadoop", "Java", "Apache", "Excel", "AWS", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+#plot the percentage of occurence per skill level
+percentage_plot <- ggplot(data=percentage, aes(x=row_names, y=percentage_occurence)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot
+
+```

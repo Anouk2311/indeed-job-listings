@@ -41,7 +41,7 @@ ma_descriptions <- ma_descriptions_1 %>%
   union(ma_descriptions_6) %>%
   union(ma_descriptions_7) %>%
   filter(description != '') %>%  # remove empty descriptions
-  distinct(id, .keep_all = TRUE)  # keep al distinct ids
+  distinct(id, .keep_all = TRUE)  # keep only distinct ids
 
 # merge job listings with descriptions
 marketing_analist <- ma_listings %>%

@@ -9,29 +9,29 @@ output: html_document
 
 #### *1.1 For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? Please provide a description.*
 
-Indeed is a worldwide employment website for job listings. Currently, Indeed is the market-leader within the Dutch labor market. Data analyst is currently a high in demand job. The purpose for collecting this data is to gather insights into which skills are the most commonly required for such a position. The dataset aims to enable answering the research question in terms of what are the key skills required for a 'Data Analist' job in the Netherlands? In answering this question, the researchers can for instance spot trends when it comes to which programming languages are more popular and which are decreasing in demand, as well as provide a guideline for young professionals seeking a data analyst position as a future job.
+This dataset (use name of dataset) was created to provide current Marketing Analytics students with information about the skills that are in demand in today's job market. Currently, students trust that their university will teach them the skills that are going to be necessary in their future careers. However, are the teached skills in line with the skills that are really required nowadays? To answer this question, job listings from Indeed are being analyzed. Indeed is a worldwide employment website for job listings. Currently, Indeed is the market-leader within the Dutch labor market (do we have a source for this? Why indeed and not eg glassdoor?). We focused on job listings with the search terms 'Data Analist', 'Data Scientist', 'Marketing Analist' and 'Marketeer' with the location 'Nederland' to make the data as useful as possible for Marketing Analytics students. However, this data could also be relevant for students in related fields, as well as other people looking for a job in one of those disciplines. In addition, educational institutes can use this data to shape their course offerings.
 
 #### *1.2 Who created this dataset (e.g., which team, research group) and on behalf of which entity (e.g., company, institution, organization)?*
 
-This dataset has been created by Anouk Heemskerk, Georgiana Huţanu, Renée Nieuwkoop and Alan Rijnders at Tilburg University.
+This dataset was created by Anouk Heemskerk, Georgiana Huţanu, Renée Nieuwkoop and Alan Rijnders, who are students at Tilburg University. The creation of this dataset was part of the course Online Data Collection and Management instructed by dr. Hannes Datta.
 
 ####  *1.3 Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number.*
 
-The deployment of this project has no associated grant.
+The deployment of this project had no associated grant.
 
 ##  **2. Composition**
 
 ####  *2.1 What do the instances that comprise the dataset represent (e.g., documents, photos, people, countries)? Are there multiple types of instances (e.g., movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description.*
 
-Each instance consists of a 'Data Analist' job posting in the Netherlands.
+Each instance consists of a job listing.
 
 #### *2.2 How many instances are there in total (of each type, if appropriate)?* 
 
-The dataset contains .... job postings in total (Number of jobs we were able to scrape in the definitive dataset)
+The dataset contains .... job postings in total (Number of jobs we were able to scrape in the definitive dataset). Hereof, XX listings correspond to the search term 'Data Analist', XX to 'Data Scientist', 566 to 'Marketing Analist' and XX to 'Marketeer'.
 
 #### *2.3 Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set? If the dataset is a sample, then what is the larger set? Is the sample representative of the larger set (e.g., geographic coverage)? If so, please describe how this representativeness was validated/verified. If it is not representative of the larger set, please describe why not (e.g., to cover a more diverse range of instances, because instances were withheld or unavailable).*
 
-The dataset contains all the the possible instances available on Indeed.com with the search term for 'Wat': 'Data Analist', and for 'Waar': 'Nederland'.
+The dataset contains all possible instances available on Indeed.com with the search term for 'Wat': 'Data Analist', and for 'Waar': 'Nederland'.
 
 #### *2.4 What data does each instance consist of? "Raw" data (e.g., unprocessed text or images) or features? In either case, please provide a de-scription.*
 

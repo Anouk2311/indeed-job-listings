@@ -13,7 +13,7 @@ library(data.table)
 ```
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
-df <- read.csv("../../gen/data-preparation/output/transformed.csv'", sep=",")
+df <- read.csv("../../gen/data-preparation/output/transformed.csv", sep=",")
 ```
 
 # Overview of the data

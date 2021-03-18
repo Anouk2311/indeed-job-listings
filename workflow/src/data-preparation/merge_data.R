@@ -45,12 +45,72 @@ ma_descriptions_7 <- read.csv("../../data/marketing-analist/marketing-analist-de
 
 ## 1.4 marketeer --------------------------------------------------------------
 # listings
+m_listings <- read.csv("../../data/marketeer/marketeer-listings.csv", sep=',')
 
 # descriptions
+da_descriptions_1 <- read.csv("../../data/data-analist/data-analist-descriptions-0-162.csv", sep=',')
+da_descriptions_2 <- read.csv("../../data/data-analist/data-analist-descriptions-162-220.csv", sep=',')
+da_descriptions_3 <- read.csv("../../data/data-analist/data-analist-descriptions-220-300.csv", sep=',')
+da_descriptions_4 <- read.csv("../../data/data-analist/data-analist-descriptions-300-400.csv", sep=',')
+da_descriptions_5 <- read.csv("../../data/data-analist/data-analist-descriptions-400-500.csv", sep=',')
+da_descriptions_6 <- read.csv("../../data/data-analist/data-analist-descriptions-500-600.csv", sep=',')
+da_descriptions_7 <- read.csv("../../data/data-analist/data-analist-descriptions-600-656.csv", sep=',')
+da_descriptions_8 <- read.csv("../../data/data-analist/data-analist-descriptions-656-719.csv", sep=',')
+da_descriptions_9 <- read.csv("../../data/data-analist/data-analist-descriptions-719-784.csv", sep=',')
+da_descriptions_10 <- read.csv("../../data/data-analist/data-analist-descriptions-784-847.csv", sep=',')
+da_descriptions_11 <- read.csv("../../data/data-analist/data-analist-descriptions-847-900.csv", sep=',')
+da_descriptions_12 <- read.csv("../../data/data-analist/data-analist-descriptions-900-958.csv", sep=',')
+da_descriptions_13 <- read.csv("../../data/data-analist/data-analist-descriptions-958-1020.csv", sep=',')
+da_descriptions_14 <- read.csv("../../data/data-analist/data-analist-descriptions-1020-1080.csv", sep=',')
+da_descriptions_15 <- read.csv("../../data/data-analist/data-analist-descriptions-1080-1144.csv", sep=',')
+da_descriptions_16 <- read.csv("../../data/data-analist/data-analist-descriptions-1144-1201.csv", sep=',')
+da_descriptions_17 <- read.csv("../../data/data-analist/data-analist-descriptions-1201-1223.csv", sep=',')
+
+## 1.3 marketing analist ------------------------------------------------------
+# listings
+ma_listings <- read.csv("../../data/marketing-analist/marketing-analist-listings.csv", sep=',')
+
+# descriptions
+ma_descriptions_1 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-1.csv", sep=',')
+ma_descriptions_2 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-145-250.csv", sep=',')
+ma_descriptions_3 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-225-300.csv", sep=',')
+ma_descriptions_4 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-300-375.csv", sep=',')
+ma_descriptions_5 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-375-450.csv", sep=',')
+ma_descriptions_6 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-450-510.csv", sep=',')
+ma_descriptions_7 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-510.csv", sep=',')
+
+## 1.4 marketeer --------------------------------------------------------------
+# listings
+m_listings <- read.csv("../../data/marketeer/marketeer-listings.csv", sep=',')
+
+# descriptions
+m_descriptions_1 <- read.csv("../../data/marketeer/marketeer-descriptions-0-100.csv", sep=',')
+m_descriptions_2 <- read.csv("../../data/marketeer/marketeer-descriptions-100-200.csv", sep=',')
+m_descriptions_3 <- read.csv("../../data/marketeer/marketeer-descriptions-200-400.csv", sep=',')
+m_descriptions_4 <- read.csv("../../data/marketeer/marketeer-descriptions-400-600.csv", sep=',')
+m_descriptions_5 <- read.csv("../../data/marketeer/marketeer-descriptions-600-662.csv", sep=',')
+m_descriptions_6 <- read.csv("../../data/marketeer/marketeer-descriptions-662-700.csv", sep=',')
+m_descriptions_7 <- read.csv("../../data/marketeer/marketeer-descriptions-700-774.csv", sep=',')
+m_descriptions_8 <- read.csv("../../data/marketeer/marketeer-descriptions-774-800.csv", sep=',')
+m_descriptions_9 <- read.csv("../../data/marketeer/marketeer-descriptions-800-850.csv", sep=',')
+m_descriptions_10 <- read.csv("../../data/marketeer/marketeer-descriptions-850-900.csv", sep=',')
+m_descriptions_11 <- read.csv("../../data/marketeer/marketeer-descriptions-900-950.csv", sep=',')
+m_descriptions_12 <- read.csv("../../data/marketeer/marketeer-descriptions-950-1000.csv", sep=',')
+m_descriptions_13 <- read.csv("../../data/marketeer/marketeer-descriptions-1000-1050.csv", sep=',')
+m_descriptions_14 <- read.csv("../../data/marketeer/marketeer-descriptions-1050-1100.csv", sep=',')
+m_descriptions_15 <- read.csv("../../data/marketeer/marketeer-descriptions-1100-1150.csv", sep=',')
+m_descriptions_16 <- read.csv("../../data/marketeer/marketeer-descriptions-1150-1200.csv", sep=',')
+m_descriptions_17 <- read.csv("../../data/marketeer/marketeer-descriptions-1200-1250.csv", sep=',')
+m_descriptions_18 <- read.csv("../../data/marketeer/marketeer-descriptions-1250-1300.csv", sep=',')
+m_descriptions_19 <- read.csv("../../data/marketeer/marketeer-descriptions-1300-1320.csv", sep=',')
 
 ### 2. merge ------------------------------------------------------------------
 ## 2.1 data scientist ---------------------------------------------------------
+# merge all description datasets into ds_descriptions
 
+# merge job listings with descriptions
+data_scientist <- ds_listings %>%
+  inner_join(ds_descriptions, by = 'id')
 
 ## 2.2 data analist -----------------------------------------------------------
 # merge all description datasets into da_descriptions
@@ -95,8 +155,32 @@ marketing_analist <- ma_listings %>%
   inner_join(ma_descriptions, by = 'id')
 
 ## 2.4 marketeer --------------------------------------------------------------
+# merge all description datasets into m_descriptions
+m_descriptions <- m_descriptions_1 %>%
+  union(m_descriptions_2) %>%
+  union(m_descriptions_3) %>%
+  union(m_descriptions_4) %>%
+  union(m_descriptions_5) %>%
+  union(m_descriptions_6) %>%
+  union(m_descriptions_7) %>%
+  union(m_descriptions_8) %>%
+  union(m_descriptions_9) %>%
+  union(m_descriptions_10) %>%
+  union(m_descriptions_11) %>%
+  union(m_descriptions_12) %>%
+  union(m_descriptions_13) %>%
+  union(m_descriptions_14) %>%
+  union(m_descriptions_15) %>%
+  union(m_descriptions_16) %>%
+  union(m_descriptions_17) %>%
+  union(m_descriptions_18) %>%
+  union(m_descriptions_19) %>%
+  filter(description != '') %>%  # remove empty descriptions
+  distinct(id, .keep_all = TRUE)  # keep only distinct ids
 
-
+# merge job listings with descriptions
+marketeer <- m_listings %>%
+  inner_join(m_descriptions, by = 'id')
 
 ### 3. save merged data -------------------------------------------------------
 # create directories
@@ -105,7 +189,7 @@ dir.create('../../gen/data-preparation')
 dir.create('../../gen/data-preparation/output')
 
 ## 3.1 data scientist ---------------------------------------------------------
-
+write.csv(data_scientist, '../../gen/data-preparation/output/data_scientist.csv')
 
 ## 3.2 data analist -----------------------------------------------------------
 write.csv(data_analist, '../../gen/data-preparation/output/data_analist.csv')
@@ -114,6 +198,4 @@ write.csv(data_analist, '../../gen/data-preparation/output/data_analist.csv')
 write.csv(marketing_analist, '../../gen/data-preparation/output/marketing_analist.csv')
 
 ## 3.4 marketeer --------------------------------------------------------------
-
-
-
+write.csv(marketeer, '../../gen/data-preparation/output/marketeer.csv')

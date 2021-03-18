@@ -35,15 +35,17 @@ The dataset contains all possible instances available on Indeed.com with the sea
 
 #### *2.4 What data does each instance consist of? "Raw" data (e.g., unprocessed text or images) or features? In either case, please provide a de-scription.*
 
-Each instance consists of the full job description (only textual information) that is listed on Indeed.com.
+The data in the dataset consists of raw data in the form of unprocesssed texts. The data is directly scraped from Indeed and no data preprocessing has been conducted. For each job listing, the job listing id, title, company, location, posting date, summary, salary if applicable, url, full job description and the date and time the data was scraped were collected.
 
 #### *2.5 Is there a label or target associated with each instance? If so, please provide a description.*
 
-\-
+Each job listing has an unique id. This id is a string of letters and numbers so that different job listings can be distinguished.
 
 #### *2.6 Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (e.g., because it was unavailable). This does not include intentionally removed information, but might include, e.g., redacted text.*
 
 (Only doable if we actually have the data) Missing: Star ratings? Salary in some of them.
+
+For some job listing, the salary indication is missing because this information was not always given. (do we miss more? eg are there job listings without full description?)
 
 #### *2.7 Are relationships between individual instances made explicit (e.g., users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
 
@@ -51,23 +53,23 @@ Each instance consists of the full job description (only textual information) th
 
 #### *2.8 Are there recommended data splits (e.g., training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.*
 
-\-
+There are no recommended data splits.
 
-#### *2.9 Is the dataset self-contained, or does it link to or otherwise rely on external resources (e.g., websites, tweets, other datasets)? If it links to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (i.e., including the external resources as they ex- isted at the time the dataset was created); c) are there any restrictions (e.g., licenses, fees) associated with any of the external resources that might apply to a future user? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate.*
+#### *2.9 Is the dataset self-contained, or does it link to or otherwise rely on external resources (e.g., websites, tweets, other datasets)? If it links to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (i.e., including the external resources as they existed at the time the dataset was created); c) are there any restrictions (e.g., licenses, fees) associated with any of the external resources that might apply to a future user? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate.*
 
 \-
 
 #### *2.10 Does the dataset contain data that might be considered confidential (e.g., data that is protected by legal privilege or by doctorpatient confidentiality, data that includes the content of individuals non-public communications)? If so, please provide a description.*
 
-No. All the data within the set derived from a publicly available website and does not contain personal and/or confidential data.
+All data that is collected is derived from a publicly available website and does not contain any personal and/or confidential data. All companies that make use of Indeed to publish their job listings, are consent with making it publicly available. People do not need an account or login to see the job listings on Indeed. Therefore, the data is not considered confidential.
 
 #### *2.11 Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety? If so, please describe why.*
 
-No. The dataset only consists of textual information within job descriptions.
+The dataset only contains textual information of job listings. This data is not expected to be offensive or insulting in any possible way.
 
 #### *2.12 Does the dataset relate to people? If not, you may skip the remaining questions in this section.*
 
-No. The dataset does not relate to individual people.
+The dataset does not relate to individual people.
 
 #### *2.13 Does the dataset identify any subpopulations (e.g., by age, gender)? If so, please describe how these subpopulations are identified and provide a description of their respective distributions within the dataset.*
 
@@ -79,13 +81,15 @@ No. The dataset does not relate to individual people.
 
 #### *2.15 Does the dataset contain data that might be considered sensitive in any way (e.g., data that reveals racial or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)? If so, please provide a description.*
 
+\-
+
 ## **3. Collection process**
 
-#### *3.1 How was the data associated with each instance acquired? Was the data directly observable (e.g., raw text, movie ratings), reported by sub- jects (e.g., survey responses), or indirectly inferred/derived from other data (e.g., part-of-speech tags, model-based guesses for age or language)? If data was reported by subjects or indirectly inferred/derived from other data, was the data validated/verified? If so, please describe how.*
+#### *3.1 How was the data associated with each instance acquired? Was the data directly observable (e.g., raw text, movie ratings), reported by subjects (e.g., survey responses), or indirectly inferred/derived from other data (e.g., part-of-speech tags, model-based guesses for age or language)? If data was reported by subjects or indirectly inferred/derived from other data, was the data validated/verified? If so, please describe how.*
 
 The data within the set was directly observable as raw text.
 
-#### *3.2 What mechanisms or procedures were used to collect the data (e.g., hardware apparatus or sensor, manual human curation, software pro- gram, software API)? How were these mechanisms or procedures validated?*
+#### *3.2 What mechanisms or procedures were used to collect the data (e.g., hardware apparatus or sensor, manual human curation, software program, software API)? How were these mechanisms or procedures validated?*
 
 \-
 
@@ -95,7 +99,7 @@ The data within the set was directly observable as raw text.
 
 #### *3.4 Who was involved in the data collection process (e.g., students, crowdworkers, contractors) and how were they compensated (e.g., how much were crowdworkers paid)?*
 
-\-
+The four students who created this dataset and their professor Hannes Datta were involved in the data collection process. None of them were compensated.
 
 #### *3.5 Over what timeframe was the data collected? Does this timeframe match the creation timeframe of the data associated with the instances (e.g., recent crawl of old news articles)? If not, please describe the time- frame in which the data associated with the instances was created.*
 
@@ -107,7 +111,7 @@ The data within the set was directly observable as raw text.
 
 #### *3.7 Does the dataset relate to people? If not, you may skip the remaining questions in this section.*
 
-\-
+The dataset does not relate to individual people.
 
 #### *3.8 Did you collect the data from the individuals in question directly, or obtain it via third parties or other sources (e.g., websites)?*
 
@@ -127,11 +131,13 @@ The data within the set was directly observable as raw text.
 
 #### *3.12 Has an analysis of the potential impact of the dataset and its use on data subjects (e.g., a data protection impact analysis) been conducted? If so, please provide a description of this analysis, including the outcomes, as well as a link or other access point to any supporting documentation.*
 
+\-
+
 ## **4. Preprocessing, cleaning, labeling **
 
-#### *4.1 Was any preprocessing/cleaning/labeling of the data done (e.g., discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remain- der of the questions in this section.*
+#### *4.1 Was any preprocessing/cleaning/labeling of the data done (e.g., discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remainder of the questions in this section.*
 
-\-
+No preprocessing of the data is done.
 
 #### *4.2 Was the "raw" data saved in addition to the prepro- cessed/cleaned/labeled data (e.g., to support unanticipated future uses)? If so, please provide a link or other access point to the "raw" data.*
 
@@ -145,19 +151,19 @@ The data within the set was directly observable as raw text.
 
 #### *5.1 Has the dataset been used for any tasks already? If so, please provide a description.*
 
-\-
+Dprep
 
 #### *5.2 Is there a repository that links to any or all papers or systems that use the dataset? If so, please provide a link or other access point.*
 
-\-
+The repository containing all related files and documents can be found at https://github.com/Anouk2311/indeed-job-listings.
 
 #### *5.3 What (other) tasks could the dataset be used for?*
 
-\-
+Students/employees/educational institutes --> see motivation and write something here
 
 #### *5.4 Is there anything about the composition of the dataset or the way it was collected and preprocessed/cleaned/labeled that might impact future uses? For example, is there anything that a future user might need to know to avoid uses that could result in unfair treatment of individuals or groups (e.g., stereotyping, quality of service issues) or other undesirable harms (e.g., financial harms, legal risks) If so, please provide a description. Is there anything a future user could do to mitigate these undesirable harms?*
 
-\-
+Maybe changing codes? Although seems stable. Captcha --> use in batches
 
 #### *5.5 Are there tasks for which the dataset should not be used? If so, please provide a description.*
 

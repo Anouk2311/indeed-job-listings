@@ -84,6 +84,7 @@ ma_descriptions_7 <- read.csv("../../data/marketing-analist/marketing-analist-de
 m_listings <- read.csv("../../data/marketeer/marketeer-listings.csv", sep=',')
 
 # descriptions
+# I think there is an error with the 5th file that carries over to the next steps as well for marketeer data
 m_descriptions_1 <- read.csv("../../data/marketeer/marketeer-descriptions-0-100.csv", sep=',')
 m_descriptions_2 <- read.csv("../../data/marketeer/marketeer-descriptions-100-200.csv", sep=',')
 m_descriptions_3 <- read.csv("../../data/marketeer/marketeer-descriptions-200-400.csv", sep=',')

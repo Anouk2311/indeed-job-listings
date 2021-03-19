@@ -84,72 +84,91 @@ download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/m
 ## download datasets data scientist -------------------------------------------
 # job postings
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/postings_data_scientist.csv",
-              '../../data/data-scientist/postings_data_scientist.csv')
-# job descriptions
-#part 1
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_1_50.csv",
-              '../../data/data-scientist/descriptions_alternative1_1_50.csv.csv')
+              '../../data/data-scientist/data-scientist-listings.csv')
 
-#part2
+# job descriptions part 1
+download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_1_50.csv",
+              '../../data/data-scientist/data-scientist-descriptions-1-50.csv')
+
+# job descriptions part 2
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_51_100.csv",
-              '../../data/data-scientist/descriptions_alternative1_51_100.csv.csv')
-#part3
+              '../../data/data-scientist/data-scientist-descriptions-51-100.csv')
+
+# job descriptions part 3
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_101_151.csv",
-              '../../data/data-scientist/descriptions_alternative1_101_151.csv.csv')
-#part 4
+              '../../data/data-scientist/data-scientist-descriptions-101-151.csv')
+
+# job descriptions part 4
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_152_200.csv",
-              '../../data/data-scientist/descriptions_alternative1_152_200.csv.csv')
-#part 5
+              '../../data/data-scientist/data-scientist-descriptions-152-200.csv')
+
+# job descriptions part 5
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_201_250.csv",
-              '../../data/data-scientist/descriptions_alternative1_201_250.csv.csv')
-#part 6
+              '../../data/data-scientist/data-scientist-descriptions-201-250.csv')
+
+# job descriptions part 6
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_251_300.csv",
-              '../../data/data-scientist/descriptions_alternative1_251_300.csv.csv')
-#part 7
+              '../../data/data-scientist/data-scientist-descriptions-251-300.csv')
+
+# job descriptions part 7
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_301_350.csv",
-              '../../data/data-scientist/descriptions_alternative1_301_350.csv.csv')
-#part 8
+              '../../data/data-scientist/data-scientist-descriptions-301-350.csv')
+
+# job descriptions part 8
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_351_400.csv",
-              '../../data/data-scientist/descriptions_alternative1_351_400.csv.csv')
-#part 9
+              '../../data/data-scientist/data-scientist-descriptions-351-400.csv')
+
+# job descriptions part 9
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_401_450.csv",
-              '../../data/data-scientist/descriptions_alternative1_401_450.csv.csv')
-#part 10
+              '../../data/data-scientist/data-scientist-descriptions-401-450.csv')
+
+# job descriptions part 10
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_451_500.csv",
-              '../../data/data-scientist/descriptions_alternative1_451_500.csv.csv')
-#part 11
+              '../../data/data-scientist/data-scientist-descriptions-451-500.csv')
+
+# job descriptions part 11
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_501_550.csv",
-              '../../data/data-scientist/descriptions_alternative1_501_550.csv.csv')
-#part 12
+              '../../data/data-scientist/data-scientist-descriptions-501-550.csv')
+
+# job descriptions part 12
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_551_600.csv",
-              '../../data/data-scientist/descriptions_alternative1_551_600.csv.csv')
-#part 13
+              '../../data/data-scientist/data-scientist-descriptions-551-600.csv')
+
+# job descriptions part 13
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_601_650.csv",
-              '../../data/data-scientist/descriptions_alternative1_601_650.csv.csv')
-#part 14
+              '../../data/data-scientist/data-scientist-descriptions-601-650.csv')
+
+# job descriptions part 14
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_651_700.csv",
-              '../../data/data-scientist/descriptions_alternative1_651_700.csv.csv')
-#part 15
+              '../../data/data-scientist/data-scientist-descriptions-651-700.csv')
+
+# job descriptions part 15
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_701_750.csv",
-              '../../data/data-scientist/descriptions_alternative1_701_750.csv.csv')
-#part 16
+              '../../data/data-scientist/data-scientist-descriptions-701-750.csv')
+
+# job descriptions part 16
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_751_800.csv",
-              '../../data/data-scientist/descriptions_alternative1_751_800.csv.csv')
-#part 17
+              '../../data/data-scientist/data-scientist-descriptions-751-800.csv')
+
+# job descriptions part 17
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_801_850.csv",
-              '../../data/data-scientist/descriptions_alternative1_801_850.csv.csv')
-#part 18
+              '../../data/data-scientist/data-scientist-descriptions-801-850.csv')
+
+# job descriptions part 18
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_851_900.csv",
-              '../../data/data-scientist/descriptions_alternative1_851_900.csv.csv')
-#part 19
+              '../../data/data-scientist/data-scientist-descriptions-851-900.csv')
+
+# job descriptions part 19
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_901_950.csv",
-              '../../data/data-scientist/descriptions_alternative1_901_950.csv.csv')
-#part 20
+              '../../data/data-scientist/data-scientist-descriptions-901-950.csv')
+
+# job descriptions part 20
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_951_1000.csv",
-              '../../data/data-scientist/descriptions_alternative1_951_1000.csv.csv')
-#part 21
+              '../../data/data-scientist/data-scientist-descriptions-951-1000.csv')
+
+# job descriptions part 21
 download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_1001_1050.csv",
-              '../../data/data-scientist/descriptions_alternative1_1001_1050.csv.csv')
+              '../../data/data-scientist/data-scientist-descriptions-1001-1050.csv')
 
 
 ## download datasets marketing analist ----------------------------------------

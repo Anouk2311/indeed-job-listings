@@ -4,8 +4,29 @@ library(dplyr)
 ### 1. load datasets into R ---------------------------------------------------
 ## 1.1 data scientist ---------------------------------------------------------
 # listings
-
+ds_listings <- read.csv("../../data/data-scientist/data-scientist-listings.csv", sep=',')
 # descriptions
+ds_descriptions_1 <- read.csv("../../data/data-scientist/data-scientist-descriptions-1-50.csv", sep=',')
+ds_descriptions_2 <- read.csv("../../data/data-scientist/data-scientist-descriptions-51-100.csv", sep=',')
+ds_descriptions_3 <- read.csv("../../data/data-scientist/data-scientist-descriptions-101-151.csv", sep=',')
+ds_descriptions_4 <- read.csv("../../data/data-scientist/data-scientist-descriptions-152-200.csv", sep=',')
+ds_descriptions_5 <- read.csv("../../data/data-scientist/data-scientist-descriptions-201-250.csv", sep=',')
+ds_descriptions_6 <- read.csv("../../data/data-scientist/data-scientist-descriptions-251-300.csv", sep=',')
+ds_descriptions_7 <- read.csv("../../data/data-scientist/data-scientist-descriptions-301-350.csv", sep=',')
+ds_descriptions_8 <- read.csv("../../data/data-scientist/data-scientist-descriptions-351-400.csv", sep=',')
+ds_descriptions_9 <- read.csv("../../data/data-scientist/data-scientist-descriptions-401-450.csv", sep=',')
+ds_descriptions_10 <- read.csv("../../data/data-scientist/data-scientist-descriptions-451-500.csv", sep=',')
+ds_descriptions_11 <- read.csv("../../data/data-scientist/data-scientist-descriptions-501-550.csv", sep=',')
+ds_descriptions_12 <- read.csv("../../data/data-scientist/data-scientist-descriptions-551-600.csv", sep=',')
+ds_descriptions_13 <- read.csv("../../data/data-scientist/data-scientist-descriptions-601-650.csv", sep=',')
+ds_descriptions_14 <- read.csv("../../data/data-scientist/data-scientist-descriptions-651-700.csv", sep=',')
+ds_descriptions_15 <- read.csv("../../data/data-scientist/data-scientist-descriptions-701-750.csv", sep=',')
+ds_descriptions_16 <- read.csv("../../data/data-scientist/data-scientist-descriptions-751-800.csv", sep=',')
+ds_descriptions_17 <- read.csv("../../data/data-scientist/data-scientist-descriptions-801-850.csv", sep=',')
+ds_descriptions_18 <- read.csv("../../data/data-scientist/data-scientist-descriptions-851-900.csv", sep=',')
+ds_descriptions_19 <- read.csv("../../data/data-scientist/data-scientist-descriptions-901-950.csv", sep=',')
+ds_descriptions_20 <- read.csv("../../data/data-scientist/data-scientist-descriptions-951-1000.csv", sep=',')
+ds_descriptions_21 <- read.csv("../../data/data-scientist/data-scientist-descriptions-1001-1050.csv", sep=',')
 
 ## 1.2 data analist -----------------------------------------------------------
 # listings
@@ -108,7 +129,30 @@ m_descriptions_19 <- read.csv("../../data/marketeer/marketeer-descriptions-1300-
 ### 2. merge ------------------------------------------------------------------
 ## 2.1 data scientist ---------------------------------------------------------
 # merge all description datasets into ds_descriptions
-
+ds_descriptions <- ds_descriptions_1 %>%
+  union(ds_descriptions_2) %>%
+  union(ds_descriptions_3) %>%
+  union(ds_descriptions_4) %>%
+  union(ds_descriptions_5) %>%
+  union(ds_descriptions_6) %>%
+  union(ds_descriptions_7) %>%
+  union(ds_descriptions_8) %>%
+  union(ds_descriptions_9) %>%
+  union(ds_descriptions_10) %>%
+  union(ds_descriptions_11) %>%
+  union(ds_descriptions_12) %>%
+  union(ds_descriptions_13) %>%
+  union(ds_descriptions_14) %>%
+  union(ds_descriptions_15) %>%
+  union(ds_descriptions_16) %>%
+  union(ds_descriptions_17) %>%
+  union(ds_descriptions_18) %>%
+  union(ds_descriptions_19) %>%
+  union(ds_descriptions_20) %>%
+  union(ds_descriptions_21) %>%
+  filter(description != '') %>%  # remove empty descriptions
+  distinct(id, .keep_all = TRUE)  # keep only distinct ids
+  
 # merge job listings with descriptions
 data_scientist <- ds_listings %>%
   inner_join(ds_descriptions, by = 'id')

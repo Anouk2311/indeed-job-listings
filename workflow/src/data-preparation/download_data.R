@@ -83,7 +83,7 @@ download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/m
 
 ## download datasets data scientist -------------------------------------------
 # job postings
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/postings_data_scientist.csv",
+download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/postings.csv",
               '../../data/data-scientist/data-scientist-listings.csv')
 
 # job descriptions part 1

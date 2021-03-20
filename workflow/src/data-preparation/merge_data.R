@@ -195,16 +195,16 @@ marketeer <- m_listings %>%
 # create directories
 dir.create('../../gen')
 dir.create('../../gen/data-preparation')
-dir.create('../../gen/data-preparation/output')
+dir.create('../../gen/data-preparation/temp')
 
 ## 3.1 data scientist ---------------------------------------------------------
-write.csv(data_scientist, '../../gen/data-preparation/output/data_scientist.csv')
+write.csv(data_scientist, '../../gen/data-preparation/temp/data_merged_data_scientist.csv')
 
 ## 3.2 data analist -----------------------------------------------------------
-write.csv(data_analist, '../../gen/data-preparation/output/data_analist.csv')
+write.csv(data_analist, '../../gen/data-preparation/temp/data_merged_data_analist.csv')
 
 ## 3.3 marketing analist ------------------------------------------------------
-write.csv(marketing_analist, '../../gen/data-preparation/output/marketing_analist.csv')
+write.csv(marketing_analist, '../../gen/data-preparation/temp/data_merged_marketing_analist.csv')
 
 ## 3.4 marketeer --------------------------------------------------------------
-write.csv(marketeer, '../../gen/data-preparation/output/marketeer.csv')
+write.csv(marketeer, '../../gen/data-preparation/temp/data_merged_marketeer.csv')

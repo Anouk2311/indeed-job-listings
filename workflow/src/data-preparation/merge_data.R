@@ -74,7 +74,7 @@ m_descriptions_1 <- read.csv("../../data/marketeer/marketeer-descriptions-0-100.
 m_descriptions_2 <- read.csv("../../data/marketeer/marketeer-descriptions-100-200.csv", sep=',')
 m_descriptions_3 <- read.csv("../../data/marketeer/marketeer-descriptions-200-400.csv", sep=',')
 m_descriptions_4 <- read.csv("../../data/marketeer/marketeer-descriptions-400-600.csv", sep=',')
-m_descriptions_5 <- read.csv("../../data/marketeer/marketeer-descriptions-600-662.csv", sep=',')  # error with separator
+m_descriptions_5 <- read.csv("../../data/marketeer/marketeer-descriptions-600-662.csv", sep=',')
 m_descriptions_6 <- read.csv("../../data/marketeer/marketeer-descriptions-662-700.csv", sep=',')
 m_descriptions_7 <- read.csv("../../data/marketeer/marketeer-descriptions-700-774.csv", sep=',')
 m_descriptions_8 <- read.csv("../../data/marketeer/marketeer-descriptions-774-800.csv", sep=',')

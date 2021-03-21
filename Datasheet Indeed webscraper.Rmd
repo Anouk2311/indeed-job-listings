@@ -30,7 +30,7 @@ The deployment of this project had no associated grant.
 
 ####  *2.1 What do the instances that comprise these datasets represent (e.g., documents, photos, people, countries)? Are there multiple types of instances (e.g., movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description.*
 
-Each instance consists of a job listing.
+Each instance consists of an individual job listing.
 
 #### *2.2 How many instances are there in total (of each type, if appropriate)?* 
 
@@ -54,7 +54,7 @@ The missing information pertains to the salary indication. This information is n
 
 #### *2.7 Are relationships between individual instances made explicit (e.g., users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
 
-\-
+There are no relationships between individual instances.
 
 #### *2.8 Are there recommended data splits (e.g., training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.*
 
@@ -62,31 +62,31 @@ There are no recommended data splits.
 
 #### *2.9 Are the datasets self-contained, or do they link to or otherwise rely on external resources (e.g., websites, tweets, other datasets)? If they link to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (i.e., including the external resources as they existed at the time the dataset was created); c) are there any restrictions (e.g., licenses, fees) associated with any of the external resources that might apply to a future user? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate.*
 
-\-
+The datasets link to the external website Indeed.com. The datasets will not remain constant over time, due to the fact that the datasets consist of vacancies on a website and these vacancies will change over time. There are no restrictions in terms of e.g. licenses or fees. 
 
 #### *2.10 Do the datasets contain data that might be considered confidential (e.g., data that is protected by legal privilege or by doctorpatient confidentiality, data that includes the content of individuals non-public communications)? If so, please provide a description.*
 
-All data that are collected are derived from a publicly available website and do not contain any personal and/or confidential data. All companies that make use of Indeed.com to publish their job listings, are consent with making it publicly available. People do not need an account or login to see the job listings on Indeed.com. Therefore, the data are not considered to be confidential.
+All data that are collected are derived from a publicly available website and do not contain any personal and/or confidential data. All companies that make use of Indeed.com to publish their job listings, are consent with making it publicly available. People do not need an account or login to see the job listings on Indeed.com. Therefore, the data are not considered to be personal and/or confidential.
 
 #### *2.11 Do the datasets contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety? If so, please describe why.*
 
-The datasets only contain textual information of job listings. This data are not expected to be offensive or insulting in any possible way.
+The datasets only contain textual information of job listings. The data is not expected to be offensive or insulting in any possible way.
 
 #### *2.12 Do the datasets relate to people? If not, you may skip the remaining questions in this section.*
 
-The datasets does not relate to individual people.
+The datasets do not relate to individual people.
 
 #### *2.13 Do the datasets identify any subpopulations (e.g., by age, gender)? If so, please describe how these subpopulations are identified and provide a description of their respective distributions within the datasets.*
 
-\-
+The datasets do not identify any subpopulations.
 
 #### *2.14 Is it possible to identify individuals (i.e., one or more natural persons), either directly or indirectly (i.e., in combination with other data) from the datasets? If so, please describe how.*
 
-\-
+No.
 
 #### *2.15 Do the datasets contain data that might be considered sensitive in any way (e.g., data that reveals racial or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)? If so, please provide a description.*
 
-\-
+No.
 
 ## **3. Collection process**
 
@@ -100,7 +100,7 @@ The data within the sets was directly observable as raw text.
 
 #### *3.3 If the datasets are samples from larger sets, what was the sampling strategy (e.g., deterministic, probabilistic with specific sampling probabilities)?*
 
-\-
+The datasets are not a sample from larger sets.
 
 #### *3.4 Who was involved in the data collection process (e.g., students, crowdworkers, contractors) and how were they compensated (e.g., how much were crowdworkers paid)?*
 

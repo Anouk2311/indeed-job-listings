@@ -18,6 +18,14 @@ Our repository is formed by the
 
 ## Running instructions
 
+For this project we made a makefile. This means that the whole proces from loading in the data to running the analyses can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following tutorial before running the makefile: https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/ 
+The makefile can be found in the ... folder. Make sure to have a look at it before you start running the file. 
+
+Before running make sure you have the following packages installed: 
+
+
+
+
 Explain to potential users how to run/replicate your workflow. Touch upon, if necessary, the required input data, which (secret) credentials are required (and how to obtain them), which software tools are needed to run the workflow (including links to the installation instructions), and how to run the workflow. Make use of subheaders where appropriate.
 
 ## More resources

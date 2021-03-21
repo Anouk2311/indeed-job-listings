@@ -19,9 +19,11 @@ Our repository is formed by the
 ## Running instructions
 
 For this project we made a makefile. This means that the whole proces from loading in the data to running the analyses can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following tutorial before running the makefile: https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/ 
-The makefile can be found in the ... folder. Make sure to have a look at it before you start running the file. 
+The makefile can be found in the ... folder. Please make sure to have a look at the makefile before you start running the file.
 
-Before running make sure you have the following packages installed: 
+Before running the makefile make sure you have the following packages installed: 
+
+
 
 
 
@@ -34,5 +36,5 @@ Point interested users to any related literature and/or documentation.
 
 ## About
 
-This project has been conducted by a student team from Tilburg University for the 2 courses Data Preparation&Management and Online Data Collection& Management. Both instructed by Hannes Data. The following 4 students contributed to the project: 
+This project has been conducted by a student team from Tilburg University for the 2 courses Data Preparation & Management and Online Data Collection & Managemen, both instructed by Hannes Data. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana Huţanu, Anouk Heemskerk, Alan Rijnders and Renée Nieuwkoop. 
 

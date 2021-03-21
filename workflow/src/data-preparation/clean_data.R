@@ -5,16 +5,16 @@ library(tidyr)
 
 ### 1. load datasets into R ---------------------------------------------------
 ## 1.1 data scientist ---------------------------------------------------------
-data_scientist <- read.csv('../../gen/data-preparation/temp/data_merged_data_scientist.csv', header=TRUE, row.names = "X", sep = ',')
+data_scientist <- read.csv('../../gen/data-preparation/temp/data_scientist_merged.csv', header=TRUE, row.names = "X", sep = ',')
 
 ## 1.2 data analist -----------------------------------------------------------
-data_analist <- read.csv('../../gen/data-preparation/temp/data_merged_data_analist.csv', header=TRUE, row.names = "X", sep = ',')
+data_analist <- read.csv('../../gen/data-preparation/temp/data_analist_merged.csv', header=TRUE, row.names = "X", sep = ',')
 
 ## 1.3 marketing analist ------------------------------------------------------
-marketing_analist <- read.csv('../../gen/data-preparation/temp/data_merged_marketing_analist.csv', header=TRUE, row.names = "X", sep = ',')
+marketing_analist <- read.csv('../../gen/data-preparation/temp/marketing_analist_merged.csv', header=TRUE, row.names = "X", sep = ',')
 
 ## 1.4 marketeer --------------------------------------------------------------
-marketeer <- read.csv('../../gen/data-preparation/temp/data_merged_marketeer.csv', header=TRUE, row.names = "X",  sep = ',')
+marketeer <- read.csv('../../gen/data-preparation/temp/marketeer_merged.csv', header=TRUE, row.names = "X",  sep = ',')
 
 
 ### 2. clean data ------------------------------------------------------------

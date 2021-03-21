@@ -79,7 +79,7 @@ percentage_occurence_da
 percentage_da <- as.data.frame(percentage_occurence_da)
 percentage_da$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "AWS", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 #plot the percentage of occurence per skill level
-percentage_plot_da <- ggplot(data=percentage_da, aes(x=row_names, y=percentage_occurence)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_da <- ggplot(data=percentage_da, aes(x=row_names, y=percentage_occurence_da)) + geom_bar(stat="identity") + coord_flip()
 percentage_plot
 
 
@@ -87,9 +87,9 @@ percentage_plot
 # same  analysis for  Data analist jobs
 skills_ma <- df_ma %>%
   mutate(SQL = str_count(df_ma$description, "SQL" )) %>%
-  mutate(HTML - str_count(df_da$description, "HTML")) %>%
-  mutate(SPSS = str_count(df_da$description, "SPSS")) %>%
-  mutate(AWS = str_count(df_da$description, "AWS")) %>%
+  mutate(HTML = str_count(df_ma$description, "HTML")) %>%
+  mutate(SPSS = str_count(df_ma$description, "SPSS")) %>%
+  mutate(AWS = str_count(df_ma$description, "AWS")) %>%
   mutate(Python = str_count(df_ma$description, "Python" )) %>%
   mutate(Hadoop = str_count(df_ma$description, "Hadoop" )) %>%
   mutate(Java = str_count(df_ma$description, "Java" )) %>%
@@ -113,9 +113,9 @@ percentage_occurence_ma <- occurences_ma/nrow(subset_ma)
 percentage_occurence_ma
 #add skillnames into the dataframe 
 percentage_ma <- as.data.frame(percentage_occurence_ma)
-percentage_ma$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "AWS", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_ma$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 #plot the percentage of occurence per skill level
-percentage_plot_ma <- ggplot(data=percentage_ma, aes(x=row_names, y=percentage_occurence)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_ma <- ggplot(data=percentage_ma, aes(x=row_names, y=percentage_occurence_ma)) + geom_bar(stat="identity") + coord_flip()
 percentage_plot_ma
 
 
@@ -125,9 +125,9 @@ percentage_plot_ma
 # same  analysis for  Marketeer jobs
 skills_m <- df_m %>%
   mutate(SQL = str_count(df_m$description, "SQL" )) %>%
-  mutate(HTML - str_count(df_da$description, "HTML")) %>%
-  mutate(SPSS = str_count(df_da$description, "SPSS")) %>%
-  mutate(AWS = str_count(df_da$description, "AWS")) %>%
+  mutate(HTML = str_count(df_m$description, "HTML")) %>%
+  mutate(SPSS = str_count(df_m$description, "SPSS")) %>%
+  mutate(AWS = str_count(df_m$description, "AWS")) %>%
   mutate(Python = str_count(df_m$description, "Python" )) %>%
   mutate(Hadoop = str_count(df_m$description, "Hadoop" )) %>%
   mutate(Java = str_count(df_m$description, "Java" )) %>%
@@ -143,15 +143,15 @@ skills_m <- df_m %>%
   mutate(R = str_count(df_m$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence. 
 
 #get the count data from the entire dataset
-subset_m <- skills_m[12:28]  
+subset_m <- skills_m[14:29]  
 #count the number of advertisements in which each skill is mentioned
 occurences_m <- colSums(subset_m != 0)
 #percentage of total number of advertisements
 percentage_occurence_m <- occurences_m/nrow(subset_m)
-percentage_occurence
+percentage_occurence_m
 #add skillnames into the dataframe 
 percentage_m <- as.data.frame(percentage_occurence_m)
-percentage_m$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "AWS", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_m$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 #plot the percentage of occurence per skill level
-percentage_plot_m <- ggplot(data=percentage_m, aes(x=row_names, y=percentage_occurence)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_m <- ggplot(data=percentage_m, aes(x=row_names, y=percentage_occurence_m)) + geom_bar(stat="identity") + coord_flip()
 percentage_plot_m

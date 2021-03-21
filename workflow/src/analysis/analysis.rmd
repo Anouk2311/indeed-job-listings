@@ -1,67 +1,108 @@
 ---
-title: "Data Exploration"
-author: "Group 3"
-date: "07.03.2021"
+title: "Data exploration & Analysis"
 output: html_document
 ---
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
-library(ggplot2)
 library(dplyr)
-library(tidyr)
-library(data.table)
+library(ggplot2)
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+## 1.1 data scientist ---------------------------------------------------------
+data_scientist <- read.csv('../../gen/data-preparation/output/data_cleaned_data_scientist.csv', sep = ',')
+
+## 1.2 data analist -----------------------------------------------------------
+data_analist <- read.csv('../../gen/data-preparation/output/data_cleaned_data_analist.csv', sep = ',')
+
+## 1.3 marketing analist ------------------------------------------------------
+marketing_analist <- read.csv('../../gen/data-preparation/output/data_cleaned_marketing_analist.csv', sep = ',')
+
+## 1.4 marketeer --------------------------------------------------------------
+marketeer <- read.csv('../../gen/data-preparation/output/data_cleaned_marketeer.csv', sep = ',')
+```
+
+# 1. Overview of the data
+
+### This is how the data_scientist data set looks like:
+We can see that there are `r length(data_scientist$X)` job listings.
+
+```{r}
+colnames(data_scientist)
+```
+
+```{r}
+summary(data_scientist)
+```
+
+### This is how the data_analist data set looks like:
+We can see that there are `r length(data_analist$X)` job listings.
+
+```{r}
+colnames(data_analist)
+```
+
+```{r}
+summary(data_analist)
+```
+
+### This is how the marketing_analist data set looks like:
+We can see that there are `r length(marketing_analist$X)` job listings.
+
+```{r}
+colnames(marketing_analist)
+```
+
+```{r}
+summary(marketing_analist)
+```
+
+### This is how the marketeer data set looks like:
+We can see that there are `r length(marketeer$X)` job listings.
+
+```{r}
+colnames(marketeer)
+```
+
+```{r}
+summary(marketeer)
+```
+
+# 2. Looking at the data as a whole
+#### 2.1 First, we'll add a new column containing the search term for each dataset, that can be later used as a filter.
+#### 2.2 Then, we'll bind the four datasets to check for duplicates
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+data_scientist$serchterm <- "data_scientist"
+data_analist$serchterm <- "data_analist"
+marketing_analist$serchterm <- "marketing_analist"
+marketeer$serchterm <- "marketeer"
 ```
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
-df <- read.csv("../../gen/data-preparation/output/transformed.csv", sep=",")
+# bind the datasets together
+all_listings <- rbind(data_scientist, data_analist, marketing_analist, marketeer)
 ```
 
-# Overview of the data
+We can see that the new dataframe all_listings has `r length(all_listings$X)` listings, however, the number of unique listings is `r length(unique(all_listings$id))`.
 
-### This is how the data set looks like:
-```{r}
-head(df)
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Change today column and scrapetimesdescription column from character to date
+
+today <- as.Date(all_listings$today, format = "%Y-%m-%d")
+all_listings$today <- today
+
+
+scrapetimesdescription <- as.Date(all_listings$scrapetimesdescription, format = "%Y-%m-%d %H:%M:%S")
+all_listings$scrapetimesdescription <- scrapetimesdescription
 ```
 
+### Checking the distribution of the min_salary for the listings that contain this data
 
-### These are the column names and summary:
-We can see that there are `r length(df$X)` vacancies.
-
-```{r}
-colnames(df)
-```
-
-```{r}
-summary(df)
-```
-
-### Changing Scrape.Date column from character to date
 
 ```{r}
-scrapedate <- as.Date(df$Scrape.Date, format = "%Y-%m-%d")
-df$Scrape.Date <- scrapedate
+ggplot(all_listings, aes(x=min_salary)) +
+  geom_histogram(binwidth=.5, colour="black", fill="white")
 ```
-
-### Cleaning the data
-- lowering the column names
-
-```{r}
-names(df) <- tolower(names(df))
-```
-
-
-### Visualizing the frequency of job title, company, location, date
-```{r}
-ggplot(df, aes(title)) +
-  geom_bar()
-
-ggplot(df, aes(company)) +
-  geom_bar()
-
-ggplot(df, aes(location)) +
-  geom_bar()
-
-ggplot(df, aes(date)) +
-  geom_bar()
-```
-

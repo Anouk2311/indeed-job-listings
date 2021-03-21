@@ -212,7 +212,7 @@ marketeer <- marketeer %>% distinct(id, .keep_all = TRUE)
 # such as Netherlands as a whole as location for a job,
 # or Amsterdam-Noord, which is seen as a different location than Amsterdam
 
-#removing dirty location strings
+#remove dirty location strings
 words_to_remove <- c("-Zuidoost", "Centrum", "noord", "zuid", "Zuid", "Noord", "Binnenstad", "-Zuid", "-Noord", "") 
 df_m <- marketeer %>%
   mutate(location_trimmed = str_remove_all(location, regex(str_c(words_to_remove, collapse = '|'), ignore_case = T)))

@@ -20,7 +20,7 @@ data_analist <- read.csv('../../gen/data-preparation/output/data_analist_clean.c
 marketing_analist <- read.csv('../../gen/data-preparation/output/marketing_analist_clean.csv', sep = ',')
 
 ## 1.4 marketeer --------------------------------------------------------------
-marketeer <- read.csv('../../gen/data-preparation/output/marketeer_clean.csv.csv', sep = ',')
+marketeer <- read.csv('../../gen/data-preparation/output/marketeer_clean.csv', sep = ',')
 ```
 
 # 1. Overview of the data

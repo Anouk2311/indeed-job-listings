@@ -14,7 +14,10 @@ First, introduce and motivate your chosen method, and explain how it contributes
 We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers. Followed by Microsoft Excel, Python and R. 
 
 ## Repository overview
-Our repository is formed by the 
+Our repository is formed by the ..
+
+
+
 
 ## Running instructions
 

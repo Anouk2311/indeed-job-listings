@@ -1,6 +1,6 @@
 # Are students learning the right skills for their future job?
 
-This repository contains the entire workflow for our ODCM and DPREP group project (group . For our project we scraped indeed.com for several merkting analytics related job posts in the Netherlands. 
+This repository contains the entire workflow for our ODCM and DPREP group project (group 3). For our project we scraped indeed.com for several marketing analytics related job posts in the Netherlands. 
 
 
 

@@ -198,13 +198,13 @@ dir.create('../../gen/data-preparation')
 dir.create('../../gen/data-preparation/temp')
 
 ## 3.1 data scientist ---------------------------------------------------------
-write.csv(data_scientist, '../../gen/data-preparation/temp/data_merged_data_scientist.csv')
+write.csv(data_scientist, '../../gen/data-preparation/temp/data_scientist_merged.csv')
 
 ## 3.2 data analist -----------------------------------------------------------
-write.csv(data_analist, '../../gen/data-preparation/temp/data_merged_data_analist.csv')
+write.csv(data_analist, '../../gen/data-preparation/temp/data_analist_merged.csv')
 
 ## 3.3 marketing analist ------------------------------------------------------
-write.csv(marketing_analist, '../../gen/data-preparation/temp/data_merged_marketing_analist.csv')
+write.csv(marketing_analist, '../../gen/data-preparation/temp/marketing_analist_merged.csv')
 
 ## 3.4 marketeer --------------------------------------------------------------
-write.csv(marketeer, '../../gen/data-preparation/temp/data_merged_marketeer.csv')
+write.csv(marketeer, '../../gen/data-preparation/temp/marketeer_merged.csv')

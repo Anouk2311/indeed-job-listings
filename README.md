@@ -27,10 +27,10 @@ The makefile can be found in the ... folder. Please make sure to have a look at 
 Before running the makefile make sure you have the following packages installed (copy paste the following one at a time in your terminal): 
 
 | pip install requests |
-pip install bs4 | 
-pip install DateTime |
-pip install selenium |
-pip install pandas |
+|pip install bs4 | 
+|pip install DateTime |
+|pip install selenium |
+|pip install pandas |
 
 
 Explain to potential users how to run/replicate your workflow. Touch upon, if necessary, the required input data, which (secret) credentials are required (and how to obtain them), which software tools are needed to run the workflow (including links to the installation instructions), and how to run the workflow. Make use of subheaders where appropriate.
@@ -41,5 +41,5 @@ Point interested users to any related literature and/or documentation.
 
 ## About
 
-This project has been conducted by a student team from Tilburg University for the 2 courses Data Preparation & Management and Online Data Collection & Managemen, both instructed by Hannes Data. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana Huţanu, Anouk Heemskerk, Alan Rijnders and Renée Nieuwkoop. 
+This project has been conducted by a student team from Tilburg University for the 2 courses Data Preparation & Management and Online Data Collection & Management, both instructed by Hannes Data. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana Huţanu, Anouk Heemskerk, Alan Rijnders and Renée Nieuwkoop. 
 

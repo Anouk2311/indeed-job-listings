@@ -9,7 +9,7 @@ df_ds <- df_ds %>% distinct(id, .keep_all = TRUE)
 #get the skill counts for the most important skills in data analysis
 skills_ds <- df_ds %>%
   mutate(SQL = str_count(df_ds$description, "SQL" )) %>%
-  mutate(HTML - str_count(df_ds$description, "HTML")) %>%
+  mutate(HTML = str_count(df_ds$description, "HTML")) %>%
   mutate(SPSS = str_count(df_ds$description, "SPSS")) %>%
   mutate(AWS = str_count(df_ds$description, "AWS")) %>%
   mutate(Python = str_count(df_ds$description, "Python" )) %>%
@@ -42,9 +42,9 @@ percentage_occurence_ds <- occurences_ds/nrow(subset_ds)
 percentage_occurence_ds
 #add skillnames into the dataframe 
 percentage_ds <- as.data.frame(percentage_occurence_ds)
-percentage_ds$row_names <- c("SQL","HTML", "SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "AWS", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_ds$row_names <- c("SQL","HTML", "SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 #plot the percentage of occurence per skill level
-percentage_plot_ds <- ggplot(data=percentage_ds(x=row_names, y=percentage_occurence_ds)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_ds <- ggplot(data=percentage_ds, aes(x=row_names, y=percentage_occurence_ds)) + geom_bar(stat="identity") + coord_flip()
 percentage_plot_ds
 
 

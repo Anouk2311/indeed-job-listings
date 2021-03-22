@@ -1,4 +1,3 @@
-setwd("C:/Documents/data1/indeed-job-listings/workflow/gen/data-preparation/output")
 
 data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
 data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
@@ -188,4 +187,3 @@ colnames(df) <- c("Skill", "Job", "Occurence")
 plot_skills <- ggplot(df, aes(x= Skill, y = Occurence, fill=Job)) +
   geom_bar(stat='identity', position='dodge') + coord_flip()
 plot_skills
-

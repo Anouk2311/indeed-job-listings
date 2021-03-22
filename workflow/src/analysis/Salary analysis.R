@@ -9,7 +9,7 @@
 # Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
 data_scientist_salary <- data_scientist %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,â,¬]+')) %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
            convert = TRUE, extra = 'drop') %>%
   mutate(across(c(salary1, salary2),
@@ -33,7 +33,7 @@ data_scientist_salary$X.1 <- NULL
 # Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
 data_analist_salary <- data_analist %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,â,¬]+')) %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
            convert = TRUE, extra = 'drop') %>%
   mutate(across(c(salary1, salary2),
@@ -57,7 +57,7 @@ data_analist_salary$X.1 <- NULL
 # Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
 marketing_analist_salary  <- marketing_analist %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,â,¬]+')) %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
            convert = TRUE, extra = 'drop') %>%
   mutate(across(c(salary1, salary2),
@@ -81,7 +81,7 @@ marketing_analist_salary$X.1 <- NULL
 # Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
 marketeer_salary  <- marketeer %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,â,¬]+')) %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
            convert = TRUE, extra = 'drop') %>%
   mutate(across(c(salary1, salary2),

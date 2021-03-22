@@ -47,3 +47,4 @@ colnames(location) <- c("Location", "Job", "Frequency")
 plot_location <- ggplot(location, aes(x= Location, y = Frequency, fill=Job)) +
   geom_bar(stat='identity', position='dodge') + coord_flip()
 plot_location
+

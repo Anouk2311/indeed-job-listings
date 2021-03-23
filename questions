@@ -1,0 +1,8 @@
+1. We now include only the folders in the dataprep makefile, is that good enough?
+In the older version we included all separate datasets (68 files), but with the batch numbers it would never be repreducable with another search term.
+However, with another search term, all our code files have to be adjusted as well.
+
+2. Is it okay if we work with the little makefiles? We now have one in dataprep, one in analysis, and one in the general workflow that runs the two others.
+Or do we need to have one big makefile in the workflow.
+
+3. What is exactly meant by instances in the datasheet documentation file? We now interpreted it as entities.

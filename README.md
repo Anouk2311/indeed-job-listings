@@ -11,6 +11,9 @@ The job market is becoming ever more competitive, as a student nowadays it is ha
 
 First, introduce and motivate your chosen method, and explain how it contributes to solving the research question/business problem.
 
+For this project we decided to narrow down our investigation to the Netherlands. 3 of our 4 members originate from the Netherlands and since we and our classmates are all studying at Tilburg University in the Netherlands right now, job options in the Netherlands are most relevant to us. Furthermore, we decided to investigate the 4 jobs most closely related to our master in Marketing Analytics program, being data scientist, marketeer, data-analist and marketing-analist. By narrowing down the project by not including too many locations and job searches the project workflow will be much smoother and easier to reproduce for anyone interested in doing so. We chose a keyword frequency analysis on what we believe to be the most common technical skills as our main tool of analyzing the different job searches. These keywords include programming languages such as R and Python, database knowledge on programs as Power BI and SQL and also the good old Excel. In our experience, many of our fellow students find it difficult to bridge the gap between academic knowledge and actual skills required in the job market. By comparing this core set of techinical skills per job title, we can provide insights into the actual skills valued by employers. This will help students making the right decision on how to spend their precious time and prepare themselves optimally for the beginning of their careers. We analyzed the 
+
+
 We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers, followed by Microsoft Excel, Python and R. 
 
 ## Repository overview

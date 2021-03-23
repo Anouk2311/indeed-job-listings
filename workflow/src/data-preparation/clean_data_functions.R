@@ -38,20 +38,21 @@ words_to_remove <- c("-Zuidoost","oost" ,"Centrum", "noord", "zuid", "Zuid", "No
 
 remove_dirty_location <- function(dataset) {
   dataset <- dataset %>%
-    mutate(location_trimmed = str_remove_all(location,
-                                             regex(str_c(words_to_remove, collapse = '|'),
+    mutate(location = str_remove_all(location,
+                                 regex(str_c(words_to_remove, collapse = '|'),
                                                    ignore_case = T)))
 }
 
 ## 2.3 replace dirty location strings -----------------------------------------
 replace_dirty_location <- function(dataset) {
   dataset <- dataset %>%
-    mutate(location_trimmed = str_replace_all(location_trimmed, "Holland-", "Rotterdam")) %>% 
-    mutate(location_trimmed = str_replace_all(location_trimmed, "Amsterdam ", "Amsterdam")) %>% 
-    mutate(location_trimmed = str_replace_all(location_trimmed, "Schiphol", "Amsterdam")) %>% 
-    mutate(location_trimmed = str_replace_all(location_trimmed, "Randstad", "Amsterdam")) %>% 
-    mutate(location_trimmed = str_replace_all(location_trimmed, "Nederland" | "Werk van thuis", "Remote")) %>% 
-    mutate(location_trimmed = str_replace_all(location_trimmed, "Utrecht ", "Utrecht"))
+    mutate(location = str_replace_all(location, "Holland-", "Rotterdam")) %>% 
+    mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>% 
+    mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>% 
+    mutate(location = str_replace_all(location, "Randstad", "Amsterdam")) %>% 
+    mutate(location = str_replace_all(location, "Nederland", "Remote")) %>%
+    mutate(location = str_replace_all(location, "Werk van thuis", "Remote")) %>% 
+    mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))
 }
 
 
@@ -68,24 +69,24 @@ for(dataset in datasets) {
   
 
 ## 3.1 data scientist ---------------------------------------------------------
-remove_duplicates(data_scientist)
-remove_dirty_location(data_scientist)
-replace_dirty_location(data_scientist)
+data_scientist <- remove_duplicates(data_scientist)
+data_scientist <- remove_dirty_location(data_scientist)
+data_scientist <- replace_dirty_location(data_scientist)
 
 ## 3.2 data analist -----------------------------------------------------------
-remove_duplicates(data_analist)
-remove_dirty_location(data_analist)
-replace_dirty_location(data_analist)
+data_analist <- remove_duplicates(data_analist)
+data_analist <- remove_dirty_location(data_analist)
+data_analist <- replace_dirty_location(data_analist)
 
 ## 3.3 marketing analist ------------------------------------------------------
-remove_duplicates(marketing_analist)
-remove_dirty_location(marketing_analist)
-replace_dirty_location(marketing_analist)
+marketing_analist <- remove_duplicates(marketing_analist)
+marketing_analist <- remove_dirty_location(marketing_analist)
+marketing_analist <- replace_dirty_location(marketing_analist)
 
 ## 3.4 marketeer -------------------------------------------------------------
-remove_duplicates(marketeer)
-remove_dirty_location(marketeer)
-replace_dirty_location(marketeer)
+marketeer <- remove_duplicates(marketeer)
+marketeer <- remove_dirty_location(marketeer)
+marketeer <- replace_dirty_location(marketeer)
 
 
 ### 4. save cleaned data ------------------------------------------------------

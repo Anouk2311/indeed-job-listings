@@ -28,7 +28,7 @@ Our repository is formed by the ..
 
 ## Running instructions
 
-For this project we made use of GNU make. This means that the whole process, from loading in the data to running the analyses, can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following tutorial[tutorial](https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/) before running the makefile.  
+For this project we made use of GNU make. This means that the whole process, from loading in the data to running the analyses, can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following [tutorial](https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/) before running the makefile.  
 The makefile can be found in the ... folder. Please make sure to have a look at the makefile before you start running the file.
 
 Before running the makefile make sure you have the following packages installed (copy paste the following one at a time in your terminal): 

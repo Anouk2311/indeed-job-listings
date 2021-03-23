@@ -9,279 +9,121 @@ dir.create('../../data/marketeer')
 ### download data and save to disk --------------------------------------------
 ## download datasets data analist ---------------------------------------------
 # job postings
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/postings.csv",
+download.file("https://docs.google.com/spreadsheets/d/1R0UeBNOPFDPlIBtk9Eb70wmpgXaNjOp4wNGG43aJU10/export?format=csv",
               '../../data/data-analist/data-analist-listings.csv')
 
-# job descriptions part 1
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_0_162.csv",
-              '../../data/data-analist/data-analist-descriptions-0-162.csv')
+# put all job description google drive url ids in a list
+da_ids = list('1qUN59K91yMEp0_XQDsQWqC68ESaMn1OSQWqvEE3nYRg', '1aS6kjBJjFBMVfI6WSE2VFlbepAoJe9LcT9pCYQGtaJo',
+              '1mo6mnUe9zhraBeOH4Zs3qzg2GDhiU4Ptlu2yQN9WADg', '1zs6DvdCyZ5KF7iJ4z4-4eccEbGXREwq_F5Qzuz7apl0',
+              '1GImkxBUEeX7uZWHSN8W99qi2g27I9IH-WZ8doD5yKZI', '1SaSmy2ArhaoZT3HKIwz3vQ68jCSPuW9QcdN6N4JQmjw',
+              '1knm3opVKAeQcd81UnLvIsNkKpJGTuKQ6NX-LPJW1kps', '1_SlbNfDYK8egYS6buwXQ-ftKFzhox09y6yQHh0B9o4A',
+              '1plsx-B6vt1s7mHaFrNgEBvRkcMFsw7OCgKuoRbIDvak', '1y0eJ9eU-bLbJeDSpDwUlKa71au582zU2e9QKdUIzZg8',
+              '1FBVqliDyI-ZIusRrOwjg7tMMQyE8-9T1d4mdtn9yzGg', '1e2z9KbF96vE2BKVAyrv3aUPUK0hGAJsGrJWpFDllJwk',
+              '1e2z9KbF96vE2BKVAyrv3aUPUK0hGAJsGrJWpFDllJwk', '1o-QNpwM6kS2AztMhD2N8N1mGDN14hWThZKNb6g0V46k',
+              '1xwV0w_ornqA5apJd9MY5fDDZt7-3jyM9OFV5SrFGySg', '1nKSFQQlycklFND0sHToW9FQvh5Z0KhIauHy9kMIKGMs',
+              '16ewecByWQdIK6DU-xIScSmFVJ0eGhoyU286f7cwk2I0')
 
-# job descriptions part 2
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_162_220.csv",
-              '../../data/data-analist/data-analist-descriptions-162-220.csv')
+# define function for job descriptions
+download_descriptions_da <- function(da_ids) {
+  counter = 1
+  for (id in da_ids) {
+    url = paste0("https://docs.google.com/spreadsheets/d/", id, "/export?format=csv")
+    path = paste0("../../data/data-analist/data-analist-descriptions-", counter, ".csv")
+    download.file(url, path)
+    counter = counter + 1
+  }
+}
 
-# job descriptions part 3
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_220_300.csv",
-              '../../data/data-analist/data-analist-descriptions-220-300.csv')
-
-# job descriptions part 4
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_300_400.csv",
-              '../../data/data-analist/data-analist-descriptions-300-400.csv')
-
-# job descriptions part 5
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_400_500.csv",
-              '../../data/data-analist/data-analist-descriptions-400-500.csv')
-
-# job descriptions part 6
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_500_600.csv",
-              '../../data/data-analist/data-analist-descriptions-500-600.csv')
-
-# job descriptions part 7
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_600_656.csv",
-              '../../data/data-analist/data-analist-descriptions-600-656.csv')
-
-# job descriptions part 8
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_656_719.csv",
-              '../../data/data-analist/data-analist-descriptions-656-719.csv')
-
-# job descriptions part 9
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_719_784.csv",
-              '../../data/data-analist/data-analist-descriptions-719-784.csv')
-
-# job descriptions part 10
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_784_847.csv",
-              '../../data/data-analist/data-analist-descriptions-784-847.csv')
-
-# job descriptions part 11
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_847_900.csv",
-              '../../data/data-analist/data-analist-descriptions-847-900.csv')
-
-# job descriptions part 12
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_900_958.csv",
-              '../../data/data-analist/data-analist-descriptions-900-958.csv')
-
-# job descriptions part 13
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_958_1020.csv",
-              '../../data/data-analist/data-analist-descriptions-958-1020.csv')
-
-# job descriptions part 14
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_1020_1080.csv",
-              '../../data/data-analist/data-analist-descriptions-1020-1080.csv')
-
-# job descriptions part 15
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_1080_1144.csv",
-              '../../data/data-analist/data-analist-descriptions-1080-1144.csv')
-
-# job descriptions part 16
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_1144_1201.csv",
-              '../../data/data-analist/data-analist-descriptions-1144-1201.csv')
-
-# job descriptions part 17
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-analist/descriptions_alternative1_1201_1223.csv",
-              '../../data/data-analist/data-analist-descriptions-1201-1223.csv')
+# call function
+download_descriptions_da(da_ids)
 
 
 ## download datasets data scientist -------------------------------------------
 # job postings
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/postings.csv",
+download.file("https://docs.google.com/spreadsheets/d/1MXB35YNUQMbd0804XFctXkm83Clw5qFihvxYTulSU5c/export?format=csv",
               '../../data/data-scientist/data-scientist-listings.csv')
 
-# job descriptions part 1
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_1_50.csv",
-              '../../data/data-scientist/data-scientist-descriptions-1-50.csv')
+# put all job description google drive url ids in a list
+ds_ids = list('1Gljl3BicWU0Q85rUKIWXhdrr4-9xywUQbXDF16CXCXU', '1ltd3jTvK8KLKi3kqFQ0O8bbStVYq3jffEdprCbHkNfY',
+              '1xTamLXTMqpoTKeUlUOrqJvCTtzo1_g3gnyrpvW93glc', '1gYvR6A2Sa_JBfNVwuhS3dw-QTH6ldPi-4JjycoCpD0c',
+              '1OSw9S-owdgobx5hYRsRhWrMo-UKrgOGoDJDXe-PQxL8', '1a4K3n7RbERBW2zwBDi0bcbM0QpQBqVo2ckMpFC-3Gr8',
+              '1grJhWaERQn_dZK0-K0ElOTTR6hL_VHqWnf8yWxY4oBU', '1pgkwXIxXE93BWzaJdavtknBt2ryNMyMcgnNj1fX9WkQ',
+              '1IZgiFysMKfTf6PgGsDDnD1EV0cM8vahoFPnO5gDThb0', '12gqHobXy4sQZQyLEPG21xxXAFDlELeLYDcWMgSdwdXc',
+              '1HEIdEMoDcxQsfcbYChzpv1HjDlt6jolPcl0u95I5Mkw', '1VDZa56g_MceN_jMhpuRWGnjLT_xLv2a9JqRolP1GdWE',
+              '12LYN8XkTBbPGA8FrEsIwX37It3ePKZhZC_8kg8VQeEg', '1fBpGFDgHJ4LWUGbZXtFwuz5Nm8DjFsfNn13-GesCckA',
+              '1s0Vxrk_5W9SvCZMrMkD0UcODAayg6tvG5FX0TpHwj7o', '1L8Nhb7M-yiPshM7rYna_vmGGi4dbM-NePoR55UM3H1Q',
+              '1Dw6JkKyEyeQYq4iA5Ffwcv305gQQXFff2TYKrCgVnYY', '1vtvR0M8KlYhr9p61GYtdv35_6RbkvCtgCCpb1Lm0Q9I',
+              '1eDAiv1C1RWXwD0YRzP3wutdOX6bf9Gc4ScDAB9l4tUQ', '13UnotKDstmMOwakWVD2ODp4mcgngfSglnoFzRGo2Uhw',
+              '1Of1GoU1XdH90_xFvw6JnO4sviwMJCil0e-U0M-Hb714')
 
-# job descriptions part 2
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_51_100.csv",
-              '../../data/data-scientist/data-scientist-descriptions-51-100.csv')
+# define function for job descriptions
+download_descriptions_ds <- function(ds_ids) {
+  counter = 1
+  for (id in ds_ids) {
+    url = paste0("https://docs.google.com/spreadsheets/d/", id, "/export?format=csv")
+    path = paste0("../../data/data-scientist/data-scientist-descriptions-", counter, ".csv")
+    download.file(url, path)
+    counter = counter + 1
+  }
+}
 
-# job descriptions part 3
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_101_151.csv",
-              '../../data/data-scientist/data-scientist-descriptions-101-151.csv')
-
-# job descriptions part 4
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_152_200.csv",
-              '../../data/data-scientist/data-scientist-descriptions-152-200.csv')
-
-# job descriptions part 5
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_201_250.csv",
-              '../../data/data-scientist/data-scientist-descriptions-201-250.csv')
-
-# job descriptions part 6
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_251_300.csv",
-              '../../data/data-scientist/data-scientist-descriptions-251-300.csv')
-
-# job descriptions part 7
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_301_350.csv",
-              '../../data/data-scientist/data-scientist-descriptions-301-350.csv')
-
-# job descriptions part 8
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_351_400.csv",
-              '../../data/data-scientist/data-scientist-descriptions-351-400.csv')
-
-# job descriptions part 9
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_401_450.csv",
-              '../../data/data-scientist/data-scientist-descriptions-401-450.csv')
-
-# job descriptions part 10
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_451_500.csv",
-              '../../data/data-scientist/data-scientist-descriptions-451-500.csv')
-
-# job descriptions part 11
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_501_550.csv",
-              '../../data/data-scientist/data-scientist-descriptions-501-550.csv')
-
-# job descriptions part 12
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_551_600.csv",
-              '../../data/data-scientist/data-scientist-descriptions-551-600.csv')
-
-# job descriptions part 13
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_601_650.csv",
-              '../../data/data-scientist/data-scientist-descriptions-601-650.csv')
-
-# job descriptions part 14
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_651_700.csv",
-              '../../data/data-scientist/data-scientist-descriptions-651-700.csv')
-
-# job descriptions part 15
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_701_750.csv",
-              '../../data/data-scientist/data-scientist-descriptions-701-750.csv')
-
-# job descriptions part 16
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_751_800.csv",
-              '../../data/data-scientist/data-scientist-descriptions-751-800.csv')
-
-# job descriptions part 17
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_801_850.csv",
-              '../../data/data-scientist/data-scientist-descriptions-801-850.csv')
-
-# job descriptions part 18
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_851_900.csv",
-              '../../data/data-scientist/data-scientist-descriptions-851-900.csv')
-
-# job descriptions part 19
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_901_950.csv",
-              '../../data/data-scientist/data-scientist-descriptions-901-950.csv')
-
-# job descriptions part 20
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_951_1000.csv",
-              '../../data/data-scientist/data-scientist-descriptions-951-1000.csv')
-
-# job descriptions part 21
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/data-scientist/descriptions_alternative1_1001_1050.csv",
-              '../../data/data-scientist/data-scientist-descriptions-1001-1050.csv')
+# call function
+download_descriptions_ds(ds_ids)
 
 
 ## download datasets marketing analist ----------------------------------------
 # job postings
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/postings.csv",
+download.file("https://docs.google.com/spreadsheets/d/1x0LQ3HdG6-ni6LByPjmO2y9rgC2jR4Kkl7r52_E7iaE/export?format=csv",
               '../../data/marketing-analist/marketing-analist-listings.csv')
 
-# job descriptions part 1
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-1.csv')
+# put all job description google drive url ids in a list
+ma_ids = list('1G7wIZxtXVBMBu9l_aO5rJ3I-Hhs_4v0Cfy2fE_zAo58', '1w9VQK1iFdd4gUUtXelHNTWFIwMnMC00oTAVTE3vjr_Q',
+              '1hMCfvy5nb8VhYtsMIIGMA835Mr1ZM_oUhLAb8Yg3-hs', '1zSRV5zXpcEld1zx8HN1h0KUiPZhS_T05yGZy0MbbtkE',
+              '1WBsYiZ46e7N5sgXasPepv8c_23GwBWylmvnizCio-w0', '1Abgma8inKasggXwAVAaEj2OCBERwc8UUjaozzssmy04',
+              '1-mA9KQ29QuWZJ_qcAbxOk3gxgKEmYcY63rFFdDTH9YE')
 
-# job descriptions part 2
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1_145_250.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-145-250.csv')
+# define function for job descriptions
+download_descriptions_ma <- function(ma_ids) {
+  counter = 1
+  for (id in ma_ids) {
+    url = paste0("https://docs.google.com/spreadsheets/d/", id, "/export?format=csv")
+    path = paste0("../../data/marketing-analist/marketing-analist-descriptions-", counter, ".csv")
+    download.file(url, path)
+    counter = counter + 1
+  }
+}
 
-# job descriptions part 3
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1_225_300.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-225-300.csv')
-
-# job descriptions part 4
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1_300_375.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-300-375.csv')
-
-# job descriptions part 5
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1_375_450.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-375-450.csv')
-
-# job descriptions part 6
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1_450_510.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-450-510.csv')
-
-# job descriptions part 7
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketing-analist/descriptions_alternative1_510.csv",
-              '../../data/marketing-analist/marketing-analist-descriptions-510.csv')
+# call function
+download_descriptions_ma(ma_ids)
 
 
 ## download datasets marketeer ------------------------------------------------
 # job postings
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/postings.csv",
+download.file("https://docs.google.com/spreadsheets/d/194tm6BioNNQ-3q-0tIayOpiv3iGWCq0kPtaAQIqjt1A/export?format=csv",
               '../../data/marketeer/marketeer-listings.csv')
 
-# job descriptions part 1
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_0_100.csv",
-              '../../data/marketeer/marketeer-descriptions-0-100.csv')
+# put all job description google drive url ids in a list
+m_ids = list('1dJmBymPHVkMQKIc5nUc7MFfzw86TWWoKh6DLg7Wg_uE', '13wlj5bzDxAYiS4nFerfsJxK5qLP55t1vgTqmReTOqiI',
+             '1_bv5TyeCbqAlzK1KL8qUC6aN9sxSqAvuko-9cRwynlk', '1OBu7YA_pe9tSWnkCwAgCZP2W5WU2qRadMChxlgODNIE',
+             '1pjnX3e4NMMQ81ujSeMNtTq8MPbAUWLh9Bzwu8GHiVPI', '1EfJw_ZHntOwAxVxCNY_R6hfeN6f1Avj3ERbw7q9v_t4',
+             '1ZQQ0J6DweBsDlOdYfqe0lPQFsZEUiHvkdklSKYthuuw', '1qS9k1w87f8e2z_KkY2Jvql3LKSfbPnW5cM-nzhNdVlU',
+             '16nOeEbMeHLRJf1QDtrisd-ILZ4aMNzRDYx5yqAwVwu4', '18u0mzItNgbvS5pdNg_sRIUHY3VxGZZGXKj63bXJ4vU0',
+             '1iqU8NU5c95u_PeiIBS26DG_CRubNw9n1KxWHpKZVUC8', '1MoeZBHqMY48tfNhH1anxUQOLcnnDnoRsahjiwzno-go',
+             '18RY_LZCjxikzdg8D0-d8DjxvotgCm6lbxguZkBGmD-g', '1FR32l-ovEZ30B2uvVBs08bgBlMMYP2ZYZmdHDuv4amQ',
+             '17AerhlTlGNSnW5dWpogA5luaPvKMmYk_HUmUEtXjdJw', '1bDfyfHgKznyJRfQ9brxRmFRyUwmtHcXVo86z7RdQPuI',
+             '105-uFYJ0DwbYTChsPfq4ElcP-SGI_83jgFmd1OOzM08', '13s7gW9JryJ1vSO3Gu1cZTed6hW2BSiFuDWikDOPBzvk',
+             '1O7D1wvkvqMZW2QliMmYch9jGre7E5oK6Y8zOKTe6u7k')
 
-# job descriptions part 2
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_100_200.csv",
-              '../../data/marketeer/marketeer-descriptions-100-200.csv')
+# define function for job descriptions
+download_descriptions_m <- function(m_ids) {
+  counter = 1
+  for (id in m_ids) {
+    url = paste0("https://docs.google.com/spreadsheets/d/", id, "/export?format=csv")
+    path = paste0("../../data/marketing-analist/marketing-analist-descriptions-", counter, ".csv")
+    download.file(url, path)
+    counter = counter + 1
+  }
+}
 
-# job descriptions part 3
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_200_400.csv",
-              '../../data/marketeer/marketeer-descriptions-200-400.csv')
-
-# job descriptions part 4
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_400_600.csv",
-              '../../data/marketeer/marketeer-descriptions-400-600.csv')
-
-# job descriptions part 5
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_600_662.csv",
-              '../../data/marketeer/marketeer-descriptions-600-662.csv')
-
-# job descriptions part 6
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_662_700.csv",
-              '../../data/marketeer/marketeer-descriptions-662-700.csv')
-
-# job descriptions part 7
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_700_774.csv",
-              '../../data/marketeer/marketeer-descriptions-700-774.csv')
-
-# job descriptions part 8
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_774_800.csv",
-              '../../data/marketeer/marketeer-descriptions-774-800.csv')
-
-# job descriptions part 9
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_800_850.csv",
-              '../../data/marketeer/marketeer-descriptions-800-850.csv')
-
-# job descriptions part 10
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_850_900.csv",
-              '../../data/marketeer/marketeer-descriptions-850-900.csv')
-
-# job descriptions part 11
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_900_950.csv",
-              '../../data/marketeer/marketeer-descriptions-900-950.csv')
-
-# job descriptions part 12
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_950_1000.csv",
-              '../../data/marketeer/marketeer-descriptions-950-1000.csv')
-
-# job descriptions part 13
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1000_1050.csv",
-              '../../data/marketeer/marketeer-descriptions-1000-1050.csv')
-
-# job descriptions part 14
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1050_1100.csv",
-              '../../data/marketeer/marketeer-descriptions-1050-1100.csv')
-
-# job descriptions part 15
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1100_1150.csv",
-              '../../data/marketeer/marketeer-descriptions-1100-1150.csv')
-
-# job descriptions part 16
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1150_1200.csv",
-              '../../data/marketeer/marketeer-descriptions-1150-1200.csv')
-
-# job descriptions part 17
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1200_1250.csv",
-              '../../data/marketeer/marketeer-descriptions-1200-1250.csv')
-
-# job descriptions part 18
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1250_1300.csv",
-              '../../data/marketeer/marketeer-descriptions-1250-1300.csv')
-
-# job descriptions part 19
-download.file("https://raw.githubusercontent.com/Anouk2311/indeed-job-listings/main/scraped%20data/marketeer/descriptions_alternative1_1300_1320.csv",
-              '../../data/marketeer/marketeer-descriptions-1300-1320.csv')
+# call function
+download_descriptions_m(m_ids)

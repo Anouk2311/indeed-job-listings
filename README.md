@@ -33,14 +33,13 @@ The makefile can be found in the ... folder. Please make sure to have a look at 
 
 Before running the makefile make sure you have the following packages installed (copy paste the following one at a time in your terminal): 
 
-| pip install requests |
-  pip install bs4 | 
-  pip install DateTime |
-  pip install selenium |
-  pip install pandas |
-
-
-
+```
+pip install requests
+pip install bs4
+pip install DateTime
+pip install selenium
+pip install pandas
+```
 
 
 Explain to potential users how to run/replicate your workflow. Touch upon, if necessary, the required input data, which (secret) credentials are required (and how to obtain them), which software tools are needed to run the workflow (including links to the installation instructions), and how to run the workflow. Make use of subheaders where appropriate.

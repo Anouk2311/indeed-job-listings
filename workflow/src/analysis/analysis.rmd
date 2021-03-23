@@ -1,241 +1,547 @@
 ---
-title: "Data exploration & Analysis"
-output: html_document
+title: "Indeed.com Job Listings Analysis"
+output: 
+  html_document: default
 ---
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(reshape)
+library(stringr)
+library(tidyr)
 library(dplyr)
 library(ggplot2)
 ```
 
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
-## 1.1 data scientist ---------------------------------------------------------
-df_ds <- read.csv('../../gen/data-preparation/output/data_scientist_clean.csv', sep = ',')
-
-## 1.2 data analist -----------------------------------------------------------
-df_da <- read.csv('../../gen/data-preparation/output/data_analist_clean.csv', sep = ',')
-
-## 1.3 marketing analist ------------------------------------------------------
-df_ma <- read.csv('../../gen/data-preparation/output/marketing_analist_clean.csv', sep = ',')
-
-## 1.4 marketeer --------------------------------------------------------------
-df_m <- read.csv('../../gen/data-preparation/output/marketeer_clean.csv', sep = ',')
+data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
 # 1. Overview of the data
 
-### This is how the data_scientist data set looks like:
-We can see that there are `r length(df_ds$X)` job listings.
+### 1.1 This is how the data_scientist data set looks like:
+We can see that there are `r length(data_scientist$X)` job listings. It contains `r ncol(data_scientist)` columns.
 
 ```{r}
-colnames(df_ds)
+colnames(data_scientist)
 ```
+
+Here can be observed a summary of data_scientist.
 
 ```{r}
-summary(df_ds)
+summary(data_scientist)
 ```
 
-### This is how the data_analist data set looks like:
-We can see that there are `r length(df_da$X)` job listings.
+
+### 1.2 This is how the data_analist data set looks like:
+We can see that there are `r length(data_analist$X)` job listings. It contains `r ncol(data_analist)` columns.
 
 ```{r}
-colnames(df_da)
+colnames(data_analist)
 ```
+
+Here can be observed a summary of data_analist.
 
 ```{r}
-summary(df_da)
+summary(data_analist)
 ```
 
-### This is how the marketing_analist data set looks like:
-We can see that there are `r length(df_ma$X)` job listings.
+### 1.3 This is how the marketing_analist data set looks like:
+We can see that there are `r length(marketing_analist$X)` job listings. It contains `r ncol(marketing_analist)` columns.
 
 ```{r}
-colnames(df_ma)
+colnames(marketing_analist)
 ```
+
+Here can be observed a summary of marketing_analist.
 
 ```{r}
-summary(df_ma)
+summary(marketing_analist)
 ```
 
-### This is how the marketeer data set looks like:
-We can see that there are `r length(df_m$X)` job listings.
+### 1.4 This is how the marketeer data set looks like:
+We can see that there are `r length(marketeer$X)` job listings. It contains `r ncol(marketeer)` columns.
 
 ```{r}
-colnames(df_m)
+colnames(marketeer)
 ```
+
+Here can be observed a summary of marketeer.
 
 ```{r}
-summary(df_m)
+summary(marketeer)
 ```
 
-# 2. Looking at the data as a whole
-#### 2.1 First, we'll add a new column containing the search term for each dataset, that can be later used as a filter.
-#### 2.2 Then, we'll bind the four datasets to check for duplicates
+# 2. Looking at the frequency of some core skills from the job descriptions
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
-df_ds$serchterm <- "data_scientist"
-df_da$serchterm <- "data_analist"
-df_ma$serchterm <- "marketing_analist"
-df_m$serchterm <- "marketeer"
+data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
-# bind the datasets together
-all_listings <- rbind(df_ds, df_da, df_ma, df_m)
-```
-
-We can see that the new dataframe all_listings has `r length(all_listings$X)` listings, however, the number of unique listings is `r length(unique(all_listings$id))`.
-
-
-```{r echo=FALSE, warning=FALSE, message=FALSE}
-# Change today column and scrapetimesdescription column from character to date
-
-today <- as.Date(all_listings$today, format = "%Y-%m-%d")
-all_listings$today <- today
-
-
-scrapetimesdescription <- as.Date(all_listings$scrapetimesdescription, format = "%Y-%m-%d %H:%M:%S")
-all_listings$scrapetimesdescription <- scrapetimesdescription
-```
-
-### Checking the distribution of the min_salary for the listings that contain this data
-
-
-#```{r}
-#ggplot(all_listings, aes(x=min_salary)) +
-#  geom_histogram(binwidth=.5, colour="black", fill="white")
-#```
-
-
-# 3. Keywords
-#### 2.1 Data scientist
+### 2.1 Getting the skill counts for the most important skills in data science jobs
 
 ```{r}
-df_ds <- df_ds %>% distinct(id, .keep_all = TRUE)
-#get the skill counts for the most important skills in data analysis
-skills_ds <- df_ds %>%
-  mutate(SQL = str_count(df_ds$description, "SQL" )) %>%
-  mutate(HTML = str_count(df_ds$description, "HTML")) %>%
-  mutate(SPSS = str_count(df_ds$description, "SPSS")) %>%
-  mutate(AWS = str_count(df_ds$description, "AWS")) %>%
-  mutate(Python = str_count(df_ds$description, "Python" )) %>%
-  mutate(Hadoop = str_count(df_ds$description, "Hadoop" )) %>%
-  mutate(Java = str_count(df_ds$description, "Java" )) %>%
-  mutate(Apache = str_count(df_ds$description, "Apache" )) %>%
-  mutate(Excel = str_count(df_ds$description, "Excel")) %>%
-  mutate(AWS = str_count(df_ds$description, "AWS"))%>%
-  mutate(Azure = str_count(df_ds$description, "Azure"))%>% 
-  mutate(Tableau = str_count(df_ds$description, "Tableau" )) %>%
-  mutate(TensorFlow = str_count(df_ds$description, "TensorFlow" )) %>%  
-  mutate(big_data = str_count(df_ds$description, "big data" )) %>% 
-  mutate(machine_learning = str_count(df_ds$description, "machine learning" )) %>%
-  mutate(SAS = str_count(df_ds$description, "SAS" )) %>% 
-  mutate(R = str_count(df_ds$description, "\\bR\\b" ))
+skills_data_science <- data_scientist %>%
+  mutate(SQL = str_count(data_scientist$description, "SQL" )) %>%
+  mutate(HTML = str_count(data_scientist$description, "HTML")) %>%
+  mutate(SPSS = str_count(data_scientist$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(data_scientist$description, "Power BI")) %>%
+  mutate(AWS = str_count(data_scientist$description, "AWS")) %>%
+  mutate(Python = str_count(data_scientist$description, "Python" )) %>%
+  mutate(Hadoop = str_count(data_scientist$description, "Hadoop" )) %>%
+  mutate(Java = str_count(data_scientist$description, "Java" )) %>%
+  mutate(Apache = str_count(data_scientist$description, "Apache" )) %>%
+  mutate(Excel = str_count(data_scientist$description, "Excel")) %>%
+  mutate(AWS = str_count(data_scientist$description, "AWS"))%>%
+  mutate(Azure = str_count(data_scientist$description, "Azure"))%>% 
+  mutate(Tableau = str_count(data_scientist$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(data_scientist$description, "TensorFlow" )) %>%  
+  mutate(big_data = str_count(data_scientist$description, "big data" )) %>% 
+  mutate(machine_learning = str_count(data_scientist$description, "machine learning" )) %>%
+  mutate(SAS = str_count(data_scientist$description, "SAS" )) %>% 
+  mutate(R = str_count(data_scientist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+```
 
+
+```{r}
+#get only skills and their counts from the entire skills dataframe and arrange by count
+table_data_science <- gather(skills_data_science, "Skill", "Count", 15:31) %>%  arrange( Count) 
+#make a plot of the counts for each skill
+count_plot_data_science <- ggplot(data=table_data_science, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
+count_plot_data_science
+```
+```{r}
+#get the count dta from the entire dataset
+subset_data_science <- skills_data_science[15:31]  
+#count the number of advertisements in which each skill is mentioned
+occurences_data_science <- colSums(subset_data_science != 0)
+#percentage of total number of advertisements
+percentage_data_science <- occurences_data_science/nrow(subset_data_science)
+#add skillnames into the dataframe 
+percentage_data_science <- as.data.frame(percentage_data_science)
+percentage_data_science$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+#plot the percentage of occurence per skill level
+percentage_plot_data_science <- ggplot(data=percentage_data_science, aes(x=Skill, y=percentage_data_science)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_data_science
+```
+
+### 2.2 Getting the skill counts for the most important skills in data_analist jobs
+
+```{r}
+skills_data_analist <- data_analist %>%
+  mutate(SQL = str_count(data_analist$description, "SQL" )) %>%
+  mutate(HTML = str_count(data_analist$description, "HTML")) %>%
+  mutate(SPSS = str_count(data_analist$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(data_analist$description, "Power BI")) %>%
+  mutate(AWS = str_count(data_analist$description, "AWS")) %>%
+  mutate(Python = str_count(data_analist$description, "Python" )) %>%
+  mutate(Hadoop = str_count(data_analist$description, "Hadoop" )) %>%
+  mutate(Java = str_count(data_analist$description, "Java" )) %>%
+  mutate(Apache = str_count(data_analist$description, "Apache" )) %>%
+  mutate(Excel = str_count(data_analist$description, "Excel")) %>%
+  mutate(AWS = str_count(data_analist$description, "AWS"))%>%
+  mutate(Azure = str_count(data_analist$description, "Azure"))%>% 
+  mutate(Tableau = str_count(data_analist$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(data_analist$description, "TensorFlow" )) %>%  
+  mutate(big_data = str_count(data_analist$description, "big data" )) %>% 
+  mutate(machine_learning = str_count(data_analist$description, "machine learning" )) %>%
+  mutate(SAS = str_count(data_analist$description, "SAS" )) %>% 
+  mutate(R = str_count(data_analist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+```
+
+
+```{r}
+#get only skills and their counts from the entire skills dataframe
+table_data_analist <- gather(skills_data_analist, "Skill", "Count", 15:31) %>%  arrange( Count) 
+#make a plot of the counts for each skill
+count_plot_data_analist <- ggplot(data=table_data_analist, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
+count_plot_data_analist
+```
+
+```{r}
+#get the count data from the entire dataset
+subset_data_analist <- skills_data_analist[15:31]  
+#count the number of advertisements in which each skill is mentioned
+occurences_data_analist <- colSums(subset_data_analist != 0)
+#percentage of total number of advertisements
+percentage_data_analist <- occurences_data_analist/nrow(subset_data_analist)
+#add skillnames into the dataframe 
+percentage_data_analist <- as.data.frame(percentage_data_analist)
+percentage_data_analist$Skill <- c("SQL","HTML","SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+#plot the percentage of occurence per skill level
+percentage_plot_data_analist <- ggplot(data=percentage_data_analist, aes(x=Skill, y=percentage_data_analist)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_data_analist
+```
+
+### 2.3 Getting the skill counts for the most important skills in marketing_analist jobs
+
+```{r}
+skills_marketing_analist <- marketing_analist %>%
+  mutate(SQL = str_count(marketing_analist$description, "SQL" )) %>%
+  mutate(HTML = str_count(marketing_analist$description, "HTML")) %>%
+  mutate(SPSS = str_count(marketing_analist$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(marketing_analist$description, "Power BI")) %>%
+  mutate(AWS = str_count(marketing_analist$description, "AWS")) %>%
+  mutate(Python = str_count(marketing_analist$description, "Python" )) %>%
+  mutate(Hadoop = str_count(marketing_analist$description, "Hadoop" )) %>%
+  mutate(Java = str_count(marketing_analist$description, "Java" )) %>%
+  mutate(Apache = str_count(marketing_analist$description, "Apache" )) %>%
+  mutate(Excel = str_count(marketing_analist$description, "Excel")) %>%
+  mutate(AWS = str_count(marketing_analist$description, "AWS"))%>%
+  mutate(Azure = str_count(marketing_analist$description, "Azure"))%>% 
+  mutate(Tableau = str_count(marketing_analist$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(marketing_analist$description, "TensorFlow" )) %>%  
+  mutate(big_data = str_count(marketing_analist$description, "big data" )) %>% 
+  mutate(machine_learning = str_count(marketing_analist$description, "machine learning" )) %>%
+  mutate(SAS = str_count(marketing_analist$description, "SAS" )) %>% 
+  mutate(R = str_count(marketing_analist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 
 ```{r}
 #get only skills and their counts from the entire skills dataframe
-table_ds <- gather(skills_ds, "skill", "Count", 14:29) %>%  arrange( Count) 
+table_marketing_analist <- gather(skills_marketing_analist, "Skill", "Count", 15:31) %>%  arrange( Count) 
 #make a plot of the counts for each skill
-count_plot_ds <- ggplot(data=table_ds, aes(x=skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
-
-count_plot_ds
-```
-```{r}
-#get the count data from the entire dataset
-subset_ds <- skills_ds[14:29]
-#count the number of advertisements in which each skill is mentioned
-occurences_ds <- colSums(subset_ds != 0)
-#percentage of total number of advertisements
-percentage_occurence_ds <- occurences_ds/nrow(subset_ds)
-percentage_occurence_ds
-#add skillnames into the dataframe 
-percentage_ds <- as.data.frame(percentage_occurence_ds)
-percentage_ds$row_names <- c("SQL","HTML", "SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
-#plot the percentage of occurence per skill level
-percentage_plot_ds <- ggplot(data=percentage_ds, aes(x=row_names, y=percentage_occurence_ds)) + geom_bar(stat="identity") + coord_flip()
-percentage_plot_ds
-
-```
-#### 2.2 Data analist
-
-```{r}
-skills_ma <- df_ma %>%
-  mutate(SQL = str_count(df_ma$description, "SQL" )) %>%
-  mutate(HTML = str_count(df_ma$description, "HTML")) %>%
-  mutate(SPSS = str_count(df_ma$description, "SPSS")) %>%
-  mutate(AWS = str_count(df_ma$description, "AWS")) %>%
-  mutate(Python = str_count(df_ma$description, "Python" )) %>%
-  mutate(Hadoop = str_count(df_ma$description, "Hadoop" )) %>%
-  mutate(Java = str_count(df_ma$description, "Java" )) %>%
-  mutate(Apache = str_count(df_ma$description, "Apache" )) %>%
-  mutate(Excel = str_count(df_ma$description, "Excel")) %>%
-  mutate(AWS = str_count(df_ma$description, "AWS"))%>%
-  mutate(Azure = str_count(df_ma$description, "Azure"))%>% 
-  mutate(Tableau = str_count(df_ma$description, "Tableau" )) %>%
-  mutate(TensorFlow = str_count(df_ma$description, "TensorFlow" )) %>%  
-  mutate(big_data = str_count(df_ma$description, "big data" )) %>% 
-  mutate(machine_learning = str_count(df_ma$description, "machine learning" )) %>%
-  mutate(SAS = str_count(df_ma$description, "SAS" )) %>% 
-  mutate(R = str_count(df_ma$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+count_plot_marketing_analist <- ggplot(data=table_marketing_analist, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
+count_plot_marketing_analist
 ```
 
 ```{r}
 #get the count data from the entire dataset
-subset_ma <- skills_ma[14:29]  
+subset_marketing_analist <- skills_marketing_analist[15:31]  
 #count the number of advertisements in which each skill is mentioned
-occurences_ma <- colSums(subset_ma != 0)
+occurences_marketing_analist <- colSums(subset_marketing_analist != 0)
 #percentage of total number of advertisements
-percentage_occurence_ma <- occurences_ma/nrow(subset_ma)
-percentage_occurence_ma
+percentage_marketing_analist <- occurences_marketing_analist/nrow(subset_marketing_analist)
 #add skillnames into the dataframe 
-percentage_ma <- as.data.frame(percentage_occurence_ma)
-percentage_ma$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_marketing_analist <- as.data.frame(percentage_marketing_analist)
+percentage_marketing_analist$Skill <- c("SQL","HTML","SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 #plot the percentage of occurence per skill level
-percentage_plot_ma <- ggplot(data=percentage_ma, aes(x=row_names, y=percentage_occurence_ma)) + geom_bar(stat="identity") + coord_flip()
-percentage_plot_ma
+percentage_plot_marketing_analist <- ggplot(data=percentage_marketing_analist, aes(x=Skill, y=percentage_marketing_analist)) + geom_bar(stat="identity") + coord_flip()
+percentage_plot_marketing_analist
 ```
 
 
-#### 2.3 Marketeer
+### 2.4 Getting the skill counts for the most important skills in marketeer jobs
 
 ```{r}
-skills_m <- df_m %>%
-  mutate(SQL = str_count(df_m$description, "SQL" )) %>%
-  mutate(HTML = str_count(df_m$description, "HTML")) %>%
-  mutate(SPSS = str_count(df_m$description, "SPSS")) %>%
-  mutate(AWS = str_count(df_m$description, "AWS")) %>%
-  mutate(Python = str_count(df_m$description, "Python" )) %>%
-  mutate(Hadoop = str_count(df_m$description, "Hadoop" )) %>%
-  mutate(Java = str_count(df_m$description, "Java" )) %>%
-  mutate(Apache = str_count(df_m$description, "Apache" )) %>%
-  mutate(Excel = str_count(df_m$description, "Excel")) %>%
-  mutate(AWS = str_count(df_m$description, "AWS"))%>%
-  mutate(Azure = str_count(df_m$description, "Azure"))%>% 
-  mutate(Tableau = str_count(df_m$description, "Tableau" )) %>%
-  mutate(TensorFlow = str_count(df_m$description, "TensorFlow" )) %>%  
-  mutate(big_data = str_count(df_m$description, "big data" )) %>% 
-  mutate(machine_learning = str_count(df_m$description, "machine learning" )) %>%
-  mutate(SAS = str_count(df_m$description, "SAS" )) %>% 
-  mutate(R = str_count(df_m$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence. 
-
+skills_marketeer <- marketeer %>%
+  mutate(SQL = str_count(marketeer$description, "SQL" )) %>%
+  mutate(HTML = str_count(marketeer$description, "HTML")) %>%
+  mutate(SPSS = str_count(marketeer$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(marketeer$description, "Power BI")) %>%
+  mutate(AWS = str_count(marketeer$description, "AWS")) %>%
+  mutate(Python = str_count(marketeer$description, "Python" )) %>%
+  mutate(Hadoop = str_count(marketeer$description, "Hadoop" )) %>%
+  mutate(Java = str_count(marketeer$description, "Java" )) %>%
+  mutate(Apache = str_count(marketeer$description, "Apache" )) %>%
+  mutate(Excel = str_count(marketeer$description, "Excel")) %>%
+  mutate(AWS = str_count(marketeer$description, "AWS"))%>%
+  mutate(Azure = str_count(marketeer$description, "Azure"))%>% 
+  mutate(Tableau = str_count(marketeer$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(marketeer$description, "TensorFlow" )) %>%  
+  mutate(big_data = str_count(marketeer$description, "big data" )) %>% 
+  mutate(machine_learning = str_count(marketeer$description, "machine learning" )) %>%
+  mutate(SAS = str_count(marketeer$description, "SAS" )) %>% 
+  mutate(R = str_count(marketeer$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 
+```{r}
+#get only skills and their counts from the entire skills dataframe
+table_marketeer <- gather(skills_marketeer,"Skill", "Count", 15:31) %>%  arrange( Count) 
+#make a plot of the counts for each skill
+count_plot_marketeer <- ggplot(data=table_marketeer, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
+count_plot_marketeer
+```
 
 ```{r}
 #get the count data from the entire dataset
-subset_m <- skills_m[14:29]  
+subset_marketeer <- skills_marketeer[15:31]
 #count the number of advertisements in which each skill is mentioned
-occurences_m <- colSums(subset_m != 0)
+occurences_marketeer <- colSums(subset_marketeer != 0)
 #percentage of total number of advertisements
-percentage_occurence_m <- occurences_m/nrow(subset_m)
-percentage_occurence_m
+percentage_marketeer <- occurences_marketeer/nrow(subset_marketeer)
 #add skillnames into the dataframe 
-percentage_m <- as.data.frame(percentage_occurence_m)
-percentage_m$row_names <- c("SQL","HTML","SPSS", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_marketeer <- as.data.frame(percentage_marketeer)
+percentage_marketeer$Skill <- c("SQL","HTML","SPSS", "Power BI",  "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 #plot the percentage of occurence per skill level
-percentage_plot_m <- ggplot(data=percentage_m, aes(x=row_names, y=percentage_occurence_m)) + geom_bar(stat="identity") + coord_flip()
-percentage_plot_m
+percentage_plot_marketeer <- ggplot(data=percentage_marketeer, aes(x=Skill, y=percentage_marketeer))+ geom_bar(stat="identity") + coord_flip()
+percentage_plot_marketeer
+```
+
+### 2.5 Getting insights into comparing the skills from the 4 job titles
+#### Combining the seperate bar charts presented above into one bar graph, to conveniently compare the skills occurence for our 4 job searches
+
+```{r}
+#merge different percentage for skills into one data frame
+percentage <- merge(percentage_marketeer, percentage_data_analist, by = "Skill") 
+percentage <- merge(percentage, percentage_data_science, by = "Skill")
+percentage <- merge(percentage, percentage_marketing_analist, by = "Skill")
+
+colnames(percentage) <- c("Skill", "marketeer", "data_analist", "data_scientist", "marketing_analist")
+```
+
+```{r}
+df <- melt(percentage, id.vars="Skill")
+colnames(df) <- c("Skill", "Job", "Occurence")
+plot_skills <- ggplot(df, aes(x= Skill, y = Occurence, fill=Job)) +
+  geom_bar(stat='identity', position='dodge') + coord_flip()
+plot_skills
+```
+
+# 3. Location frequency analysis
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+data_scientist_location <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist_location <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist_location <- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
+```
+
+### 3.1 Location frequency data science
+
+```{r}
+data_scientist_location <- as.data.frame(table(data_scientist_location$location_trimmed))
+data_scientist_location <- data_scientist_location %>% filter(Freq > 10)
+data_scientist_location$Location <- data_scientist_location$Var1
+data_scientist_location_plot <- ggplot(data_scientist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
+data_scientist_location_plot 
+```
+
+### 3.2 Location frequency data analist
+
+```{r}
+data_analist_location <- as.data.frame(table(data_analist_location$location_trimmed))
+data_analist_location <- data_analist_location %>% filter(Freq > 10)
+data_analist_location$Location <- data_analist_location$Var1
+data_analist_location_plot <- ggplot(data_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
+data_analist_location_plot
+```
+
+### 3.3 Location frequency marketing analist
+```{r}
+marketing_analist_location <- as.data.frame(table(marketing_analist_location$location_trimmed))
+marketing_analist_location <- marketing_analist_location %>% filter(Freq > 10)
+marketing_analist_location$Location <- marketing_analist_location$Var1
+marketing_analist_location_plot <- ggplot(marketing_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
+marketing_analist_location_plot
+```
+
+### 3.4 Location frequency marketeer
+
+```{r}
+marketeer_location<- as.data.frame(table(marketeer_location$location_trimmed))
+marketeer_location <- marketeer_location %>% filter(Freq > 10)
+marketeer_location$Location <- marketeer_location$Var1
+marketeer_location_plot <- ggplot(marketeer_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
+marketeer_location_plot
+```
+
+### 3.5 Getting insights into comparing the locations of the 4 job titles
+```{r}
+location <- merge(marketeer_location, data_analist_location, by = "Location")
+location <- merge(location, data_scientist_location, by = "Location")
+location <- merge(location, marketing_analist_location, by = "Location")
+location <- location[ , -which(names(location) %in% c("Var1.x","Var1.y"))]
+colnames(location) <- c("Location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
+
+location <- melt(location, id.vars="Location")
+colnames(location) <- c("Location", "Job", "Frequency")
+plot_location <- ggplot(location, aes(x= Location, y = Frequency, fill=Job)) +
+  geom_bar(stat='identity', position='dodge') + coord_flip()
+plot_location
+
+```
+
+# 4. Salary analysis
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
+```
+
+- Cleaning the salary column, which has either hourly, monthly or yearly values.
+- Converting the values into yearly salary based on the number of working hours in a year for an average job
+- Important to note is that in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
+
+### 4.1 Salary analysis for data scientist
+
+```{r}
+data_scientist_salary <- data_scientist %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), 
+           convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_ds = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+```
+
+```{r}
+# join the two data frames
+data_scientist_salary <- cbind(data_scientist, data_scientist_salary)
+
+data_scientist_salary <- data_scientist_salary[!is.na(data_scientist_salary$min_salary_ds),]
+# discard the column X.1 as it is a duplicate of the index column 
+data_scientist_salary$X.1 <- NULL
+```
+
+```{r}
+# average salaries per location for top locations for data scientists
+data_scientist_avgsalary <- data_scientist_salary %>% 
+  group_by(location_trimmed) %>%                 
+  summarise(average_salary = mean(min_salary_ds)) 
+
+# filter cities with over 30000 euro's average yearly salary
+data_scientist_avgsalary  <- data_scientist_avgsalary %>%
+  filter(data_scientist_avgsalary$average_salary > 30000)
+# build a plot of the locations with the highest average salary in the Netherlands
+data_scientist_salary_plot <- ggplot(data_scientist_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+data_scientist_salary_plot
+```
+
+### 4.2 Salary analysis for data analist
+
+```{r}
+data_analist_salary <- data_analist %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), 
+           convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_da = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+```
+
+```{r}
+# join the two data frames
+data_analist_salary <- cbind(data_analist, data_analist_salary)
+data_analist_salary <- data_analist_salary[!is.na(data_analist_salary$min_salary_da),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+data_analist_salary$X.1 <- NULL
+```
+
+
+```{r}
+# average salaries per location for top locations for data analists
+data_analist_avgsalary <- data_analist_salary %>% 
+  group_by(location_trimmed) %>%                 
+  summarise(average_salary = mean(min_salary_da)) 
+
+# filter cities with over 30000 euro's average yearly salary
+data_analist_avgsalary <- data_analist_avgsalary  %>%
+  filter(data_analist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+data_analist_salary_plot <- ggplot(data_analist_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+data_analist_salary_plot
+```
+
+### 4.3 Salary analysis for marketing analist
+
+```{r}
+marketing_analist_salary  <- marketing_analist %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), 
+           convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_ma = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+```
+
+```{r}
+# join the two data frames
+marketing_analist_salary   <- cbind(marketing_analist, marketing_analist_salary  )
+marketing_analist_salary  <- marketing_analist_salary  [!is.na(marketing_analist_salary$min_salary_ma),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+marketing_analist_salary$X.1 <- NULL
+```
+
+```{r}
+# average salaries per location for top locations for marketing analists
+marketing_analist_avgsalary <-marketing_analist_salary %>% 
+  group_by(location_trimmed) %>%                 
+  summarise(average_salary = mean(min_salary_ma)) 
+
+# filter cities with over 30000 euro's average yearly salary
+marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
+  filter(marketing_analist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+marketing_analist_salary_plot
+```
+
+### 4.4 Salary analysis for marketeer
+
+```{r}
+marketeer_salary  <- marketeer %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), 
+           convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_m = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+```
+
+```{r}
+# join the two data frames
+marketeer_salary  <- cbind(marketeer, marketeer_salary )
+marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$min_salary_m),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+marketeer_salary$X.1 <- NULL
+```
+
+```{r}
+# average salaries per location for top locations for  marketeers
+marketeer_avgsalary <- marketeer_salary %>% 
+  group_by(location_trimmed) %>%                 
+  summarise(average_salary = mean(min_salary_m)) 
+
+# filter cities with over 30000 euro's average yearly salary
+marketeer_avgsalary <- marketeer_avgsalary %>%
+  filter(marketeer_avgsalary$average_salary > 30000)
+# build a plot of the locations with the highest average salary in the Netherlands
+marketeer_salary_plot <- ggplot(marketeer_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+marketeer_salary_plot
+```
+
+### 4.5 Getting insights into comparing the salaries of the 4 job titles
+
+```{r}
+# combined plot
+# first merge the different files
+salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location_trimmed")
+salary <- merge(salary, data_scientist_avgsalary, by = "location_trimmed")
+salary <- merge(salary, marketing_analist_avgsalary, by = "location_trimmed")
+colnames(salary) <- c("Location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
+# put all jobs in a column 
+salary <- melt(salary, id.vars="Location")
+colnames(salary) <- c("Location", "Job", "Salary")
+plot_salary <- ggplot(salary, aes(x= Location, y = Salary, fill=Job)) +
+  geom_bar(stat='identity', position='dodge') + coord_flip()
+plot_salary
 ```

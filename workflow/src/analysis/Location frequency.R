@@ -5,7 +5,7 @@ marketing_analist_location <- read.csv("../../gen/data-preparation/output/market
 marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 
 #location frequency data science
-data_scientist_location <- as.data.frame(table(data_scientist_location$location_trimmed))
+data_scientist_location <- as.data.frame(table(data_scientist_location$location))
 data_scientist_location <- data_scientist_location %>% filter(Freq > 10)
 data_scientist_location$Location <- data_scientist_location$Var1
 data_scientist_location_plot <- ggplot(data_scientist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
@@ -14,21 +14,21 @@ data_scientist_location_plot
 
 #location frequency data analist
 
-data_analist_location <- as.data.frame(table(data_analist_location$location_trimmed))
+data_analist_location <- as.data.frame(table(data_analist_location$location))
 data_analist_location <- data_analist_location %>% filter(Freq > 10)
 data_analist_location$Location <- data_analist_location$Var1
 data_analist_location_plot <- ggplot(data_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
 data_analist_location_plot
 
 #location frequency marketing analist
-marketing_analist_location <- as.data.frame(table(marketing_analist_location$location_trimmed))
+marketing_analist_location <- as.data.frame(table(marketing_analist_location$location))
 marketing_analist_location <- marketing_analist_location %>% filter(Freq > 10)
 marketing_analist_location$Location <- marketing_analist_location$Var1
 marketing_analist_location_plot <- ggplot(marketing_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
 marketing_analist_location_plot
 
 #location frequency marketeer
-marketeer_location<- as.data.frame(table(marketeer_location$location_trimmed))
+marketeer_location<- as.data.frame(table(marketeer_location$location))
 marketeer_location <- marketeer_location %>% filter(Freq > 10)
 marketeer_location$Location <- marketeer_location$Var1
 marketeer_location_plot <- ggplot(marketeer_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  

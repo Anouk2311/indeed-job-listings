@@ -17,25 +17,13 @@ For this project we decided to narrow down our investigation to the Netherlands.
 
 We chose a keyword frequency analysis on what we believe to be the most common technical skills as our main tool of analyzing the different job searches. These keywords include programming languages such as R and Python, database knowledge on programs as Power BI and SQL and also the good old Excel. In our experience, many of our fellow students find it difficult to bridge the gap between academic knowledge and actual skills required in the job market. By comparing this core set of techinical skills per job title, we can provide insights into the actual skills valued by employers. This will help students making the right decision on how to spend their precious time and prepare themselves optimally for the beginning of their careers. 
 
-First, we built a web scraper with python Selenium that scrapes the vital information of each job posting associated with a specific job search. This included items such as job title, location, unique job-id and salary if provided. Afterwards we scraped the job descriptions of the same search results to obtain the job descriptions of each job posting in a seperate dataset. Then in R we merged the data into one big file by joining the datasets on the unique job id that serves as identifier for each seperate job advert on Indeed.  All the analyzed the counts of our Keywords in each the dataset 
+First, we built a web scraper with python Selenium that scrapes the vital information of each job posting associated with a specific job search. This included items such as job title, location, unique job-id and salary if provided. Afterwards we scraped the job descriptions of the same search results to obtain the job descriptions of each job posting in a seperate dataset. Then in R we merged the data into one big file by joining the datasets on the unique job id that serves as identifier for each seperate job advert on Indeed.  All the analyzed the counts of our Keywords in each the dataset.
 
 #results of our analysis
 We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers, followed by Microsoft Excel, Python and R. 
 
 ## Repository overview
 Our repository is formed by the ..
-
-*For example this structure. We still need to change it on advice of Hannes.*
-
-????????? README.md
-????????? data
-????????? gen
-???   ????????? analysis
-???   ????????? data-preparation
-????????? src
-    ????????? analysis
-    ????????? data-preparation
-    
 
 
 ## Running instructions

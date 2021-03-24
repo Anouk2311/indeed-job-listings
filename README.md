@@ -34,7 +34,7 @@ We will shortly discuss our main findings within this section. We find that for 
 ## Repository overview
 
 Our repository has the following structure: 
-
+```
 |--- datacollection
 |    |---data     
 |    |   |--- data-analist
@@ -60,7 +60,7 @@ Our repository has the following structure:
      |   |--- analysis
      |   |--- datapreparation
      
-
+```
 ## Running instructions
 
 For this project we made use of GNU make. This means that the whole process, from loading in the data to running the analyses, can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following [tutorial](https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/) before running the makefile.\

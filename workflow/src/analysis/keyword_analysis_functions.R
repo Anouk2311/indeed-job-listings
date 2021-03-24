@@ -37,7 +37,7 @@ percentage <- function(dataset){
   occurences_dataset <- colSums(subset_dataset != 0)
   percentage_dataset <- occurences_dataset/nrow(subset_dataset)
   percentage_dataset <- as.data.frame(percentage_dataset)
-  percentage_dataset$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+  #percentage_dataset$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
 }
 #
 #percentage_plot <- function(dataset) {
@@ -47,9 +47,7 @@ percentage <- function(dataset){
 
 data_scientist <- add_skills(data_scientist)
 data_scientist_count_plot <- count_plot(data_scientist)
-data_scientist_count_plot
 percentage_data_scientist <- percentage(data_scientist)
-percentage_data_scientist
 #data_scientist_percentage_plot <- percentage_plot(data_scientist)
 
 data_analist <- add_skills(data_analist)
@@ -69,9 +67,15 @@ percentage_marketeer <- percentage(marketeer)
 #next part is to combine the seperate bar charts of before into one bar graph to conveniently compare the skills occurence for our 4 job searches
 
 #merge different percentage for skills into one data frame
+percentage_data_scientist$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_data_analist$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_marketing_analist$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+percentage_marketeer$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+
+
 
 percentage_combined <- merge(percentage_marketeer, percentage_data_analist, by = "Skill") 
-percentage_combined <- merge(percentage_combined, percentage_data_scienctist, by = "Skill")
+percentage_combined <- merge(percentage_combined, percentage_data_scientist, by = "Skill")
 percentage_combined <- merge(percentage_combined, percentage_marketing_analist, by = "Skill")
 
 colnames(percentage_combined) <- c("Skill", "marketeer", "data_analist", "data_scientist", "marketing_analist")

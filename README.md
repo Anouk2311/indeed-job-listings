@@ -33,7 +33,7 @@ We will shortly discuss our main findings within this section. We find that for 
 
 ## Repository overview
 
-Our repository has the following structure: 
+Our repository has the following structure:
 ```
 |--- datacollection
 |    |---data     

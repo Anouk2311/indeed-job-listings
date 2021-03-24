@@ -54,7 +54,8 @@ Our repository has the following structure:
      |---src
      |   |--- analysis
      |   |--- datapreparation
-     
+|--- .gitignore     
+|--- Readme   
 ```
 ## Running instructions
 

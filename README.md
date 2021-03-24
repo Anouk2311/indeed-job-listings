@@ -24,7 +24,20 @@ After cleaning the data we could start with the analysis. The most important par
 
 Afterwards we proceeded with location analysis, in this part, we scrutinized the frequency of the location for each seperate job. Resulting in a distinct plot for each job search with the associated location frequencies. The last step again was to combine all of the different plots into a single plot to facilitate comparisons. The final plot gave a good overview of which cities were the top cities for each job. We finalized our analysis with a salary analysis for the different jobs. First we removed the observations inthe dataset with no data on salary. Then we checked the top locations salary wise for each job title. Afterwards we finalized the analysis with a combined plot of top locations with the top salaries per job type.
 
-We will shortly discuss our main findings within this section. We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers, followed by Microsoft Excel, Python and R.
+We will shortly discuss our main findings within this section. 
+
+- We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers,    followed by Microsoft Excel, Python and R.
+
+- For becoming a data-scientist students will need to learn Python the most, followed by handling SQL, R,        Machine learning and Excel in that order. When searching for a job as datascientist we found that Amsterdam momentarily has the most vacancies open in the Netherlands, followed by Utrecht, Leiden, Rotterdam and Delft.
+
+- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle   Excel the most, followed by HTML and a little bit of knowledge on SQL and R is sought after by employers. 
+
+- And lastly, for future marketing-analists it is useful to learn Excel, SQL, Python, R and Tableau. 
+
+
+
+
+
 
 ## Repository overview
 

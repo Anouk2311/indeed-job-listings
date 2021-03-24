@@ -5,6 +5,7 @@ This repository contains the entire workflow for our Online Data Collection & Ma
 
 
 ## Motivation
+
 The job market is becoming ever more competitive, as a student nowadays it is harder and harder to land the job of your dreams. Covid has even made it more challenging for recent graduates to find a fitting role after graduation. A lot of students complain about the gap between skills learned during their studies and the actual skills required in the workfield by companies. This motivates our investigation into Indeed job vacancy postings to find the skills that are actually required for different job types. 
 
 As Marketing Analytics students, we have both the marketing and analytical knowledge to succeed in a range of different job types in the field of marketing. We are interested in what the actual required skills are for jobs in fields related to our studies. Becoming a data scientist, data analist or maybe marketeer after our studies will require different skills and competencies and we would like to know to which degree we possess the skills and to which extent our study program effectively prepares us for the job market.
@@ -12,8 +13,6 @@ As Marketing Analytics students, we have both the marketing and analytical knowl
 We aspire to find insights to help ourselves and our fellow students in making a choice which skills to improve and perhaps which skills to forego in order to effectively land their first job. We aim to conduct our investigation in such a way that the methodology can be used by anyone for any location in the world and for any job type. First of all, for our fellow students, the keyword and location analysis provide easily interpretable tables to see which skills are in demand for each roles, together with the best locations for jobs in the Netherlands. Our entire project is accessible and usable. The entire workflow can be tweaked to your needs by simply changing the search term in the scraper. This makes our project valuable for all job seekers in the world, as they can reproduce our data scraping and analysis for their specific job wishes. 
 
 ## Method and results
-
-#Method
 
 For this project we decided to narrow down our investigation to the Netherlands. 3 of our 4 members originate from the Netherlands and since we and our classmates are all studying at Tilburg University in the Netherlands right now, job options in the Netherlands are most relevant to us. Furthermore, we decided to investigate the 4 jobs most closely related to our master in Marketing Analytics program, being data scientist, marketeer, data-analist and marketing-analist. By narrowing down the project by not including too many locations and job searches the project workflow will be much smoother and easier to reproduce for anyone interested in doing so. 
 
@@ -27,8 +26,6 @@ After cleaning the data we could start with the analysis. The most important par
 
 Afterwards we proceeded with location analysis, in this part, we scrutinized the frequency of the location for each seperate job. Resulting in a distinct plot for each job search with the associated location frequencies. The last step again was to combine all of the different plots into a single plot to facilitate comparisons. The final plot gave a good overview of which cities were the top cities for each job. We finalized our analysis with a salary analysis for the different jobs. First we removed the observations inthe dataset with no data on salary. Then we checked the top locations salary wise for each job title. Afterwards we finalized the analysis with a combined plot of top locations with the top salaries per job type. 
 
-
-#results of our analysis
 
 We will shortly discuss our main findings within this section. 
 We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers, followed by Microsoft Excel, Python and R. 

@@ -34,7 +34,7 @@ remove_duplicates <- function(dataset) {
 
 ## 2.2 remove dirty location strings ------------------------------------------
 words_to_remove <- c("-Zuidoost","oost" ,"Centrum", "noord", "zuid", "Zuid", "Noord",
-                     "Binnenstad", "-Zuid", "-Noord", "", "west", "wijk") 
+                     "Binnenstad", "-Zuid", "-Noord", "", "west","West", "wijk", "Westpoort") 
 
 remove_dirty_location <- function(dataset) {
   dataset <- dataset %>%
@@ -46,10 +46,12 @@ remove_dirty_location <- function(dataset) {
 ## 2.3 replace dirty location strings -----------------------------------------
 replace_dirty_location <- function(dataset) {
   dataset <- dataset %>%
-    mutate(location = str_replace_all(location, "Holland-", "Rotterdam")) %>% 
+    mutate(location = str_replace_all(location, "Holland-", "Remote")) %>% 
+    mutate(location = str_replace_all(location, "-Holland", "Remote")) %>%
+    mutate(location = str_replace_all(location, "-Brabant", "Remote")) %>%
     mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>% 
     mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>% 
-    mutate(location = str_replace_all(location, "Randstad", "Amsterdam")) %>% 
+    mutate(location = str_replace_all(location, "Randstad", "Remote")) %>% 
     mutate(location = str_replace_all(location, "Nederland", "Remote")) %>%
     mutate(location = str_replace_all(location, "Werk van thuis", "Remote")) %>% 
     mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))

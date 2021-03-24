@@ -8,161 +8,35 @@
 # 2.1.1 clean salary column, which has either hourly, monthly or yearly values. Convert values into yearly salary based on the number of working hours in a year for an average job
 # Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
-data_scientist_salary <- data_scientist %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
-  separate(salary1, into = c('salary1', 'salary2'), 
-           convert = TRUE, extra = 'drop') %>%
-  mutate(across(c(salary1, salary2),
-                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
-                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
-                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
-                                                              side = 'right', width = 5)),
-                            TRUE ~ as.numeric(.)))) %>% 
-  transmute(min_salary = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+remove_na <- function(dataset){
+  dataset<- dataset[!is.na(dataset$min_salary),]
+  # 2.1.2 discard the column X.1 as it is a duplicate of the index column 
+  dataset_salary$X.1 <- NULL
+  
+}
 
-# join the two data frames
-data_scientist_salary <- cbind(data_scientist, data_scientist_salary)
-
-data_scientist_salary <- data_scientist_salary[!is.na(data_scientist_salary$min_salary),]
-# 2.1.2 discard the column X.1 as it is a duplicate of the index column 
-data_scientist_salary$X.1 <- NULL
-
-
-## 2.2 data analist -----------------------------------------------------------
-# 2.2.1 clean salary column, which has either hourly, monthly or yearly values. Convert values into yearly salary based on the number of working hours in a year for an average job
-# Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
-
-data_analist_salary <- data_analist %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
-  separate(salary1, into = c('salary1', 'salary2'), 
-           convert = TRUE, extra = 'drop') %>%
-  mutate(across(c(salary1, salary2),
-                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
-                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
-                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
-                                                              side = 'right', width = 5)),
-                            TRUE ~ as.numeric(.)))) %>% 
-  transmute(min_salary = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-
-# join the two data frames
-data_analist_salary <- cbind(data_analist, data_analist_salary)
-data_analist_salary <- data_analist_salary[!is.na(data_analist_salary$min_salary),]
-
-# 2.2.2 discard the column X.1 as it is a duplicate of the index column 
-data_analist_salary$X.1 <- NULL
-
-
-## 2.3 marketing analist ------------------------------------------------------
-# 2.3.1 clean salary column, which has either hourly, monthly or yearly values. Convert values into yearly salary based on the number of working hours in a year for an average job
-# Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
-
-marketing_analist_salary  <- marketing_analist %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
-  separate(salary1, into = c('salary1', 'salary2'), 
-           convert = TRUE, extra = 'drop') %>%
-  mutate(across(c(salary1, salary2),
-                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
-                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
-                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
-                                                              side = 'right', width = 5)),
-                            TRUE ~ as.numeric(.)))) %>% 
-  transmute(min_salary = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-
-# join the two data frames
-marketing_analist_salary   <- cbind(marketing_analist, marketing_analist_salary  )
-marketing_analist_salary  <- marketing_analist_salary  [!is.na(marketing_analist_salary$min_salary),]
-
-# 2.2.2 discard the column X.1 as it is a duplicate of the index column 
-marketing_analist_salary$X.1 <- NULL
-
-
-## 2.4 marketeer --------------------------------------------------------------
-# 2.4.1 clean salary column, which has either hourly, monthly or yearly values. Convert values into yearly salary based on the number of working hours in a year for an average job
-# Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
-
-marketeer_salary  <- marketeer %>% 
-  mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã¢,Â¬]+')) %>% 
-  separate(salary1, into = c('salary1', 'salary2'), 
-           convert = TRUE, extra = 'drop') %>%
-  mutate(across(c(salary1, salary2),
-                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
-                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
-                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
-                                                              side = 'right', width = 5)),
-                            TRUE ~ as.numeric(.)))) %>% 
-  transmute(min_salary = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-
-
-# join the two data frames
-marketeer_salary  <- cbind(marketeer, marketeer_salary )
-marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$min_salary),]
-
-# 2.2.2 discard the column X.1 as it is a duplicate of the index column 
-marketeer_salary$X.1 <- NULL
-
+data_scientist_salary <- remove_na(data_scientist)
+data_analist_salary <- remove_na(data_analist)
+marketing_analist_salary <- remove_na(marketing_analist)
+marketeer_salary <- remove_na(marketeer)
 
 #average salaries per location for top locations for data scientists
+plot <- function(dataset){
+  dataset_avgsalary <- dataset_salary %>% 
+    group_by(location) %>%                 
+    summarise(average_salary = mean(min_salary)) 
+    #filter cities with over 30000 euro's average yearly salary
+  dataset_avgsalary  <- dataset_avgsalary %>%
+    filter(dataset_avgsalary$average_salary > 30000)
+  #build a plot of the locations with the highest average salary in the Netherlands
+  dataset_salary_plot <- ggplot(dataset_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+  
+}
 
-data_scientist_avgsalary <- data_scientist_salary %>% 
-  group_by(location) %>%                 
-  summarise(average_salary = mean(min_salary)) 
-
-#filter cities with over 30000 euro's average yearly salary
-data_scientist_avgsalary  <- data_scientist_avgsalary %>%
-  filter(data_scientist_avgsalary$average_salary > 30000)
-#build a plot of the locations with the highest average salary in the Netherlands
-data_scientist_salary_plot <- ggplot(data_scientist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-data_scientist_salary_plot
-
-
-#average salaries per location for top locations for data analists
-
-data_analist_avgsalary <- data_analist_salary %>% 
-  group_by(location) %>%                 
-  summarise(average_salary = mean(min_salary)) 
-
-#filter cities with over 30000 euro's average yearly salary
-data_analist_avgsalary <- data_analist_avgsalary  %>%
-  filter(data_analist_avgsalary$average_salary > 30000)
-
-#build a plot of the locations with the highest average salary in the Netherlands
-data_analist_salary_plot <- ggplot(data_analist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-data_analist_salary_plot
-
-
-
-
-#average salaries per location for top locations for marketing analists
-
-marketing_analist_avgsalary <-marketing_analist_salary %>% 
-  group_by(location) %>%                 
-  summarise(average_salary = mean(min_salary)) 
-
-#filter cities with over 30000 euro's average yearly salary
-marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
-  filter(marketing_analist_avgsalary$average_salary > 30000)
-
-#build a plot of the locations with the highest average salary in the Netherlands
-marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-marketing_analist_salary_plot
-
-
-
-
-#average salaries per location for top locations for  marketeers
-
-marketeer
-marketeer_avgsalary <- marketeer_salary %>% 
-  group_by(location) %>%                 
-  summarise(average_salary = mean(min_salary)) 
-
-#filter cities with over 30000 euro's average yearly salary
-marketeer_avgsalary <- marketeer_avgsalary %>%
-  filter(marketeer_avgsalary$average_salary > 30000)
-#build a plot of the locations with the highest average salary in the Netherlands
-marketeer_salary_plot <- ggplot(marketeer_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-marketeer_salary_plot
-
+data_scientist_avgsalary <- plot(data_scientist_salary)
+data_analist_avgsalary <- plot(data_analist_salary)
+marketing_analist_avgsalary <- plot(marketing_analist_salary)
+marketeer_avgsalary <- plot(marketeer_salary)
 
 #combined plot
 #first merge the different files

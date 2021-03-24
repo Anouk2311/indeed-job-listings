@@ -37,10 +37,6 @@ We will shortly discuss our main findings within this section.
 *How do we want to integrate salary in this?*
 
 
-
-
-
-
 ## Repository overview
 
 Our repository has the following structure:

@@ -26,13 +26,15 @@ Afterwards we proceeded with location analysis, in this part, we scrutinized the
 
 We will shortly discuss our main findings within this section. 
 
-- We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers,    followed by Microsoft Excel, Python and R.
+- We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers,    followed by Microsoft Excel, Python and R. Amsterdam momentarily has the most open vacancies where employers are searching for a data-analist, followed by Utrecht, Rotterdam, Den Haag and Eindhoven.
 
 - For becoming a data-scientist students will need to learn Python the most, followed by handling SQL, R,        Machine learning and Excel in that order. When searching for a job as datascientist we found that Amsterdam momentarily has the most vacancies open in the Netherlands, followed by Utrecht, Leiden, Rotterdam and Delft.
 
-- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle   Excel the most, followed by HTML and a little bit of knowledge on SQL and R is sought after by employers. 
+- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle   Excel the most, followed by HTML and a little bit of knowledge on SQL and R is sought after by employers.For future marketeers Amsterdam is the place with the most open vacancies at this moment, followed by Utrecht, Rotterdam, Eindhoven, Nijmegen and den Bosch. 
 
-- And lastly, for future marketing-analists it is useful to learn Excel, SQL, Python, R and Tableau. 
+- And lastly, for future marketing-analists it is useful to learn Excel, SQL, Python, R and Tableau. When searching for a job as a marketing analist we found that Amsterdam has the most open vacancies, followed by Rotterdam, Utrecht, Den Haag and Eindhoven.
+
+*How do we want to integrate salary in this?*
 
 
 

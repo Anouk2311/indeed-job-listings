@@ -119,7 +119,7 @@ download_descriptions_m <- function(m_ids) {
   counter = 1
   for (id in m_ids) {
     url = paste0("https://docs.google.com/spreadsheets/d/", id, "/export?format=csv")
-    path = paste0("../../data/marketing-analist/marketing-analist-descriptions-", counter, ".csv")
+    path = paste0("../../data/marketeer/marketeer-descriptions-", counter, ".csv")
     download.file(url, path)
     counter = counter + 1
   }

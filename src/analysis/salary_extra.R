@@ -31,33 +31,3 @@ df_salary <- data.frame(job, salary)
 
 plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) + geom_bar(stat='identity'))
 
-#average salaries per location for top locations 
-plotting_top_salaries <- function(dataset){
-  dataset_avgsalary <- dataset %>% 
-    group_by(location) %>%                 
-    summarise(average_salary = mean(salary_good)) 
-    #filter cities with over 30000 euro's average yearly salary
-  dataset_avgsalary  <- dataset_avgsalary %>%
-    filter(dataset_avgsalary$average_salary > 30000)
-  #build a plot of the locations with the highest average salary in the Netherlands
-  dataset_salary_plot <- ggplot(dataset_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-  
-}
-
-plot(data_scientist_avgsalary <- plotting_top_salaries(data_scientist_salary))
-plot(data_analist_avgsalary <- plotting_top_salaries(data_analist_salary))
-plot(marketing_analist_avgsalary <- plotting_top_salaries(marketing_analist_salary))
-plot(marketeer_avgsalary <- plotting_top_salaries(marketeer_salary))
-
-#combined plot
-#first merge the different files
-salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location")
-salary <- merge(salary, data_scientist_avgsalary, by = "location")
-salary <- merge(salary, marketing_analist_avgsalary, by = "location")
-colnames(salary) <- c("Location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
-#put all jobs in a column 
-salary <- melt(salary, id.vars="Location")
-colnames(salary) <- c("Location", "Job", "Salary")
-plot_salary <- ggplot(salary, aes(x= Location, y = Salary, fill=Job)) +
-  geom_bar(stat='identity', position='dodge') + coord_flip()
-plot_salary

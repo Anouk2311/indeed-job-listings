@@ -61,8 +61,8 @@ replace_dirty_location <- function(dataset) {
 ## 2.4 convert salary data
 
 convert_salary <- function(dataset) {
-    dataset <- dataset %>% 
-    mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã.Â¢,Ã.Â¬]+')) %>% 
+    dataset_salary <- dataset %>% 
+    mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã.Â¢,Ã.Â¬,â,¬.]+')) %>% 
     separate(salary1, into = c('salary1', 'salary2'), 
              convert = TRUE, extra = 'drop') %>%
     mutate(across(c(salary1, salary2),
@@ -71,11 +71,11 @@ convert_salary <- function(dataset) {
                               nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
                                                                 side = 'right', width = 5)),
                               TRUE ~ as.numeric(.)))) %>% 
-    transmute(min_salary = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+    transmute(salary_good = rowMeans(select(., salary1, salary2), na.rm = TRUE))
   
   # join the two data frames
-  #dataset <- cbind(dataset, dataset_salary)
-  dataset$X.1 <- NULL
+  dataset <- cbind(dataset, dataset_salary)
+ # dataset$X.1 <- NULL
 }
 
 ### 3. apply functions for cleaning -------------------------------------------
@@ -100,7 +100,7 @@ data_scientist <- convert_salary(data_scientist)
 data_analist <- remove_duplicates(data_analist)
 data_analist <- remove_dirty_location(data_analist)
 data_analist <- replace_dirty_location(data_analist)
-data_analist <- convert_salary(data_analist)
+data_analist <- convert_salary(data_)
 ## 3.3 marketing analist ------------------------------------------------------
 marketing_analist <- remove_duplicates(marketing_analist)
 marketing_analist <- remove_dirty_location(marketing_analist)

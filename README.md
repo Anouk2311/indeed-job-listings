@@ -24,7 +24,7 @@ After cleaning the data we could start with the analysis. The most important par
 
 Afterwards we proceeded with location analysis, in this part, we scrutinized the frequency of the location for each seperate job. Resulting in a distinct plot for each job search with the associated location frequencies. The last step again was to combine all of the different plots into a single plot to facilitate comparisons. The final plot gave a good overview of which cities were the top cities for each job. We finalized our analysis with a salary analysis for the different jobs. First we removed the observations inthe dataset with no data on salary. Then we checked the top locations salary wise for each job title. Afterwards we finalized the analysis with a combined plot of top locations with the top salaries per job type.
 
-We will shortly discuss our main findings within this section. 
+In the following section we give a short overview of the main findings from our analysis. 
 
 - We find that for data-analist jobs, handling databases with SQL is the most sought after skill by employers,    followed by Microsoft Excel, Python and R. Amsterdam momentarily has the most open vacancies where employers are searching for a data-analist, followed by Utrecht, Rotterdam, Den Haag and Eindhoven.
 

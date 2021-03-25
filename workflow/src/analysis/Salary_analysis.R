@@ -9,17 +9,23 @@
 # Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
 remove_na <- function(dataset){
-  dataset<- dataset[!is.na(dataset$min_salary),]
-  # 2.1.2 discard the column X.1 as it is a duplicate of the index column 
-  dataset_salary$X.1 <- NULL
-  
-}
+  dataset <- dataset[!is.na(dataset$min_salary),]
+ }
 
 data_scientist_salary <- remove_na(data_scientist)
 data_analist_salary <- remove_na(data_analist)
 marketing_analist_salary <- remove_na(marketing_analist)
 marketeer_salary <- remove_na(marketeer)
 
+#exploring salary data
+avg_salary_data_science <- mean(data_scientist_salary$min_salary)
+avg_salary_data_analist <- mean(data_analist_salary$min_salary)
+avg_salary_marketing_analist <- mean(marketing_analist_salary$min_salary)
+avg_salary_marketeer <- mean(marketeer_salary$min_salary)
+
+df_salary <- as.data.frame(avg_salary_data_science, avg_salary_data_analist, avg_salary_marketing_analist, avg_salary_marketeer)
+
+ggplot(df_salary, aes(x = job, y = salary)) + geom_bar(stat='identity')
 #average salaries per location for top locations for data scientists
 plot <- function(dataset){
   dataset_avgsalary <- dataset_salary %>% 

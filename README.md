@@ -87,7 +87,7 @@ Explain to potential users how to run/replicate your workflow. Touch upon, if ne
 
 ## More resources
 
-Point interested users to any related literature and/or documentation.
+For this project we did not use related papers or previous studies. [Tilburg science hub](https://tilburgsciencehub.com/) did help us greatly in understanding on how to make this project from beginning to end. Have a look at the website to learn more about efficiently carrying out data- and computation-intensive projects.
 
 ## About
 

@@ -306,7 +306,7 @@ marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clea
 ### 3.1 Location frequency data science
 
 ```{r}
-data_scientist_location <- as.data.frame(table(data_scientist_location$location_trimmed))
+data_scientist_location <- as.data.frame(table(data_scientist$location))
 data_scientist_location <- data_scientist_location %>% filter(Freq > 10)
 data_scientist_location$Location <- data_scientist_location$Var1
 data_scientist_location_plot <- ggplot(data_scientist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
@@ -316,7 +316,7 @@ data_scientist_location_plot
 ### 3.2 Location frequency data analist
 
 ```{r}
-data_analist_location <- as.data.frame(table(data_analist_location$location_trimmed))
+data_analist_location <- as.data.frame(table(data_analist$location))
 data_analist_location <- data_analist_location %>% filter(Freq > 10)
 data_analist_location$Location <- data_analist_location$Var1
 data_analist_location_plot <- ggplot(data_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
@@ -325,7 +325,7 @@ data_analist_location_plot
 
 ### 3.3 Location frequency marketing analist
 ```{r}
-marketing_analist_location <- as.data.frame(table(marketing_analist_location$location_trimmed))
+marketing_analist_location <- as.data.frame(table(marketing_analist$location))
 marketing_analist_location <- marketing_analist_location %>% filter(Freq > 10)
 marketing_analist_location$Location <- marketing_analist_location$Var1
 marketing_analist_location_plot <- ggplot(marketing_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
@@ -335,7 +335,7 @@ marketing_analist_location_plot
 ### 3.4 Location frequency marketeer
 
 ```{r}
-marketeer_location<- as.data.frame(table(marketeer_location$location_trimmed))
+marketeer_location<- as.data.frame(table(marketeer$location))
 marketeer_location <- marketeer_location %>% filter(Freq > 10)
 marketeer_location$Location <- marketeer_location$Var1
 marketeer_location_plot <- ggplot(marketeer_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
@@ -370,7 +370,9 @@ marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 - Converting the values into yearly salary based on the number of working hours in a year for an average job
 - Important to note is that in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
-### 4.1 Salary analysis for data scientist
+### 4.1 Salary analysis
+
+Cleaning the salary data
 
 ```{r}
 data_scientist_salary <- data_scientist %>% 
@@ -384,34 +386,14 @@ data_scientist_salary <- data_scientist %>%
                                                               side = 'right', width = 5)),
                             TRUE ~ as.numeric(.)))) %>% 
   transmute(min_salary_ds = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-```
 
-```{r}
-# join the two data frames
 data_scientist_salary <- cbind(data_scientist, data_scientist_salary)
 
 data_scientist_salary <- data_scientist_salary[!is.na(data_scientist_salary$min_salary_ds),]
 # discard the column X.1 as it is a duplicate of the index column 
 data_scientist_salary$X.1 <- NULL
-```
 
-```{r}
-# average salaries per location for top locations for data scientists
-data_scientist_avgsalary <- data_scientist_salary %>% 
-  group_by(location_trimmed) %>%                 
-  summarise(average_salary = mean(min_salary_ds)) 
 
-# filter cities with over 30000 euro's average yearly salary
-data_scientist_avgsalary  <- data_scientist_avgsalary %>%
-  filter(data_scientist_avgsalary$average_salary > 30000)
-# build a plot of the locations with the highest average salary in the Netherlands
-data_scientist_salary_plot <- ggplot(data_scientist_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-data_scientist_salary_plot
-```
-
-### 4.2 Salary analysis for data analist
-
-```{r}
 data_analist_salary <- data_analist %>% 
   mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
@@ -423,36 +405,16 @@ data_analist_salary <- data_analist %>%
                                                               side = 'right', width = 5)),
                             TRUE ~ as.numeric(.)))) %>% 
   transmute(min_salary_da = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-```
 
-```{r}
 # join the two data frames
 data_analist_salary <- cbind(data_analist, data_analist_salary)
 data_analist_salary <- data_analist_salary[!is.na(data_analist_salary$min_salary_da),]
 
 # discard the column X.1 as it is a duplicate of the index column 
 data_analist_salary$X.1 <- NULL
-```
 
 
-```{r}
-# average salaries per location for top locations for data analists
-data_analist_avgsalary <- data_analist_salary %>% 
-  group_by(location_trimmed) %>%                 
-  summarise(average_salary = mean(min_salary_da)) 
 
-# filter cities with over 30000 euro's average yearly salary
-data_analist_avgsalary <- data_analist_avgsalary  %>%
-  filter(data_analist_avgsalary$average_salary > 30000)
-
-# build a plot of the locations with the highest average salary in the Netherlands
-data_analist_salary_plot <- ggplot(data_analist_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-data_analist_salary_plot
-```
-
-### 4.3 Salary analysis for marketing analist
-
-```{r}
 marketing_analist_salary  <- marketing_analist %>% 
   mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
@@ -464,35 +426,15 @@ marketing_analist_salary  <- marketing_analist %>%
                                                               side = 'right', width = 5)),
                             TRUE ~ as.numeric(.)))) %>% 
   transmute(min_salary_ma = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-```
 
-```{r}
 # join the two data frames
 marketing_analist_salary   <- cbind(marketing_analist, marketing_analist_salary  )
 marketing_analist_salary  <- marketing_analist_salary  [!is.na(marketing_analist_salary$min_salary_ma),]
 
 # discard the column X.1 as it is a duplicate of the index column 
 marketing_analist_salary$X.1 <- NULL
-```
 
-```{r}
-# average salaries per location for top locations for marketing analists
-marketing_analist_avgsalary <-marketing_analist_salary %>% 
-  group_by(location_trimmed) %>%                 
-  summarise(average_salary = mean(min_salary_ma)) 
 
-# filter cities with over 30000 euro's average yearly salary
-marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
-  filter(marketing_analist_avgsalary$average_salary > 30000)
-
-# build a plot of the locations with the highest average salary in the Netherlands
-marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
-marketing_analist_salary_plot
-```
-
-### 4.4 Salary analysis for marketeer
-
-```{r}
 marketeer_salary  <- marketeer %>% 
   mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
@@ -504,9 +446,7 @@ marketeer_salary  <- marketeer %>%
                                                               side = 'right', width = 5)),
                             TRUE ~ as.numeric(.)))) %>% 
   transmute(min_salary_m = rowMeans(select(., salary1, salary2), na.rm = TRUE))
-```
 
-```{r}
 # join the two data frames
 marketeer_salary  <- cbind(marketeer, marketeer_salary )
 marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$min_salary_m),]
@@ -514,29 +454,98 @@ marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$min_salary_m),]
 # discard the column X.1 as it is a duplicate of the index column 
 marketeer_salary$X.1 <- NULL
 ```
+### mean salaries per job 
+```{r}
+
+#finding the mean salary per job
+avg_salary_data_science <- mean(data_scientist_salary$salary_good)
+avg_salary_data_analist <- mean(data_analist_salary$salary_good)
+avg_salary_marketing_analist <- mean(marketing_analist_salary$salary_good)
+avg_salary_marketeer <- mean(marketeer_salary$salary_good)
+
+job <- c("Data Scientist","Data analist",  "Marketing analist", "Marketeer")
+salary <- c( avg_salary_data_science, avg_salary_data_analist, avg_salary_marketing_analist, avg_salary_marketeer)
+
+df_salary <- data.frame(job, salary)
+
+plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) + geom_bar(stat='identity'))
+
+```
+
+### top locations for data scientists
+
+```{r}
+# average salaries per location for top locations for data scientists
+data_scientist_avgsalary <- data_scientist_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+data_scientist_avgsalary  <- data_scientist_avgsalary %>%
+  filter(data_scientist_avgsalary$average_salary > 30000)
+# build a plot of the locations with the highest average salary in the Netherlands
+data_scientist_salary_plot <- ggplot(data_scientist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+data_scientist_salary_plot
+```
+
+### top locations for data analist
+
+```{r}
+# average salaries per location for top locations for data analists
+data_analist_avgsalary <- data_analist_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+data_analist_avgsalary <- data_analist_avgsalary  %>%
+  filter(data_analist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+data_analist_salary_plot <- ggplot(data_analist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+data_analist_salary_plot
+```
+
+### top locations for marketing analist
+
+```{r}
+# average salaries per location for top locations for marketing analists
+marketing_analist_avgsalary <-marketing_analist_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
+  filter(marketing_analist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+marketing_analist_salary_plot
+```
+
+### top locations for marketeer
 
 ```{r}
 # average salaries per location for top locations for  marketeers
 marketeer_avgsalary <- marketeer_salary %>% 
-  group_by(location_trimmed) %>%                 
-  summarise(average_salary = mean(min_salary_m)) 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
 
 # filter cities with over 30000 euro's average yearly salary
 marketeer_avgsalary <- marketeer_avgsalary %>%
   filter(marketeer_avgsalary$average_salary > 30000)
 # build a plot of the locations with the highest average salary in the Netherlands
-marketeer_salary_plot <- ggplot(marketeer_avgsalary, aes(x = location_trimmed, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
+marketeer_salary_plot <- ggplot(marketeer_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
 marketeer_salary_plot
 ```
 
-### 4.5 Getting insights into comparing the salaries of the 4 job titles
+### 4.5 Getting insights into comparing the salaries of the 4 job titles on the best locations
 
 ```{r}
 # combined plot
 # first merge the different files
-salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location_trimmed")
-salary <- merge(salary, data_scientist_avgsalary, by = "location_trimmed")
-salary <- merge(salary, marketing_analist_avgsalary, by = "location_trimmed")
+salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location")
+salary <- merge(salary, data_scientist_avgsalary, by = "location")
+salary <- merge(salary, marketing_analist_avgsalary, by = "location")
 colnames(salary) <- c("Location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
 # put all jobs in a column 
 salary <- melt(salary, id.vars="Location")

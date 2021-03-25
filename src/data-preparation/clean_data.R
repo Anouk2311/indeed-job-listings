@@ -33,7 +33,7 @@ remove_duplicates <- function(dataset) {
 }
 
 ## 2.2 remove dirty location strings ------------------------------------------
-words_to_remove <- c("-Zuidoost","oost" ,"Centrum", "noord", "zuid",  "Binnenstad", "-Zuid", "-Noord", " Noord"," Zuid",  "west","West", "wijk", "Westpoort") 
+words_to_remove <- c("-Zuidoost","-Zuidwest","Zuidoost","Zuidwest",  "oost" ,"Centrum", "noord", "zuid",  "Binnenstad","-West", "-Oost", " West", " Oost" ,"-Zuid", "-Noord", " Noord"," Zuid","West", "wijk", "Westpoort") 
 
 remove_dirty_location <- function(dataset) {
   dataset <- dataset %>%

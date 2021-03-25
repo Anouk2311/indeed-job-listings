@@ -37,13 +37,9 @@ percentage <- function(dataset){
   occurences_dataset <- colSums(subset_dataset != 0)
   percentage_dataset <- occurences_dataset/nrow(subset_dataset)
   percentage_dataset <- as.data.frame(percentage_dataset)
-  #percentage_dataset$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R")
+  
 }
-#
-#percentage_plot <- function(dataset) {
-  #percentage_plot_dataset <- ggplot(data=percentage_dataset, aes(x=Skill, y=percentage_dataset)) + geom_bar(stat="identity") + coord_flip()
- # percentage_plot_dataset
-#}
+
 
 data_scientist <- add_skills(data_scientist)
 data_scientist_count_plot <- count_plot(data_scientist)
@@ -83,6 +79,6 @@ colnames(percentage_combined) <- c("Skill", "marketeer", "data_analist", "data_s
 
 df <- melt(percentage_combined, id.vars="Skill")
 colnames(df) <- c("Skill", "Job", "Occurence")
-plot_skills <- ggplot(df, aes(x= Skill, y = Occurence, fill=Job)) +
-  geom_bar(stat='identity', position='dodge') + coord_flip()
-plot_skills
+plot(plot_skills <- ggplot(df, aes(x= Skill, y = Occurence, fill=Job)) +
+  geom_bar(stat='identity', position='dodge') + coord_flip())
+

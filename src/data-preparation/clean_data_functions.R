@@ -4,6 +4,7 @@ library(stringr)
 library(tidyr)
 library(ggplot2)
 library(reshape2)
+
 ### 1. load datasets into R ---------------------------------------------------
 ## 1.1 data scientist ---------------------------------------------------------
 data_scientist <- read.csv('../../gen/data-preparation/temp/data_scientist_merged.csv',
@@ -59,10 +60,9 @@ replace_dirty_location <- function(dataset) {
 }
 
 ## 2.4 convert salary data
-
 convert_salary <- function(dataset) {
     dataset_salary <- dataset %>% 
-    mutate(salary1 = str_remove_all(salary, '[^0-9-,Ã.Â¢,Ã.Â¬,â,¬.]+')) %>% 
+    mutate(salary1 = str_remove_all(salary, '[^0-9-,?.Â¢,?.Â¬,?,?.]+')) %>% 
     separate(salary1, into = c('salary1', 'salary2'), 
              convert = TRUE, extra = 'drop') %>%
     mutate(across(c(salary1, salary2),
@@ -96,21 +96,25 @@ data_scientist <- remove_duplicates(data_scientist)
 data_scientist <- remove_dirty_location(data_scientist)
 data_scientist <- replace_dirty_location(data_scientist)
 data_scientist <- convert_salary(data_scientist)
+
 ## 3.2 data analist -----------------------------------------------------------
 data_analist <- remove_duplicates(data_analist)
 data_analist <- remove_dirty_location(data_analist)
 data_analist <- replace_dirty_location(data_analist)
-data_analist <- convert_salary(data_)
+data_analist <- convert_salary(data_analist)
+
 ## 3.3 marketing analist ------------------------------------------------------
 marketing_analist <- remove_duplicates(marketing_analist)
 marketing_analist <- remove_dirty_location(marketing_analist)
 marketing_analist <- replace_dirty_location(marketing_analist)
 marketing_analist <- convert_salary(marketing_analist)
+
 ## 3.4 marketeer -------------------------------------------------------------
 marketeer <- remove_duplicates(marketeer)
 marketeer <- remove_dirty_location(marketeer)
 marketeer <- replace_dirty_location(marketeer)
 marketeer <- convert_salary(marketeer)
+
 
 ### 4. save cleaned data ------------------------------------------------------
 # create directories

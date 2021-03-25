@@ -63,7 +63,7 @@ ma_descriptions_3 <- read.csv("../../data/marketing-analist/marketing-analist-de
 ma_descriptions_4 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-4.csv", sep=',')
 ma_descriptions_5 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-5.csv", sep=',')
 ma_descriptions_6 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-6.csv", sep=',')
-ma_descriptions_7 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-7", sep=',')
+ma_descriptions_7 <- read.csv("../../data/marketing-analist/marketing-analist-descriptions-7.csv", sep=',')
 
 ## 1.4 marketeer --------------------------------------------------------------
 # listings

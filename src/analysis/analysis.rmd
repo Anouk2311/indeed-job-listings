@@ -4,6 +4,21 @@ output:
   pdf_document: default
   html_document: default
 ---
+### 1. Introduction 
+The job market is becoming ever more competitive, as a student nowadays it is harder and harder to land the job of your dreams. COVID-19 has even made it more challenging for recent graduates to find a fitting role after graduation. A lot of students complain about the gap between skills learned during their studies and the actual skills required in the workfield by companies. This motivates our investigation into Indeed job vacancy postings to find the skills that are actually required for different job types.
+
+As Marketing Analytics students, we have both the marketing and analytical knowledge to succeed in a range of different job types in the field of marketing. We are interested in what the actual required skills are for jobs in fields related to our studies. Becoming a data scientist, data analist or maybe marketeer after our studies will require different skills and competencies and we would like to know to which degree we possess these skills and to which extent our study program effectively prepares us for the job market.
+
+We aspire to find insights to help ourselves as well as our fellow students in making a choice relating to which skills to improve and perhaps which skills to forego in order to effectively land their first job. We aim to conduct our investigation in such a way that the methodology can be used by anyone for any location in the world and for any job type on Indeed.com. First of all, for our fellow students, the keyword and location analysis provide easily interpretable tables to see which skills are in demand for each roles, together with the best locations for jobs in the Netherlands. Our entire project is accessible and usable. The entire workflow can be tweaked to your needs by simply changing the search term in the scraper. This makes our project valuable for all job seekers in the world, as they can reproduce our data scraping and analysis for their specific job wishes.
+
+For this project we decided to narrow down our investigation to the Netherlands. Three of our four members originate from the Netherlands and since we and our classmates are all studying at Tilburg University in the Netherlands right now, job options in the Netherlands are most relevant to us. Furthermore, we decided to investigate the 4 jobs most closely related to our master in Marketing Analytics program, being data scientist, marketeer, data-analist and marketing-analist. By narrowing down the project by not including too many locations and job searches, the project workflow will be much smoother and easier to reproduce for anyone interested in doing so.
+
+### 2. Methodology
+
+First, we built a web scraper that scrapes the vital information of each job posting associated with a specific job search. We used the BeautifulSoup package to collect job ids, job titles, salary, company name, dates, job summary and salaries if available. Afterwards, we scraped the job descriptions of the same search results to obtain the job descriptions of each job posting in a seperate dataset by using a chrome webdriver with Python Selenium. Due to restrictions with captcha's, we collected multiple small batches of datasets per search term. In R we merged the data into one big file per search term by joining the datasets on the unique job id that serves as an identifier for each seperate job advert on Indeed. After merging the files into one dataset per search term, we cleaned the data by removing duplicate entries and by cleaning up messy string location names. Location names such as Amsterdam Zuid or Velsen Noord were unwanted because they would appear as two distinct location in our analysis. Therefore, we wrote a function that removed all such extra unnecessary information in the location strings. We added a function that replaced certain unspecified locations such as Nederland or Randstad into Remote, signifying that a job did not specify a specific location.
+
+The final step in the cleaning process was cleaning the salary data. The salary data was quite sparse and also very messy. Roughly three-quarters of the data was missing, and for the data available, different measures were given. Some jobs gave hourly salary rates, whereas other jobs utilized monthly or yearly income as a salary measure. We made a function that removes unnecessary character strings in the salary data and converted all different salary measures into yearly income as a standard. We calculated yearly income for hourly rates based on 40 hour work week. We multiplied the hourly rate * 40 * 4 * 12 to get a yearly income rate based on the hourly wage. For the monthly income, we simply multiplied with 12 to arrive at yearly income. Quite a few jobs gave a salary range instead of a fixed number. For those jobs, we decided to take the middle of the range. We kept the obersrvations with missing values for salary in the dataset for the first part of the analysis because it would significantly reduce the number of observations otherwise.
+
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(reshape)
@@ -21,9 +36,9 @@ marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analis
 marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-# 1. Overview of the data
-
-### 1.1 This is how the data_scientist data set looks like:
+# 3. Overview of the data
+After downloading and merging data we have 4 datasets in total. 1 dataset per search term for the following search terms: Data Scientist, Data Analist, Marketing Analist and Marketeer. The following section will provide a short overview of how the datasets look like. 
+### 3.1 This is how the data_scientist data set looks like:
 We can see that there are `r length(data_scientist$X)` job listings. It contains `r ncol(data_scientist)` columns.
 
 ```{r}
@@ -37,7 +52,7 @@ summary(data_scientist)
 ```
 
 
-### 1.2 This is how the data_analist data set looks like:
+### 3.2 This is how the data_analist data set looks like:
 We can see that there are `r length(data_analist$X)` job listings. It contains `r ncol(data_analist)` columns.
 
 ```{r}
@@ -50,7 +65,7 @@ Here can be observed a summary of data_analist.
 summary(data_analist)
 ```
 
-### 1.3 This is how the marketing_analist data set looks like:
+### 3.3 This is how the marketing_analist data set looks like:
 We can see that there are `r length(marketing_analist$X)` job listings. It contains `r ncol(marketing_analist)` columns.
 
 ```{r}
@@ -63,7 +78,7 @@ Here can be observed a summary of marketing_analist.
 summary(marketing_analist)
 ```
 
-### 1.4 This is how the marketeer data set looks like:
+### 3.4 This is how the marketeer data set looks like:
 We can see that there are `r length(marketeer$X)` job listings. It contains `r ncol(marketeer)` columns.
 
 ```{r}
@@ -76,7 +91,10 @@ Here can be observed a summary of marketeer.
 summary(marketeer)
 ```
 
-# 2. Looking at the frequency of some core skills from the job descriptions
+### 4. Keyword Analysis
+
+In the following sections we provide the analysis for our research. We performed 3 types of analysises. 1: skill keyword analysis, in which we analyze the frequency of occurence for certain technical skills related to marketing analaytics. 2: location analysis, after knowing the right skills to pursue for the next job we provide a location analysis in which we investigate what the top locations for our 4 jobs. 3: salary analysis, we finish with a short analysis of average salaries for each job and the best locations salary wise for each job. 
+
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
@@ -85,7 +103,7 @@ marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analis
 marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-### 2.1 Getting the skill counts for the most important skills in data science jobs
+### 4.1 Getting the skill counts for the most important skills in data science jobs
 
 ```{r}
 skills_data_science <- data_scientist %>%
@@ -136,7 +154,7 @@ percentage_plot_data_science
 The percentage plot shows us that the percentage analysis bears quite similar results to the count analysis. Again Python, R, machine learning and SQL are the most important skills. However, the difference between Python and the other skills is bigger in terms of percentage occurrence than in count. Also in percentage terms, Excel is becoming more important, catching up with the top 4 skills and being almost equally important as machine learning.  
 
 
-### 2.2 Getting the skill counts for the most important skills in data_analist jobs
+### 4.2 Getting the skill counts for the most important skills in data_analist jobs
 
 ```{r}
 skills_data_analist <- data_analist %>%
@@ -188,7 +206,7 @@ percentage_plot_data_analist
 Again similar results for the percentage analysis. However, the difference between SQL and Excel is declining, with both being almost equally important. Also the difference with number 3 Python seems slightly smaller than in the count analysis. Again other important skills are R, Power BI and Tableau. 
 
 
-### 2.3 Getting the skill counts for the most important skills in marketing_analist jobs
+### 4.3 Getting the skill counts for the most important skills in marketing_analist jobs
 
 ```{r}
 skills_marketing_analist <- marketing_analist %>%
@@ -238,7 +256,7 @@ percentage_plot_marketing_analist
 
 The Percentage plot shows very similar results to the count plot. Again, Excel is the clear winner, with mentions in over 1/3 of the job descriptions. sQL, Python, R and Tableau follow on respected distance with all being roughly equally relevant for marketing analysts to learn. 
 
-### 2.4 Getting the skill counts for the most important skills in marketeer jobs
+### 4.4 Getting the skill counts for the most important skills in marketeer jobs
 
 ```{r}
 skills_marketeer <- marketeer %>%
@@ -288,7 +306,7 @@ percentage_plot_marketeer
 
 Similar results in percentage, which show that the technical skills get mentioned really infrequently in the job advertisements. Excel the winner in terms of technical skills gets mentioned in only 8 percent of job ads. Compared with winner skills for other job searches reaching over 30-40 %, there is a clear difference in the job requirements for marketeers. 
 
-### 2.5 Getting insights into comparing the skills from the 4 job titles
+### 4.5 Getting insights into comparing the skills from the 4 job titles
 #### Combining the seperate bar charts presented above into one bar graph, to conveniently compare the skills occurence for our 4 job searches. In the following section we will provide a comprehensive graph which shows each skill percentage occurrence for each job next to eachother. In order to facilitate direct comparison. 
 
 ```{r}
@@ -309,7 +327,7 @@ plot_skills
 ```
 The top 4 skills in general are Python, R, SQL and Excel. With data scientist relying heavily on Python whereas fo marketing and data analysts it might be more fruitful to invest in your SQL skills. There seems a clear discrepancy between the R and SPSS heavy academic courses and the actual skills required by companies, more focused on SQL and Python to perform job tasks. Especially SQL is completely missing from the Master in Marketing analytics curriculum. Whereas Python is available in a few courses only. 
 
-# 3. Location frequency analysis
+# 5. Location frequency analysis
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 data_scientist_location <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
@@ -318,7 +336,7 @@ marketing_analist_location <- read.csv("../../gen/data-preparation/output/market
 marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-### 3.1 Location frequency data science
+### 5.1 Location frequency data science
 
 ```{r}
 data_scientist_location <- as.data.frame(table(data_scientist$location))
@@ -329,7 +347,7 @@ data_scientist_location_plot
 ```
 Amsterdam seems the place to be as a data scientist, with counts over 200, or roughly 1/3 of the entire number of jobs posted being in Amsterdam. Furthermore, as expected, the randstad features the most in job ads, with Utrecht, Rotterdam and Leiden coming in high as well. Outside of the randstad, Noord-Brabant in the form of Eindhoven and Den Bosch provide a decent number of  job opportunities. 
 
-### 3.2 Location frequency data analist
+### 5.2 Location frequency data analist
 
 ```{r}
 data_analist_location <- as.data.frame(table(data_analist$location))
@@ -340,7 +358,7 @@ data_analist_location_plot
 ```
 For data analysts, the picture is quite similar. Amsterdam again is the clear winner in terms of number of jobs offered, however, Utrecht seems relatively more important for data analysts compared to data scientists. Rotterdam again is number 3, with Den Haag and Eindhoven completing the top 5 in terms of locations. 
 
-### 3.3 Location frequency marketing analist
+### 5.3 Location frequency marketing analist
 
 ```{r}
 marketing_analist_location <- as.data.frame(table(marketing_analist$location))
@@ -350,7 +368,7 @@ marketing_analist_location_plot <- ggplot(marketing_analist_location, aes(x = Lo
 marketing_analist_location_plot
 ```
 For Marketing analysts we see the same top 5 as for data analysts. However, Utrecht, Rotterdam and Den Haag all have almost equal counts of Job offers and Amsterdam is a way more pronounced winner for Marketing analysts than for the other jobs scrutinized before. 
-### 3.4 Location frequency marketeer
+### 5.4 Location frequency marketeer
 
 ```{r}
 marketeer_location<- as.data.frame(table(marketeer$location))
@@ -360,7 +378,7 @@ marketeer_location_plot <- ggplot(marketeer_location, aes(x = Location, y = Freq
 marketeer_location_plot
 ```
 For Marketeers, it seems that there are more opportunities outside of the randstad available compared to the 3 data related jobs. Cities as Breda, Arnhem, Deventer and Nijmegen come in quite close to the randstad cities such as Rotterdam and Utrecht, suggesting that the job opportunities for marketeers are more evenly spread across the country. 
-### 3.5 Getting insights into comparing the locations of the 4 job titles
+### 5.5 Getting insights into comparing the locations of the 4 job titles
 ```{r}
 location <- merge(marketeer_location, data_analist_location, by = "Location")
 location <- merge(location, data_scientist_location, by = "Location")
@@ -379,8 +397,7 @@ This graph show the top 5(plus remote) locations for job ads. As expected, Amste
 
 Now that we know what the most important skills are to learn for our 4 jobs and also what the best cities are to go to, to find a job quickly, we analyze the best jobs and locations in terms of pay. 
 
-# 4. Salary analysis
-The salary data needs to be cleaned first. 
+
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
 data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
@@ -388,13 +405,9 @@ marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analis
 marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-- Cleaning the salary column, which has either hourly, monthly or yearly values.
-- Converting the values into yearly salary based on the number of working hours in a year for an average job
-- Important to note is that in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
 
-### 4.1 Salary analysis
 
-Cleaning the salary data
+### 6 Salary analysis
 
 ```{r}
 data_scientist_salary <- data_scientist %>% 
@@ -476,7 +489,7 @@ marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$min_salary_m),]
 # discard the column X.1 as it is a duplicate of the index column 
 marketeer_salary$X.1 <- NULL
 ```
-### mean salaries per job 
+### 6.1 mean salaries per job 
 ```{r}
 
 #finding the mean salary per job
@@ -494,7 +507,7 @@ plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) + geom_bar(
 
 ```
 
-### top locations for data scientists
+### 6.2 top locations in terms of salary for data scientists
 
 ```{r}
 # average salaries per location for top locations for data scientists
@@ -510,7 +523,7 @@ data_scientist_salary_plot <- ggplot(data_scientist_avgsalary, aes(x = location,
 data_scientist_salary_plot
 ```
 
-### top locations for data analist
+### 6.3 top locations in terms of salary for data analysts
 
 ```{r}
 # average salaries per location for top locations for data analists
@@ -527,7 +540,7 @@ data_analist_salary_plot <- ggplot(data_analist_avgsalary, aes(x = location, y =
 data_analist_salary_plot
 ```
 
-### top locations for marketing analist
+### 6.4 top locations in terms of salary for marketing analysts
 
 ```{r}
 # average salaries per location for top locations for marketing analists
@@ -544,7 +557,7 @@ marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary, aes(x = loc
 marketing_analist_salary_plot
 ```
 
-### top locations for marketeer
+### 6.5 top locations in terms of salary for marketeers
 
 ```{r}
 # average salaries per location for top locations for  marketeers
@@ -560,7 +573,7 @@ marketeer_salary_plot <- ggplot(marketeer_avgsalary, aes(x = location, y = avera
 marketeer_salary_plot
 ```
 
-### 4.5 Getting insights into comparing the salaries of the 4 job titles on the best locations
+### 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations
 
 ```{r}
 # combined plot

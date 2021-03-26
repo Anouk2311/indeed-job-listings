@@ -8,6 +8,6 @@ analyze: ../../gen/analysis/output/analysis.pdf
 	R -e "rmarkdown::render('analysis.Rmd', output_file = '../../gen/analysis/output/analysis.pdf')"
 
 ../../gen/analysis: analysis.R
-	../../gen/analysis
-	../../gen/analysis/output
+	mkdir ../../gen/analysis
+	mkdir ../../gen/analysis/output
 	

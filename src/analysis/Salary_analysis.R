@@ -22,13 +22,13 @@ top_salaries <- function(dataset){
     summarise(average_salary = mean(salary_good)) 
   #filter cities with over 30000 euro's average yearly salary
   dataset_avgsalary  <- dataset_avgsalary %>%
-    filter(dataset_avgsalary$average_salary > 30000)
+    filter(dataset_avgsalary$average_salary > 30000 & average_salary < 300000)
 }
 
 data_scientist_avgsalary <- top_salaries(data_scientist)
 data_analist_avgsalary<- top_salaries(data_analist)
 marketing_analist_avgsalary <- top_salaries(marketing_analist)
-marketeer_avgsalary <- top_salaries(data_analist)
+marketeer_avgsalary <- top_salaries(marketeer)
 
 #combined plot with the best locations and their salaries for each of the 4 jobs
 #first merge the different files
@@ -37,7 +37,7 @@ salary <- merge(salary, data_scientist_avgsalary, by = "location")
 salary <- merge(salary, marketing_analist_avgsalary, by = "location")
 colnames(salary) <- c("Location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
 #put all jobs in a column 
-salary <- melt(salary, id.vars="location")
+salary <- melt(salary, id.vars="Location")
 colnames(salary) <- c("Location", "Job", "Salary")
 
 plot_salary <- ggplot(salary, aes(x= Location, y = Salary, fill=Job)) +

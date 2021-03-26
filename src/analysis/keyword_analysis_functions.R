@@ -27,13 +27,13 @@ add_skills <- function(dataset) {
 }
 #function to show the count plot for each job seperately
 count_plot <- function(dataset) {
-table_dataset <- gather(dataset, "Skill", "Count", 15:31) %>%  arrange( Count) 
+table_dataset <- gather(dataset, "Skill", "Count", 14:30) %>%  arrange( Count) 
 count_plot_dataset <- ggplot(data=table_dataset, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
 }
 
 #function to calculate percentages of skill occurence for each job
 percentage <- function(dataset){
-  subset_dataset <- dataset[, 15:31]
+  subset_dataset <- dataset[, 14:30]
   occurences_dataset <- colSums(subset_dataset != 0)
   percentage_dataset <- occurences_dataset/nrow(subset_dataset)
   percentage_dataset <- as.data.frame(percentage_dataset)

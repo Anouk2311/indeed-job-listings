@@ -27,7 +27,7 @@ add_skills <- function(dataset) {
 
 #function to build the percentage plots for each skill seperately
 percentage_plot <- function(dataset) {
-  subset_dataset <- dataset[, 15:31]
+  subset_dataset <- dataset[, 14:30]
   occurences_dataset <- colSums(subset_dataset != 0)
   percentage_dataset <- occurences_dataset/nrow(subset_dataset)
   percentage_dataset <- as.data.frame(percentage_dataset)

@@ -1,5 +1,4 @@
 ### 1. load datasets into R ---------------------------------------------------
--------------------------
   data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
   data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
   marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")

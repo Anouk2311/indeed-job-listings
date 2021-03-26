@@ -45,15 +45,15 @@ remove_dirty_location <- function(dataset) {
 ## 2.3 replace dirty location strings -----------------------------------------
 replace_dirty_location <- function(dataset) {
   dataset <- dataset %>%
-    mutate(location = str_replace_all(location, "Holland-", "Remote")) %>% 
-    mutate(location = str_replace_all(location, "Zuid-Holland", "Remote")) %>%
-    mutate(location = str)replace_all(location, "Noord-Holland", "Remote") %?%
-    mutate(location = str_replace_all(location, "Noord-Brabant", "Remote")) %>%
+    mutate(location = str_replace_all(location, "Holland-", "Unknown")) %>% 
+    mutate(location = str_replace_all(location, "Zuid-Holland", "Unknown")) %>%
+    mutate(location = str)replace_all(location, "Noord-Holland", "Unknown") %?%
+    mutate(location = str_replace_all(location, "Noord-Brabant", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>% 
     mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>% 
-    mutate(location = str_replace_all(location, "Randstad", "Remote")) %>% 
-    mutate(location = str_replace_all(location, "Nederland", "Remote")) %>%
-    mutate(location = str_replace_all(location, "Werk van thuis", "Remote")) %>% 
+    mutate(location = str_replace_all(location, "Randstad", "Unknown")) %>% 
+    mutate(location = str_replace_all(location, "Nederland", "Uknown")) %>%
+    mutate(location = str_replace_all(location, "Werk van thuis", "Unknown")) %>% 
     mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))
 }
 

@@ -130,9 +130,7 @@ The data within the sets was directly observable as raw text.
 
 #### *3.2 What mechanisms or procedures were used to collect the data (e.g., hardware apparatus or sensor, manual human curation, software program, software API)? How were these mechanisms or procedures validated?*
 
-To collect the data we used Python and multiple Python packages to create a webscraper. ![Scraper alternatives](https://github.com/Anouk2311/indeed-job-listings/blob/main/docs/scraper_alternatives.jpg)
-
-The reason we chose to build a webscraper instead of using an API is as follows: at the moment we decided between choosing a webscraper and API, the API was not a valid option because it was not available. [The webscraper](https://github.com/Anouk2311/indeed-job-listings/blob/main/src/collection/indeed-scraper.ipynb) was manually curated by the 4 students named earlier. Furthermore, we used a Github repository to keep track of our project.
+To collect the data we used Python, multiple Python packages and Selenium to create a webscraper. The reason we chose to build a webscraper instead of using an API is as follows: at the moment we decided between choosing a webscraper and API, the API was not a valid option because it was not available. [The webscraper](https://github.com/Anouk2311/indeed-job-listings/blob/main/src/collection/indeed-scraper.ipynb) was manually curated by the 4 students named earlier. Furthermore, we used a Github repository to keep track of our project.
 
 #### *3.3 If the datasets are samples from larger sets, what was the sampling strategy (e.g., deterministic, probabilistic with specific sampling probabilities)?*
 

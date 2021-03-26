@@ -4,9 +4,7 @@ data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.c
 marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
 marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ## 2.1 data scientist ---------------------------------------------------------
-# 2.1.1 clean salary column, which has either hourly, monthly or yearly values. Convert values into yearly salary based on the number of working hours in a year for an average job
-# Note: in many instances, the salary is given as a range. The new output will represent the lower bound of this range: min_salary
-
+# remove na's from dataset
 remove_na <- function(dataset){
   dataset <- dataset[!is.na(dataset$salary_good),]
 }
@@ -32,7 +30,7 @@ data_analist_avgsalary<- top_salaries(data_analist)
 marketing_analist_avgsalary <- top_salaries(marketing_analist)
 marketeer_avgsalary <- top_salaries(data_analist)
 
-#combined plot
+#combined plot with the best locations and their salaries for each of the 4 jobs
 #first merge the different files
 salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location")
 salary <- merge(salary, data_scientist_avgsalary, by = "location")

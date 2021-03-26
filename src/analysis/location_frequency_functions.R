@@ -4,7 +4,7 @@ data_analist_location <- read.csv("../../gen/data-preparation/output/data_analis
 marketing_analist_location <- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
 marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 
-
+#function to filter the locations with more than 10 occurrences
 best_location <- function(dataset) {
   dataset <- as.data.frame(table(dataset$location))
   dataset <- dataset %>% filter(Freq > 10)
@@ -16,12 +16,12 @@ marketing_analist_best_location <- best_location(marketing_analist_location)
 marketeer_best_location <- best_location(marketeer_location)
 
 #combined plot
-
+#merging the data by location
 location <- merge(marketeer_best_location, data_analist_best_location, by = "Var1")
 location <- merge(location, data_scientist_best_location, by = "Var1")
 location <- merge(location, marketing_analist_best_location, by = "Var1")
 colnames(location) <- c("location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
-
+#making a combined plot of best locations per job
 location <- melt(location, id.vars="location")
 colnames(location) <- c("location", "Job", "Frequency")
 plot(plot_location <- ggplot(location, aes(x= location, y = Frequency, fill=Job)) +

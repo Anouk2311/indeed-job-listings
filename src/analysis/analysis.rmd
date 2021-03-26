@@ -27,6 +27,8 @@ library(stringr)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
+install.packages("here")
+library(here)
 ```
 
 
@@ -852,6 +854,22 @@ dev.off()
 
 pdf(here("gen","data-preparation", "input", "plot_skills.pdf"))
 print(plot_skills)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "data_scientist_salary_plot.pdf"))
+print(data_scientist_salary_plot)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "data_analist_salary_plot.pdf"))
+print(data_analist_salary_plot)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "marketing_analist_salary_plot.pdf"))
+print(marketing_analist_salary_plot)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "marketeer_salary_plot.pdf"))
+print(marketeer_salary_plot)
 dev.off()
 
 ```

@@ -74,6 +74,7 @@ For this project. we made use of GNU make. This means that the whole process, fr
 Please make sure to have a look at the makefile before you start running the file.
 
 Before running the makefile, make sure you have the following packages installed (copy paste the following one at a time in your terminal):
+
 For Python:
 
 ```

@@ -7,7 +7,7 @@ analyze: ../../gen/analysis/output/analysis.pdf
 										../../gen/data-preparation/output/marketeer_clean.csv
 	R -e "rmarkdown::render('analysis.Rmd', output_file = '../../gen/analysis/output/analysis.pdf')"
 
-../../gen/analysis: analysis.R
+../../gen/analysis: analysis.Rmd
 	mkdir ../../gen/analysis
 	mkdir ../../gen/analysis/output
 	

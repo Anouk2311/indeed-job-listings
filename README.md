@@ -74,12 +74,17 @@ For this project. we made use of GNU make. This means that the whole process, fr
 Please make sure to have a look at the makefile before you start running the file.
 
 Before running the makefile, make sure you have the following packages installed (copy paste the following one at a time in your terminal):
-
+For Python:
     pip install requests
     pip install bs4
     pip install DateTime
     pip install selenium
     pip install pandas
+For R:
+    install.packages("tidyverse")
+    install.packages("tidyr")
+    install.packages("stringr")
+    install.packages(“reshape”)
 
 Next to these packages, you will need Chromedriver to run the scraper. Because Chromedriver is operating-system specific, we would like to refer you to the following [tutorial](https://tilburgsciencehub.com/building-blocks/configure-your-computer/task-specific-configurations/configuring-python-for-webscraping/).
 

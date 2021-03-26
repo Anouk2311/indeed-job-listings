@@ -38,29 +38,32 @@ words_to_remove <- c("-Zuidoost","-Zuidwest","Zuidoost","Zuidwest",  "oost" ,"Ce
 remove_dirty_location <- function(dataset) {
   dataset <- dataset %>%
     mutate(location = str_remove_all(location,
-                                 regex(str_c(words_to_remove, collapse = '|'),
-                                                   ignore_case = T)))
+                                     regex(str_c(words_to_remove, collapse = '|'),
+                                           ignore_case = T)))
 }
 
 ## 2.3 replace dirty location strings -----------------------------------------
-replace_dirty_location <- function(dataset) {
+replace_dirty_location <- function(dataset){ 
   dataset <- dataset %>%
-    mutate(location = str_replace_all(location, "Holland-", "Unknown")) %>% 
+    mutate(location = str_replace_all(location, "Holland-", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Zuid-Holland", "Unknown")) %>%
-    mutate(location = str)replace_all(location, "Noord-Holland", "Unknown") %?%
+    mutate(location = str_replace_all(location, "Noord-Holland", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Noord-Brabant", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>% 
-    mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>% 
-    mutate(location = str_replace_all(location, "Randstad", "Unknown")) %>% 
+    mutate(location = str_replace_all(location, "-Brabant", "Unknown")) %>%
+    mutate(location = str_replace_all(location, "-Holland", "Unknown")) %>%
+    mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>%
+    mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>%
+    mutate(location = str_replace_all(location, "Schiphol ", "Amsterdam")) %>%
+    mutate(location = str_replace_all(location, "Randstad", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Nederland", "Uknown")) %>%
-    mutate(location = str_replace_all(location, "Werk van thuis", "Unknown")) %>% 
+    mutate(location = str_replace_all(location, "Werk van thuis", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))
 }
 
 ## 2.4 convert salary data ----------------------------------------------------
 convert_salary <- function(dataset) {
-    dataset_salary <- dataset %>% 
-    mutate(salary1 = str_remove_all(salary, '[^0-9-,?.¢,?.¬,?,?.]+')) %>% 
+  dataset_salary <- dataset %>% 
+    mutate(salary1 = str_remove_all(salary, '[^0-9-]+')) %>% 
     separate(salary1, into = c('salary1', 'salary2'), 
              convert = TRUE, extra = 'drop') %>%
     mutate(across(c(salary1, salary2),
@@ -78,6 +81,7 @@ convert_salary <- function(dataset) {
 ## 2.5 remove X.1 column -------------------------------------------------------
 remove_column <- function(dataset) {
   dataset$X.1 <- NULL
+  return(dataset)
 }
 
 ### 3. apply functions for cleaning -------------------------------------------
@@ -144,4 +148,3 @@ write.csv(marketing_analist, '../../gen/data-preparation/output/marketing_analis
 
 ## 4.4 marketeer --------------------------------------------------------------
 write.csv(marketeer, '../../gen/data-preparation/output/marketeer_clean.csv')
-

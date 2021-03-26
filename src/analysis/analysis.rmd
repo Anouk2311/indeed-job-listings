@@ -24,7 +24,6 @@ First, we built a web scraper that scrapes the vital information of each job pos
 The final step in the cleaning process was cleaning the salary data. The salary data was quite sparse and also very messy. Roughly three-quarters of the data was missing, and for the data available, different measures were given. Some jobs gave hourly salary rates, whereas other jobs utilized monthly or yearly income as a salary measure. We made a function that removes unnecessary character strings in the salary data and converted all different salary measures into yearly income as a standard. We calculated yearly income for hourly rates based on 40 hour work week. We multiplied the hourly rate * 40 * 4 * 12 to get a yearly income rate based on the hourly wage. For the monthly income, we simply multiplied with 12 to arrive at a yearly income. Quite a few jobs gave a salary range instead of a fixed number. For those jobs, we decided to take the middle of the range. We kept the observations with missing values for salary in the dataset for the first part of the analysis because it would significantly reduce the number of observations otherwise.
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
-install.packages("here")
 library(reshape)
 library(stringr)
 library(tidyr)

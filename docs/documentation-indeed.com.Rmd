@@ -1,6 +1,9 @@
 ---
 title: "Datasheet for Indeed.com webscraper"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 
 *Adapted from:* *Gebru, Morgenstern, Vecchione, Vaughan, Wallach, Daumeé, and Crawford. (2021).*
@@ -127,11 +130,9 @@ The data within the sets was directly observable as raw text.
 
 #### *3.2 What mechanisms or procedures were used to collect the data (e.g., hardware apparatus or sensor, manual human curation, software program, software API)? How were these mechanisms or procedures validated?*
 
-To collect the data we used Python and multiple Python packages to create a webscraper. ![Scraper alternatives](https://github.com/Anouk2311/indeed-job-listings/blob/main/docs/scraper_alternatives.jpg) The webscraper was manually curated by the 4 students named earlier.
+To collect the data we used Python and multiple Python packages to create a webscraper. ![Scraper alternatives](https://github.com/Anouk2311/indeed-job-listings/blob/main/docs/scraper_alternatives.jpg)
 
-*Detailed explanation of what we did. use 3 alternatives. Also where it is saved.*\
-
-Furthermore, we used a Github repository to keep track of our project.
+The reason we chose to build a webscraper instead of using an API is as follows: at the moment we decided between choosing a webscraper and API, the API was not a valid option because it was not available. [The webscraper](https://github.com/Anouk2311/indeed-job-listings/blob/main/src/collection/indeed-scraper.ipynb) was manually curated by the 4 students named earlier. Furthermore, we used a Github repository to keep track of our project.
 
 #### *3.3 If the datasets are samples from larger sets, what was the sampling strategy (e.g., deterministic, probabilistic with specific sampling probabilities)?*
 
@@ -179,7 +180,7 @@ Not applicable.
 
 #### *4.1 Was any preprocessing/cleaning/labeling of the data done (e.g., discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remainder of the questions in this section.*
 
-Yes preprocessing has taken place in order to merge the descriptions and the listing CSV files together by id, into 1 CSV per job title. This preprocessing has been done to improve the structure and the accessibility of the datasets.
+Yes, preprocessing has taken place in order to merge the descriptions and the listing CSV files together by id, into 1 CSV per job title. This preprocessing step has been done to improve the structure and the accessibility of the datasets.
 
 #### *4.2 Was the "raw" data saved in addition to the preprocessed/cleaned/labeled data (e.g., to support unanticipated future uses)? If so, please provide a link or other access point to the "raw" data.*
 
@@ -187,7 +188,7 @@ Yes, the raw data was stored on [Google Drive](https://drive.google.com/drive/u/
 
 #### *4.3 Is the software used to preprocess/clean/label the instances available? If so, please provide a link or other access point.*
 
-Link R.
+For preprocessing we used [R](https://www.r-project.org/) software.
 
 ## **5. Uses**
 

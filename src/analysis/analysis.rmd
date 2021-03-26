@@ -589,3 +589,21 @@ plot_salary <- ggplot(salary, aes(x= Location, y = Salary, fill=Job)) +
   geom_bar(stat='identity', position='dodge') + coord_flip()
 plot_salary
 ```
+
+
+###7 conclusion and discussion
+
+###7.1 Conclusion
+
+Our results show that the main skills required by jobs related to Data analysis, Data Science and Marketing are Excel, SQL, R and Python. The curriculum of Marketing Analytics is focused more on R and SPSS, and completely ignores SQL. We believe that students would benefit from the inclusion of courses which develop skills in SQL and Python. 
+
+For location
+
+For salary, data scientist seem to be in the best position, with on average the highest salaries compared to marketeers, data analysts and marketing analysts. 
+
+###7.2 Discussion 
+
+Our research is limited due to limited sample size. Scraping indeed had its fair share of challenges and our focus on the Netherlands meant that we collected between 500 and 1100 observations per job search. However after cleaning out duplicates these numbers got adjusted downward. Especially for the salary analysis, there was a lot of missing data which meant datasets with a few hundred observations. This means that some of the location averages for salary could be very high or very low due to only one job being offered in that location with perhaps a very high or very low salary. THis suggests that the salary analysis is sensitive to outlier datapoints. This limited sample is however difficult to overcome, since most job ads do not show salary data.  
+
+###7.3 Future research
+Our results can be reproduced for any job title and any location in the world. This makes it very interesting for future research to compare different countries with eachother in terms of salary and job skills for the 4 jobs researched in this analysis. However, it also opens up the opportunity to students and job seekers in general perform similar research in any kind of other field they are interested in. By tweaking the search term in the scraper and the skills being asked in the keyword analysis, it is possible to research for example what skills are important in a range of jobs and locations. Furthermore, we think that our analysis could be valuable over time by for example repeating the research on  a monthly or yearly basis to observe possible developments over time in skills required, salaries offered and locations offering the most jobs. 

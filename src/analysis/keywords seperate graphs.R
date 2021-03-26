@@ -2,7 +2,7 @@ data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_cle
 data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
 marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
 marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
-
+#function to add the skills to the datasets
 add_skills <- function(dataset) {
   dataset <- dataset %>%
     mutate(SQL = str_count(dataset$description, "SQL" )) %>%
@@ -25,8 +25,7 @@ add_skills <- function(dataset) {
     mutate(R = str_count(dataset$description, "\\bR\\b" ))
 }
 
-#percentage_dataset$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "big_data", "machine_learning", "SAS", "R"
-
+#function to build the percentage plots for each skill seperately
 percentage_plot <- function(dataset) {
   subset_dataset <- dataset[, 15:31]
   occurences_dataset <- colSums(subset_dataset != 0)
@@ -36,7 +35,7 @@ percentage_plot <- function(dataset) {
     percentage_plot_dataset <- ggplot(data=percentage_dataset, aes(x=Skill, y=percentage_dataset)) + geom_bar(stat="identity") + coord_flip()
 }
 
-
+#perform the functions on the datasets and directly show the plot
 
 data_scientist <- add_skills(data_scientist)
 plot(data_scientist_percentage_plot <- percentage_plot(data_scientist))

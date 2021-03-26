@@ -127,7 +127,7 @@ The data within the sets was directly observable as raw text.
 
 #### *3.2 What mechanisms or procedures were used to collect the data (e.g., hardware apparatus or sensor, manual human curation, software program, software API)? How were these mechanisms or procedures validated?*
 
-To collect the data we used Python and multiple Python packages to create a webscraper. ![Scraper alternatives](docs/scraper_alternatives.jpg) The webscraper was manually curated by the 4 students named earlier.
+To collect the data we used Python and multiple Python packages to create a webscraper. ![Scraper alternatives](https://github.com/Anouk2311/indeed-job-listings/blob/main/docs/scraper_alternatives.jpg) The webscraper was manually curated by the 4 students named earlier.
 
 *Detailed explanation of what we did. use 3 alternatives. Also where it is saved.*\
 

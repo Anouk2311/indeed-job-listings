@@ -15,7 +15,7 @@ To answer this question, the researchers collected and analyzed job listings fro
 
 In covering different job titles, it can be investigated to what extent the required skills overlap for the different jobs, what are the gaps between the university teachings and the job requirements, as well as what are the central trends in terms of which programming languages are more popular compared to those that are decreasing in demand.
 
-Even though these data can be of great value for shedding light on the aforementioned insights for Marketing Analytics students, it could also be relevant for students in related fields, as well as other individuals looking for a job in one of those disciplines. In addition, educational institutes can use this data to shape their course offerings.
+Even though these data can be of great value for shedding light on the aforementioned insights for Marketing Analytics students, it could also be relevant for students in related fields, as well as other individuals looking for a job in one of those disciplines. In addition, educational institutes can use this data to shape their course offerings in order to prepare their students as good as possible for the job market.
 
 #### *1.2 Who created these datasets (e.g., which team, research group) and on behalf of which entity (e.g., company, institution, organization)?*
 
@@ -99,17 +99,17 @@ To collect the data we used Python and multiple Python packages to create a webs
 
 #### *3.3 If the datasets are samples from larger sets, what was the sampling strategy (e.g., deterministic, probabilistic with specific sampling probabilities)?*
 
-The datasets are not a sample from larger sets.
+The datasets are not a sample from larger sets. They contain all available job listings with that search term and location from Indeed.com at the moment of scraping.
 
 #### *3.4 Who was involved in the data collection process (e.g., students, crowdworkers, contractors) and how were they compensated (e.g., how much were crowdworkers paid)?*
 
 The four students who created these datasets and their professor Hannes Datta were involved in the data collection process. None of them were compensated.
 
-#### *3.5 Over what timeframe was the data collected? Does this timeframe match the creation timeframe of the data associated with the instances (e.g., recent crawl of old news articles)? If not, please describe the time- frame in which the data associated with the instances was created.*
+#### *3.5 Over what timeframe was the data collected? Does this timeframe match the creation timeframe of the data associated with the instances (e.g., recent crawl of old news articles)? If not, please describe the timeframe in which the data associated with the instances was created.*
 
 The data for the search term 'Data Analist' was collected on 13.03.2021. The data for the search terms 'Marketing Analist' and 'Marketeer' were collected on 16.03.2021. The data for the search term 'Data Scientist' was collected on 17.03.2021.
 
-Ideally, the data could have been collected regularly (e.g. once per day/week), in order to allow monitoring of changes throughout time, however the scraper built for Indeed.com does not allow data collection with no surveillance. Therefore, the time constraints of this project allowed data collection for only one point in time for each job title. These web scraper limitations are due to running into Captchas every time the web scraper is ran extensively.
+Ideally, the data could have been collected regularly (e.g. once per day/week), in order to allow monitoring of changes throughout time, however the scraper built for Indeed.com does not allow data collection with no surveillance. Therefore, the time constraints of this project allowed data collection for only one point in time for each job title. These web scraper limitations are due to running into Captchas every time the web scraper is ran extensively. Moreover, there is no historical data available from Indeed.com, so there was also no possibility to compare our findings with the job listings from, for example, a year ago. However, now these datasets are available, they offer further possibilities for future research.
 
 #### *3.6 Were any ethical review processes conducted (e.g., by an institutional review board)? If so, please provide a description of these review processes, including the outcomes, as well as a link or other access point to any supporting documentation.*
 
@@ -157,7 +157,7 @@ No preprocessing of the data is done.
 
 #### *5.1 Have the datasets been used for any tasks already? If so, please provide a description.*
 
-The datasets have only been used for the course Data Preparation and Workflow Management that is part of the MSc Marketing Analytics at Tilburg University.
+The datasets have only been used for the course Data Preparation and Workflow Management that is part of the MSc Marketing Analytics at Tilburg University. For that course, the datasets are used to investigate and compare the different skills required for the different search terms.
 
 #### *5.2 Is there a repository that links to any or all papers or systems that use these datasets? If so, please provide a link or other access point.*
 

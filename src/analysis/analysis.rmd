@@ -1,6 +1,7 @@
 ---
 title: "Indeed.com Job Listings Analysis"
-output: 
+output:
+  pdf_document: default
   html_document: default
 ---
 
@@ -108,7 +109,6 @@ skills_data_science <- data_scientist %>%
   mutate(R = str_count(data_scientist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 
-
 ```{r}
 #get only skills and their counts from the entire skills dataframe and arrange by count
 table_data_science <- gather(skills_data_science, "Skill", "Count", 15:31) %>%  arrange( Count) 
@@ -116,6 +116,9 @@ table_data_science <- gather(skills_data_science, "Skill", "Count", 15:31) %>%  
 count_plot_data_science <- ggplot(data=table_data_science, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
 count_plot_data_science
 ```
+This is a plot of the core technical skills and their counts in the data scientist job ads. As we can see, there are  4 clear top skills to learn to become a data scientist. These include Python, SQL, R and machine learning, with each having counts over 300. Other important skills seem to be Java, Excel, Azure and AWS(amazon web services) with each having counts over 100. 
+
+However, counts do not paint the entire picture. Some job ads have double or even more counts of the same skill within the same description. To control for this, we also calculate the percentage of job ads wherein each skill is featured in the description. For example, if in every second job ad, the skill R is mentioned, it will have a value of 0.5.  
 ```{r}
 #get the count dta from the entire dataset
 subset_data_science <- skills_data_science[15:31]  
@@ -130,6 +133,8 @@ percentage_data_science$Skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Pyth
 percentage_plot_data_science <- ggplot(data=percentage_data_science, aes(x=Skill, y=percentage_data_science)) + geom_bar(stat="identity") + coord_flip()
 percentage_plot_data_science
 ```
+The percentage plot shows us that the percentage analysis bears quite similar results to the count analysis. Again Python, R, machine learning and SQL are the most important skills. However, the difference between Python and the other skills is bigger in terms of percentage occurrence than in count. Also in percentage terms, Excel is becoming more important, catching up with the top 4 skills and being almost equally important as machine learning.  
+
 
 ### 2.2 Getting the skill counts for the most important skills in data_analist jobs
 
@@ -163,6 +168,8 @@ table_data_analist <- gather(skills_data_analist, "Skill", "Count", 15:31) %>%  
 count_plot_data_analist <- ggplot(data=table_data_analist, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
 count_plot_data_analist
 ```
+As we can see, quite a different picture for data analist jobs. The clear winner is SQL, which approaches the 500 count. After SQL, Excel is the second most sought after skill with over 350 counts. In 3rd and 4th come the 2 programming languages Python and R, with Python slightly edging R in terms of importance. Other important skills inclead Tableau, Power Bi and Azure. 
+
 
 ```{r}
 #get the count data from the entire dataset
@@ -178,6 +185,8 @@ percentage_data_analist$Skill <- c("SQL","HTML","SPSS","Power BI", "AWS", "Pytho
 percentage_plot_data_analist <- ggplot(data=percentage_data_analist, aes(x=Skill, y=percentage_data_analist)) + geom_bar(stat="identity") + coord_flip()
 percentage_plot_data_analist
 ```
+Again similar results for the percentage analysis. However, the difference between SQL and Excel is declining, with both being almost equally important. Also the difference with number 3 Python seems slightly smaller than in the count analysis. Again other important skills are R, Power BI and Tableau. 
+
 
 ### 2.3 Getting the skill counts for the most important skills in marketing_analist jobs
 
@@ -211,6 +220,7 @@ count_plot_marketing_analist <- ggplot(data=table_marketing_analist, aes(x=Skill
 count_plot_marketing_analist
 ```
 
+The clear winner for skills to learn for a marketing analyst is Excel, being the only skill reaching a count over 200. Other important skills are SQL, Tableau, R and Python, with all of them being very close to eachother in terms of relative importance. Then after quite a big gap, skills such as Power BI, AWS and Azure come, clearly seemingly not that meaningful to learn as a marketing analist.  
 ```{r}
 #get the count data from the entire dataset
 subset_marketing_analist <- skills_marketing_analist[15:31]  
@@ -226,6 +236,7 @@ percentage_plot_marketing_analist <- ggplot(data=percentage_marketing_analist, a
 percentage_plot_marketing_analist
 ```
 
+The Percentage plot shows very similar results to the count plot. Again, Excel is the clear winner, with mentions in over 1/3 of the job descriptions. sQL, Python, R and Tableau follow on respected distance with all being roughly equally relevant for marketing analysts to learn. 
 
 ### 2.4 Getting the skill counts for the most important skills in marketeer jobs
 
@@ -258,6 +269,7 @@ table_marketeer <- gather(skills_marketeer,"Skill", "Count", 15:31) %>%  arrange
 count_plot_marketeer <- ggplot(data=table_marketeer, aes(x=Skill, y=Count)) + geom_bar(stat="identity") + coord_flip()#flip coordinates because skills on x axis gives messy text
 count_plot_marketeer
 ```
+For Marketeers, it is clear that technical skills are less important than for the other jobs, which involve more data related tasks. Despite this fact, Excel is still valuable, being the clear winner for marketeers in terms of technical skills. 2nd spot is for HTML, which is seen as a valuable skill for marketeers to have. Other slightly important skills are R and SQL, with each of the other skills being almost equal to 0 in terms of occurrences in the job ads for marketeers. 
 
 ```{r}
 #get the count data from the entire dataset
@@ -274,8 +286,10 @@ percentage_plot_marketeer <- ggplot(data=percentage_marketeer, aes(x=Skill, y=pe
 percentage_plot_marketeer
 ```
 
+Similar results in percentage, which show that the technical skills get mentioned really infrequently in the job advertisements. Excel the winner in terms of technical skills gets mentioned in only 8 percent of job ads. Compared with winner skills for other job searches reaching over 30-40 %, there is a clear difference in the job requirements for marketeers. 
+
 ### 2.5 Getting insights into comparing the skills from the 4 job titles
-#### Combining the seperate bar charts presented above into one bar graph, to conveniently compare the skills occurence for our 4 job searches
+#### Combining the seperate bar charts presented above into one bar graph, to conveniently compare the skills occurence for our 4 job searches. In the following section we will provide a comprehensive graph which shows each skill percentage occurrence for each job next to eachother. In order to facilitate direct comparison. 
 
 ```{r}
 #merge different percentage for skills into one data frame
@@ -293,6 +307,7 @@ plot_skills <- ggplot(df, aes(x= Skill, y = Occurence, fill=Job)) +
   geom_bar(stat='identity', position='dodge') + coord_flip()
 plot_skills
 ```
+The top 4 skills in general are Python, R, SQL and Excel. With data scientist relying heavily on Python whereas fo marketing and data analysts it might be more fruitful to invest in your SQL skills. There seems a clear discrepancy between the R and SPSS heavy academic courses and the actual skills required by companies, more focused on SQL and Python to perform job tasks. Especially SQL is completely missing from the Master in Marketing analytics curriculum. Whereas Python is available in a few courses only. 
 
 # 3. Location frequency analysis
 
@@ -312,6 +327,7 @@ data_scientist_location$Location <- data_scientist_location$Var1
 data_scientist_location_plot <- ggplot(data_scientist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
 data_scientist_location_plot 
 ```
+Amsterdam seems the place to be as a data scientist, with counts over 200, or roughly 1/3 of the entire number of jobs posted being in Amsterdam. Furthermore, as expected, the randstad features the most in job ads, with Utrecht, Rotterdam and Leiden coming in high as well. Outside of the randstad, Noord-Brabant in the form of Eindhoven and Den Bosch provide a decent number of  job opportunities. 
 
 ### 3.2 Location frequency data analist
 
@@ -322,8 +338,10 @@ data_analist_location$Location <- data_analist_location$Var1
 data_analist_location_plot <- ggplot(data_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
 data_analist_location_plot
 ```
+For data analysts, the picture is quite similar. Amsterdam again is the clear winner in terms of number of jobs offered, however, Utrecht seems relatively more important for data analysts compared to data scientists. Rotterdam again is number 3, with Den Haag and Eindhoven completing the top 5 in terms of locations. 
 
 ### 3.3 Location frequency marketing analist
+
 ```{r}
 marketing_analist_location <- as.data.frame(table(marketing_analist$location))
 marketing_analist_location <- marketing_analist_location %>% filter(Freq > 10)
@@ -331,7 +349,7 @@ marketing_analist_location$Location <- marketing_analist_location$Var1
 marketing_analist_location_plot <- ggplot(marketing_analist_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
 marketing_analist_location_plot
 ```
-
+For Marketing analysts we see the same top 5 as for data analysts. However, Utrecht, Rotterdam and Den Haag all have almost equal counts of Job offers and Amsterdam is a way more pronounced winner for Marketing analysts than for the other jobs scrutinized before. 
 ### 3.4 Location frequency marketeer
 
 ```{r}
@@ -341,7 +359,7 @@ marketeer_location$Location <- marketeer_location$Var1
 marketeer_location_plot <- ggplot(marketeer_location, aes(x = Location, y = Freq)) + geom_bar(stat="identity") + coord_flip()  
 marketeer_location_plot
 ```
-
+For Marketeers, it seems that there are more opportunities outside of the randstad available compared to the 3 data related jobs. Cities as Breda, Arnhem, Deventer and Nijmegen come in quite close to the randstad cities such as Rotterdam and Utrecht, suggesting that the job opportunities for marketeers are more evenly spread across the country. 
 ### 3.5 Getting insights into comparing the locations of the 4 job titles
 ```{r}
 location <- merge(marketeer_location, data_analist_location, by = "Location")
@@ -357,8 +375,12 @@ plot_location <- ggplot(location, aes(x= Location, y = Frequency, fill=Job)) +
 plot_location
 
 ```
+This graph show the top 5(plus remote) locations for job ads. As expected, Amsterdam is the clear winner for each job in terms of number of job offers, however the difference is less pronounced for marketeer related jobs than the other 3 jobs. Utrecht comes in 2nd in terms of number of job fofers whereas Rotterdam, Eindhoven and Den Haag are very equally ranked. 
+
+Now that we know what the most important skills are to learn for our 4 jobs and also what the best cities are to go to, to find a job quickly, we analyze the best jobs and locations in terms of pay. 
 
 # 4. Salary analysis
+The salary data needs to be cleaned first. 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
 data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")

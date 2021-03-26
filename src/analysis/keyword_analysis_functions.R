@@ -79,3 +79,24 @@ colnames(df) <- c("Skill", "Job", "Occurence")
 plot(plot_skills <- ggplot(df, aes(x= Skill, y = Occurence, fill=Job)) +
   geom_bar(stat='identity', position='dodge') + coord_flip())
 
+pdf(here("gen","data-preparation", "input", "data_scientist_count_plot.pdf"))
+print(plot_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "data_analist_count_plot.pdf"))
+print(plot_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "marketing_analist_count_plot.pdf"))
+print(plot_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "marketeer_count_plot.pdf"))
+print(plot_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "plot_skills.pdf"))
+print(plot_skills)
+dev.off()
+
+

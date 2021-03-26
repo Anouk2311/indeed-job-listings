@@ -28,3 +28,6 @@ df_salary <- data.frame(job, salary)
 #creating a plot of the mean salary per job
 plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) + geom_bar(stat='identity'))
 
+pdf(here("gen","data-preparation", "input", "plot_mean_salary.pdf"))
+print(plot_mean_salary)
+dev.off()

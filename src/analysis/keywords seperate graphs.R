@@ -50,4 +50,19 @@ plot(marketing_analist_percentage_plot <- percentage_plot(marketing_analist))
 marketeer <- add_skills(marketeer)
 plot(marketeer_percentage_plot <- percentage_plot(marketeer))
 
+pdf(here("gen","data-preparation", "input", "data_scientist_percentage_plot.pdf"))
+print(data_scientist_percentage_plot)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "data_analist_percentage_plot.pdf"))
+print(data_analist_percentage_plot)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "marketing_analist_percentage_plot.pdf"))
+print(marketing_analist_percentage_plot)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "marketeer_percentage_plot.pdf"))
+print(marketeer_percentage_plot)
+dev.off()
 

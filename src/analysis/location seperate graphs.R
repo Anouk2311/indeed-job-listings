@@ -13,8 +13,23 @@ plotting <- function(dataset) {
 }
 
 
-plot(data_scientist_plot <- plotting(data_scientist_location))
-plot(data_analist_plot <- plotting(data_analist_location))
-plot(marketing_analist_plot <- plotting(marketing_analist_location))
-plot(marketeer_plot <- plotting(marketeer_location))
+plot_data_scientist_location <- plot(data_scientist_plot <- plotting(data_scientist_location))
+plot_data_analist_location <- plot(data_analist_plot <- plotting(data_analist_location))
+plot_marketing_analist_location <- plot(marketing_analist_plot <- plotting(marketing_analist_location))
+plot_marketeer_location <- plot(marketeer_plot <- plotting(marketeer_location))
 
+pdf(here("gen","data-preparation", "input", "plot_data_scientist_location.pdf"))
+print(plot_data_scientist_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "plot_data_analist_location.pdf"))
+print(plot_data_analist_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "plot_marketing_analist_location.pdf"))
+print(plot_marketing_analist_location)
+dev.off()
+
+pdf(here("gen","data-preparation", "input", "plot_marketeer_location.pdf"))
+print(plot_marketeer_location)
+dev.off()

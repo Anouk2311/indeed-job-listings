@@ -27,7 +27,7 @@ top_salaries <- function(dataset){
 
 data_scientist_avgsalary <- top_salaries(data_scientist)
 data_analist_avgsalary<- top_salaries(data_analist)
-marketing_analist_avgsalary <- top_salaries(marketing_analist)
+marketing_analist_avgsalary <- top_salaries(marketing_analist) 
 marketeer_avgsalary <- top_salaries(marketeer)
 
 #combined plot with the best locations and their salaries for each of the 4 jobs
@@ -43,3 +43,8 @@ colnames(salary) <- c("Location", "Job", "Salary")
 plot_salary <- ggplot(salary, aes(x= Location, y = Salary, fill=Job)) +
   geom_bar(stat='identity', position='dodge') + coord_flip()
 plot_salary
+
+pdf(here("gen","data-preparation", "input", "plot_salary.pdf"))
+print(plot_salary)
+dev.off()
+

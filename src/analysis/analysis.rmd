@@ -1,7 +1,7 @@
 ---
 title: "Indeed.com Job Listings Analysis"
 author: "Anouk Heemskerk, Georgiana Huţanu, Renée Nieuwkoop and Alan Rijnders (2021)"
-output:
+output: 
   pdf_document: default
   html_document: default
 ---
@@ -31,6 +31,9 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(here)
+library(knitr)
+
+knitr::opts_chunk$set(fig.width=6, fig.height=4) 
 ```
 
 
@@ -804,7 +807,6 @@ dev.off()
 pdf(here("gen","data-preparation", "input", "plot_salary.pdf"))
 print(plot_salary)
 dev.off()
-
 
 pdf(here("gen","data-preparation", "input", "plot_location.pdf"))
 print(plot_location)

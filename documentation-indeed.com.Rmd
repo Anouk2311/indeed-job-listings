@@ -39,7 +39,7 @@ These four datasets contain 4153 job postings in total. Hereof, 1223 listings co
 
 These datasets contain all possible instances available on Indeed.com at the time web scraping took place, relating to the search terms for 'Wat': i. 'Data Analist', ii. 'Data Scientist', iii. 'Marketing Analist', iv. 'Marketeer', and for 'Waar': 'Nederland'. Due to the fact that we scraped all available job listings for a particular jobtitel, there are no potential algorithmic biases.
 
-#### *2.4 What data does each instance consist of? "Raw" data (e.g., unprocessed text or images) or features? In either case, please provide a de-scription.*
+#### *2.4 What data does each instance consist of? "Raw" data (e.g., unprocessed text or images) or features? In either case, please provide a description.*
 
 The data in the datasets consist of raw data in the form of unprocessed texts. The data are directly scraped from Indeed.com, with no further data preprocessing conducted. For each job listing, the following were scraped and collected: job id, title, company, location, posting date, summary, salary indication if available, url, as well as a full job description, along with the date and time the scripting and data collection took place.
 

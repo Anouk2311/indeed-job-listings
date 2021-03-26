@@ -54,11 +54,13 @@ replace_dirty_location <- function(dataset){
     mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Schiphol ", "Amsterdam")) %>%
+    mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>%
+    mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Randstad", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Nederland", "Uknown")) %>%
     mutate(location = str_replace_all(location, "Werk van thuis", "Unknown")) %>%
     mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))
-}
+ }
 
 ## 2.4 convert salary data ----------------------------------------------------
 convert_salary <- function(dataset) {

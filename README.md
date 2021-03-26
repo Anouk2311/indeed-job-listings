@@ -70,20 +70,29 @@ Our repository has the following structure:
 ```
 ## Running instructions
 
-For this project. we made use of GNU make. This means that the whole process, from loading in the data to running the analyses, can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following [tutorial](https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/) before running the makefile.\
-Please make sure to have a look at the makefile before you start running the file.
+For this project. we made use of GNU make. This means that the whole process, from loading in the data to running the analyses, can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following [tutorial](https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/) before running the makefile. Please make sure to have a look at the makefile before you start running the file.
 
-Before running the makefile, make sure you have the following packages installed (copy paste the following one at a time in your terminal):
+Before running the makefile, make sure you have the following packages installed:
 
+For Python:
+
+```
     pip install requests
     pip install bs4
     pip install DateTime
     pip install selenium
     pip install pandas
+```
+For R:
+
+```
+    install.packages("tidyverse")
+    install.packages("tidyr")
+    install.packages("stringr")
+    install.packages("reshape")
+```
 
 Next to these packages, you will need Chromedriver to run the scraper. Because Chromedriver is operating-system specific, we would like to refer you to the following [tutorial](https://tilburgsciencehub.com/building-blocks/configure-your-computer/task-specific-configurations/configuring-python-for-webscraping/).
-
-Explain to potential users how to run/replicate your workflow. Touch upon, if necessary, the required input data, which (secret) credentials are required (and how to obtain them), which software tools are needed to run the workflow (including links to the installation instructions), and how to run the workflow. Make use of subheaders where appropriate.
 
 ## More resources
 

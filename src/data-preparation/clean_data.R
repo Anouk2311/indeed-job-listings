@@ -78,6 +78,7 @@ convert_salary <- function(dataset) {
 ## 2.5 remove X.1 column -------------------------------------------------------
 remove_column <- function(dataset) {
   dataset$X.1 <- NULL
+  return(dataset)
 }
 
 ### 3. apply functions for cleaning -------------------------------------------

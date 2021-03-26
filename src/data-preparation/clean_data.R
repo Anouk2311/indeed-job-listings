@@ -2,8 +2,6 @@
 library(dplyr)
 library(stringr)
 library(tidyr)
-library(ggplot2)
-library(reshape2)
 
 ### 1. load datasets into R ---------------------------------------------------
 ## 1.1 data scientist ---------------------------------------------------------
@@ -59,7 +57,7 @@ replace_dirty_location <- function(dataset) {
     mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))
 }
 
-## 2.4 convert salary data
+## 2.4 convert salary data ----------------------------------------------------
 convert_salary <- function(dataset) {
     dataset_salary <- dataset %>% 
     mutate(salary1 = str_remove_all(salary, '[^0-9-,?.¢,?.¬,?,?.]+')) %>% 
@@ -75,45 +73,58 @@ convert_salary <- function(dataset) {
   
   # join the two data frames
   dataset <- cbind(dataset, dataset_salary)
- # dataset$X.1 <- NULL
+}
+
+## 2.5 remove X.1 column -------------------------------------------------------
+remove_column <- function(dataset) {
+  dataset$X.1 <- NULL
 }
 
 ### 3. apply functions for cleaning -------------------------------------------
 # PROTOTYPE
 # maybe even this in one function?
+# does not work, seems to only run the last line
 datasets <- list(data_scientist, data_analist, marketing_analist, marketeer)
 
-for(dataset in datasets) {
-  remove_duplicates(dataset)
-  remove_dirty_location(dataset)
-  replace_dirty_location(dataset)
-  convert_salary(dataset)
+clean_data <-  function(datasets) {
+  for (dataset in datasets) {
+    remove_duplicates(dataset)
+    remove_dirty_location(dataset)
+    replace_dirty_location(dataset)
+    convert_salary(dataset)
+    remove_column(dataset)
+  }
 }
-  
+
+clean_data(datasets)  
 
 ## 3.1 data scientist ---------------------------------------------------------
 data_scientist <- remove_duplicates(data_scientist)
 data_scientist <- remove_dirty_location(data_scientist)
 data_scientist <- replace_dirty_location(data_scientist)
 data_scientist <- convert_salary(data_scientist)
+data_scientist <- remove_column(data_scientist)
 
 ## 3.2 data analist -----------------------------------------------------------
 data_analist <- remove_duplicates(data_analist)
 data_analist <- remove_dirty_location(data_analist)
 data_analist <- replace_dirty_location(data_analist)
 data_analist <- convert_salary(data_analist)
+data_analist <- remove_column(data_analist)
 
 ## 3.3 marketing analist ------------------------------------------------------
 marketing_analist <- remove_duplicates(marketing_analist)
 marketing_analist <- remove_dirty_location(marketing_analist)
 marketing_analist <- replace_dirty_location(marketing_analist)
 marketing_analist <- convert_salary(marketing_analist)
+marketing_analist <- remove_column(marketing_analist)
 
 ## 3.4 marketeer -------------------------------------------------------------
 marketeer <- remove_duplicates(marketeer)
 marketeer <- remove_dirty_location(marketeer)
 marketeer <- replace_dirty_location(marketeer)
 marketeer <- convert_salary(marketeer)
+marketeer <- remove_column(marketeer)
 
 
 ### 4. save cleaned data ------------------------------------------------------

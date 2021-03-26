@@ -53,7 +53,11 @@ Each job listing has an unique id. This id is a string of letters and numbers so
 
 The missing information pertains to the salary indication. This information is not made available for every job listing.
 
-*missing stuff code*
+```
+
+Summary stuff
+
+```
 
 #### *2.7 Are relationships between individual instances made explicit (e.g., users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
 
@@ -102,7 +106,7 @@ The data within the sets was directly observable as raw text.
 To collect the data we used Python and multiple Python packages to create a webscraper. The webscraper was manually curated by the 4 students named earlier.
 
 *Detailed explanation of what we did. use 3 alternatives. Also where it is saved.*\
-\
+
 Furthermore, we used a Github repository to keep track of our project.
 
 #### *3.3 If the datasets are samples from larger sets, what was the sampling strategy (e.g., deterministic, probabilistic with specific sampling probabilities)?*

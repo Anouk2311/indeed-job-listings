@@ -14,7 +14,7 @@ We aspire to find insights to help ourselves as well as our fellow students in m
 
 For this project we decided to narrow down our investigation to the Netherlands. Three of our four members originate from the Netherlands and since we and our classmates are all studying at Tilburg University in the Netherlands right now, job options in the Netherlands are most relevant to us. Furthermore, we decided to investigate the 4 jobs most closely related to our master in Marketing Analytics program, being data scientist, marketeer, data-analist and marketing-analist. By narrowing down the project by not including too many locations and job searches, the project workflow will be much smoother and easier to reproduce for anyone interested in doing so.
 
-We chose a keyword frequency analysis on what we believe to be the most common technical skills as our main tool of analyzing the different job searches. These keywords include programming languages such as R and Python and knowledge of database programs such as Power BI and SQL. In our experience, many of our fellow students find it difficult to bridge the gap between academic knowledge and actual skills required in the job market. By comparing this core set of techinical skills per job title, we can provide insights into the actual skills valued by employers. This will help students in making the right decision on how to spend their precious time and prepare themselves optimally for the beginning of their careers.
+We chose a keyword frequency analysis on what we believe to be the most common technical skills as our main tool of analyzing the different job searches. These keywords include programming languages such as R and Python and knowledge of database programs such as PowerBI and SQL. In our experience, many of our fellow students find it difficult to bridge the gap between academic knowledge and actual skills required in the job market. By comparing this core set of techinical skills per job title, we can provide insights into the actual skills valued by employers. This will help students in making the right decision on how to spend their precious time and prepare themselves optimally for the beginning of their careers.
 
 First, we built a web scraper that scrapes the vital information of each job posting associated with a specific job search. We used the BeautifulSoup package to collect job ids, job titles, salary, company name, dates, job summary and salaries if available. Afterwards, we scraped the job descriptions of the same search results to obtain the job descriptions of each job posting in a seperate dataset by using a chrome webdriver with Python Selenium. Due to restrictions with captcha's, we collected multiple small batches of datasets per search term. In R we merged the data into one big file per search term by joining the datasets on the unique job id that serves as an identifier for each seperate job advert on Indeed. After merging the files into one dataset per search term, we cleaned the data by removing duplicate entries and by cleaning up messy string location names. Location names such as Amsterdam Zuid or Velsen Noord were unwanted because they would appear as two distinct location in our analysis. Therefore, we wrote a function that removed all such extra unnecessary information in the location strings. We added a function that replaced certain unspecified locations such as Nederland or Randstad into Remote, signifying that a job did not specify a specific location.
 
@@ -26,13 +26,13 @@ Afterwards, we proceeded with location analysis. At this stage, we scrutinized t
 
 In the following section we give a short overview of the main findings from our analysis. 
 
-- We find that for data-analist jobs, handling databases with SQL is the most sought skill by employers, followed by Microsoft Excel, Python and R. Amsterdam momentarily has the most vacancies, where employers are searching for a data-analist, followed by Utrecht, Rotterdam, Den Haag and Eindhoven.
+- We find that for data analist jobs, handling databases with SQL is the most sought skill by employers, followed by Microsoft Excel, Python and R. Amsterdam momentarily has the most vacancies, where employers are searching for a data analist, followed by Utrecht, Rotterdam, Den Haag and Eindhoven.
 
-- For becoming a data-scientist, students will need to learn Python the most, followed by handling SQL, R, Machine learning and Microsoft Excel in that order. When searching for a job as data-scientist, we found that Amsterdam momentarily has the most vacancies in the Netherlands, followed by Utrecht, Leiden, Rotterdam and Delft.
+- For becoming a data scientist, students will need to learn Python the most, followed by handling SQL, R, Machine learning and Microsoft Excel in that order. When searching for a job as data scientist, we found that Amsterdam currently has the most vacancies in the Netherlands, followed by Utrecht, Leiden, Rotterdam and Delft.
 
-- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle Excel the most, followed by HTML and a little bit of knowledge on SQL and R is also sought by employers. For future marketeers, Amsterdam is the place with the most vacancies at this moment, followed by Utrecht, Rotterdam, Eindhoven, Nijmegen and den Bosch. 
+- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle Excel the most, followed by HTML and a little bit of knowledge on SQL and R is also sought by employers. For future marketeers, Amsterdam is the place with the most vacancies at this moment, followed by Utrecht, Rotterdam, Eindhoven, Nijmegen and Den Bosch. 
 
-- And lastly, for future marketing-analists, it is useful to learn Excel, SQL, Python, R and Tableau. When searching for a job as a marketing analist, we found that Amsterdam has the most vacancies, followed by Rotterdam, Utrecht, Den Haag and Eindhoven.
+- And lastly, for future marketing analists, it is useful to learn Excel, SQL, Python, R and Tableau. When searching for a job as a marketing analist, we found that Amsterdam has the most vacancies, followed by Rotterdam, Utrecht, Den Haag and Eindhoven.
 
 *How do we want to integrate salary in this?*
 
@@ -96,7 +96,7 @@ Next to these packages, you will need Chromedriver to run the scraper. Because C
 
 ## More resources
 
-For this project, we did not use related papers or previous studies. [Tilburg science hub](https://tilburgsciencehub.com/) did help us greatly in understanding how to deploy this project from beginning to end. Have a look at the website to learn more about how to efficiently carrying out data- and computation-intensive projects.
+For this project, we did not use related papers or previous studies. [Tilburg science hub](https://tilburgsciencehub.com/) did help us greatly in understanding how to deploy this project from beginning to end. Have a look at the website to learn more about how to efficiently carry out data- and computation-intensive projects.
 
 ## About
 

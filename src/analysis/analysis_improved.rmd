@@ -1,0 +1,793 @@
+---
+title: "Indeed.com Job Listings Analysis"
+output:
+  pdf_document: default
+  html_document: default
+---
+### 1. Introduction 
+The job market is becoming ever more competitive, as a student nowadays it is harder and harder to land the job of your dreams. COVID-19 has even made it more challenging for recent graduates to find a fitting role after graduation. A lot of students complain about the gap between skills learned during their studies and the actual skills required in the workfield by companies. This motivates our investigation into Indeed job vacancy postings to find the skills that are actually required for different job types.
+
+As Marketing Analytics students, we have both the marketing and analytical knowledge to succeed in a range of different job types in the field of marketing. We are interested in what the actual required skills are for jobs in fields related to our studies. Becoming a data scientist, data analist or maybe marketeer after our studies will require different skills and competencies and we would like to know to which degree we possess these skills and to which extent our study program effectively prepares us for the job market.
+
+We aspire to find insights to help ourselves as well as our fellow students in making a choice relating to which skills to improve and perhaps which skills to forego in order to effectively land their first job. We aim to conduct our investigation in such a way that the methodology can be used by anyone for any location in the world and for any job type on Indeed.com. First of all, for our fellow students, the keyword and location analysis provide easily interpretable tables to see which skills are in demand for each roles, together with the best locations for jobs in the Netherlands. Our entire project is accessible and usable. The entire workflow can be tweaked to your needs by simply changing the search term in the scraper. This makes our project valuable for all job seekers in the world, as they can reproduce our data scraping and analysis for their specific job wishes.
+
+For this project we decided to narrow down our investigation to the Netherlands. Three of our four members originate from the Netherlands and since we and our classmates are all studying at Tilburg University in the Netherlands right now, job options in the Netherlands are most relevant to us. Furthermore, we decided to investigate the 4 jobs most closely related to our master in Marketing Analytics program, being data scientist, marketeer, data-analist and marketing-analist. By narrowing down the project by not including too many locations and job searches, the project workflow will be much smoother and easier to reproduce for anyone interested in doing so.
+
+### 2. Methodology
+
+First, we built a web scraper that scrapes the vital information of each job posting associated with a specific job search. We used the BeautifulSoup package to collect job ids, job titles, salary, company name, dates, job summary and salaries if available. Afterwards, we scraped the job descriptions of the same search results to obtain the job descriptions of each job posting in a separate dataset by using a chrome webdriver with Python Selenium. Due to restrictions with captcha's, we collected multiple small batches of datasets per search term. In R we merged the data into one big file per search term by joining the datasets on the unique job id that serves as an identifier for each separate job advert on Indeed. After merging the files into one dataset per search term, we cleaned the data by removing duplicate entries and by cleaning up messy string location names. Location names such as Amsterdam-Zuid or Velsen-Noord were unwanted because they would appear as two distinct location in our analysis. Therefore, we wrote a function that removed all such extra unnecessary information in the location strings. We added a function that replaced certain unspecified locations such as Nederland or Randstad into Unknown, signifying that a job did not specify a specific location.
+
+The final step in the cleaning process was cleaning the salary data. The salary data was quite sparse and also very messy. Roughly three-quarters of the data was missing, and for the data available, different measures were given. Some jobs gave hourly salary rates, whereas other jobs utilized monthly or yearly income as a salary measure. We made a function that removes unnecessary character strings in the salary data and converted all different salary measures into yearly income as a standard. We calculated yearly income for hourly rates based on 40 hour work week. We multiplied the hourly rate * 40 * 4 * 12 to get a yearly income rate based on the hourly wage. For the monthly income, we simply multiplied with 12 to arrive at a yearly income. Quite a few jobs gave a salary range instead of a fixed number. For those jobs, we decided to take the middle of the range. We kept the observations with missing values for salary in the dataset for the first part of the analysis because it would significantly reduce the number of observations otherwise.
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(reshape)
+library(stringr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
+```
+
+# 3. Overview of the data
+After downloading and merging the data, we ended up with four datasets in total. One dataset per search term for the following search terms: Data Scientist, Data Analist, Marketing Analist and Marketeer. The following section will provide a short overview of what the datasets look like.
+
+### 3.1 This is what the data scientist dataset looks like:
+We can see that there are `r length(data_scientist$X)` job listings. It contains `r ncol(data_scientist)` columns.
+
+```{r}
+colnames(data_scientist)
+```
+
+Here can be observed a summary of the data scientist dataset.
+
+```{r}
+summary(data_scientist)
+```
+
+
+### 3.2 This is what the data analist dataset looks like:
+We can see that there are `r length(data_analist$X)` job listings. It contains `r ncol(data_analist)` columns.
+
+```{r}
+colnames(data_analist)
+```
+
+Here can be observed a summary of the data analist dataset.
+
+```{r}
+summary(data_analist)
+```
+
+### 3.3 This is what the marketing analist dataset looks like:
+We can see that there are `r length(marketing_analist$X)` job listings. It contains `r ncol(marketing_analist)` columns.
+
+```{r}
+colnames(marketing_analist)
+```
+
+Here can be observed a summary of the marketing analist dataset.
+
+```{r}
+summary(marketing_analist)
+```
+
+### 3.4 This is what the marketeer dataset looks like:
+We can see that there are `r length(marketeer$X)` job listings. It contains `r ncol(marketeer)` columns.
+
+```{r}
+colnames(marketeer)
+```
+
+Here can be observed a summary of the marketeer dataset.
+
+```{r}
+summary(marketeer)
+```
+
+### 4. Keyword Analysis
+
+In the following section we provide the analysis for our research. We performed three types of analyses. 
+
+1. Skill keyword analysis: we analyze the frequency of occurrence for certain technical skills related to marketing analytic.
+
+2. Location analysis, after knowing the right skills to pursue for the next job we provide a location analysis in which we investigate what the top locations for our four jobs.
+
+3. Salary analysis: we finish with a short analysis of average salaries for each job and the best locations salary wise for each job.
+
+
+### 4.1 Getting the skill counts for the most important skills in data science jobs
+
+```{r}
+skills_data_science <- data_scientist %>%
+  mutate(SQL = str_count(data_scientist$description, "SQL" )) %>%
+  mutate(HTML = str_count(data_scientist$description, "HTML")) %>%
+  mutate(SPSS = str_count(data_scientist$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(data_scientist$description, "Power BI")) %>%
+  mutate(AWS = str_count(data_scientist$description, "AWS")) %>%
+  mutate(Python = str_count(data_scientist$description, "Python" )) %>%
+  mutate(Hadoop = str_count(data_scientist$description, "Hadoop" )) %>%
+  mutate(Java = str_count(data_scientist$description, "Java" )) %>%
+  mutate(Apache = str_count(data_scientist$description, "Apache" )) %>%
+  mutate(Excel = str_count(data_scientist$description, "Excel")) %>%
+  mutate(AWS = str_count(data_scientist$description, "AWS"))%>%
+  mutate(Azure = str_count(data_scientist$description, "Azure"))%>% 
+  mutate(Tableau = str_count(data_scientist$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(data_scientist$description, "TensorFlow" )) %>%  
+  mutate('Big Data' = str_count(data_scientist$description, "big data" )) %>% 
+  mutate('Machine Learning' = str_count(data_scientist$description, "machine learning" )) %>%
+  mutate(SAS = str_count(data_scientist$description, "SAS" )) %>% 
+  mutate(R = str_count(data_scientist$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+```
+
+```{r}
+# get only skills and their counts from the entire skills dataframe and arrange by count
+table_data_science <- gather(skills_data_science, "skill", "count", 15:31) %>%
+  arrange(count) 
+
+# make a plot of the counts for each skill
+count_plot_data_science <- ggplot(data = table_data_science, aes(x = count, y = skill)) +
+  geom_bar(stat="identity") +
+  xlab("Count") +
+  ylab("Skill") +
+  ggtitle("Counts per skill for Data Science job listings") +
+  theme_minimal()
+
+count_plot_data_science
+```
+This is a plot of the core technical skills and their counts in the data scientist job listings. As we can see, there are four clear top skills to learn to become a data scientist. These include Python, SQL, R and machine learning, with each having counts over 300. Other important skills seem to be Java, Excel, Azure and AWS (Amazon Web Services), with each having counts over 100.
+
+However, counts do not paint the entire picture. Some job listings have double or even more counts of the same skill within the same description. To control for this, we also calculate the percentage of job listings wherein each skill is featured in the description. For example, if the skill R is mentioned in half of the job listings, it will have a value of 0.5.
+```{r}
+# get the count data from the entire dataset
+subset_data_science <- skills_data_science[15:31]
+
+# count the number of listings in which each skill is mentioned
+occurences_data_science <- colSums(subset_data_science != 0)
+
+# percentage of total number of advertisements
+percentage_data_science <- (occurences_data_science / nrow(subset_data_science)) * 100
+
+# add skill names into the dataframe
+percentage_data_science <- as.data.frame(percentage_data_science)
+percentage_data_science$skill <- c("SQL","HTML", "SPSS","Power BI", "AWS", "Python",
+                                   "Hadoop", "Java", "Apache", "Excel", "Azure",
+                                   "Tableau", "TensorFlow", "Big Data",
+                                   "Machine Learning","SAS", "R")
+
+# plot the percentage of occurrence per skill level
+percentage_plot_data_science <- ggplot(data = percentage_data_science,
+                                       aes(x = percentage_data_science, y = skill)) +
+  geom_bar(stat="identity") +
+  xlab("Percentage") +
+  ylab("Skill") +
+  ggtitle("Percentage per skill for Data Science job listings") +
+  theme_minimal()
+
+percentage_plot_data_science
+```
+The percentage plot shows us that the percentage analysis bears quite similar results to the count analysis. Again, Python, R, machine learning and SQL are the most important skills. However, the difference between Python and the other skills became bigger in terms of percentage occurrence compared to count. Also in percentage terms, Excel is becoming more important, catching up with the top four skills and being almost equally important as machine learning. 
+
+
+### 4.2 Getting the skill counts for the most important skills in data analist jobs
+
+```{r}
+skills_data_analist <- data_analist %>%
+  mutate(SQL = str_count(data_analist$description, "SQL" )) %>%
+  mutate(HTML = str_count(data_analist$description, "HTML")) %>%
+  mutate(SPSS = str_count(data_analist$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(data_analist$description, "Power BI")) %>%
+  mutate(AWS = str_count(data_analist$description, "AWS")) %>%
+  mutate(Python = str_count(data_analist$description, "Python" )) %>%
+  mutate(Hadoop = str_count(data_analist$description, "Hadoop" )) %>%
+  mutate(Java = str_count(data_analist$description, "Java" )) %>%
+  mutate(Apache = str_count(data_analist$description, "Apache" )) %>%
+  mutate(Excel = str_count(data_analist$description, "Excel")) %>%
+  mutate(AWS = str_count(data_analist$description, "AWS"))%>%
+  mutate(Azure = str_count(data_analist$description, "Azure"))%>% 
+  mutate(Tableau = str_count(data_analist$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(data_analist$description, "TensorFlow" )) %>%  
+  mutate('Big Data' = str_count(data_analist$description, "big data" )) %>% 
+  mutate('Machine Learning' = str_count(data_analist$description, "machine learning" )) %>%
+  mutate(SAS = str_count(data_analist$description, "SAS" )) %>% 
+  mutate(R = str_count(data_analist$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+```
+
+
+```{r}
+# get only skills and their counts from the entire skills dataframe
+table_data_analist <- gather(skills_data_analist, "skill", "count", 15:31) %>%
+  arrange(count) 
+
+# make a plot of the counts for each skill
+count_plot_data_analist <- ggplot(data=table_data_analist, aes(x = count, y = skill)) + 
+  geom_bar(stat="identity") +
+  xlab("Count") +
+  ylab("Skill") +
+  ggtitle("Counts per skill for Data Analist job listings") +
+  theme_minimal()
+
+count_plot_data_analist
+```
+As we can see, quite a different picture for data analist jobs compared to the data science jobs. The clear winner is SQL, which approaches a count of 500. After SQL, Excel is the second most sought after skill with over 350 counts. In third and fourth place come the 2 programming languages Python and R, with Python slightly edging R in terms of importance. Other important skills include Tableau, PowerBI and Azure.
+
+
+```{r}
+# get the count data from the entire dataset
+subset_data_analist <- skills_data_analist[15:31]
+
+# count the number of advertisements in which each skill is mentioned
+occurences_data_analist <- colSums(subset_data_analist != 0)
+
+# percentage of total number of advertisements
+percentage_data_analist <- (occurences_data_analist / nrow(subset_data_analist)) * 100
+
+# add skill names into the dataframe 
+percentage_data_analist <- as.data.frame(percentage_data_analist)
+percentage_data_analist$skill <- c("SQL","HTML","SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "Big Data", "Machine Learning", "SAS", "R")
+
+# plot the percentage of occurrence per skill level
+percentage_plot_data_analist <- ggplot(data = percentage_data_analist,
+                                       aes(x=percentage_data_analist, y=skill)) +
+  geom_bar(stat="identity") +
+  xlab("Percentage") +
+  ylab("Skill") +
+  ggtitle("Percentage per skill for Data Analist job listings") +
+  theme_minimal()
+
+percentage_plot_data_analist
+```
+Again similar results for the percentage analysis. However, the difference between SQL and Excel is declining, with both being almost equally important. Also the difference with number three, Python, seems slightly smaller than in the count analysis. Again, other important skills are R, PowerBI and Tableau. 
+
+
+### 4.3 Getting the skill counts for the most important skills in marketing analist jobs
+
+```{r}
+skills_marketing_analist <- marketing_analist %>%
+  mutate(SQL = str_count(marketing_analist$description, "SQL" )) %>%
+  mutate(HTML = str_count(marketing_analist$description, "HTML")) %>%
+  mutate(SPSS = str_count(marketing_analist$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(marketing_analist$description, "Power BI")) %>%
+  mutate(AWS = str_count(marketing_analist$description, "AWS")) %>%
+  mutate(Python = str_count(marketing_analist$description, "Python" )) %>%
+  mutate(Hadoop = str_count(marketing_analist$description, "Hadoop" )) %>%
+  mutate(Java = str_count(marketing_analist$description, "Java" )) %>%
+  mutate(Apache = str_count(marketing_analist$description, "Apache" )) %>%
+  mutate(Excel = str_count(marketing_analist$description, "Excel")) %>%
+  mutate(AWS = str_count(marketing_analist$description, "AWS"))%>%
+  mutate(Azure = str_count(marketing_analist$description, "Azure"))%>% 
+  mutate(Tableau = str_count(marketing_analist$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(marketing_analist$description, "TensorFlow" )) %>%  
+  mutate('Big Data' = str_count(marketing_analist$description, "big data" )) %>% 
+  mutate('Machine Learning' = str_count(marketing_analist$description, "machine learning" )) %>%
+  mutate(SAS = str_count(marketing_analist$description, "SAS" )) %>% 
+  mutate(R = str_count(marketing_analist$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+```
+
+```{r}
+# get only skills and their counts from the entire skills dataframe
+table_marketing_analist <- gather(skills_marketing_analist, "skill", "count", 15:31) %>%
+  arrange(count) 
+
+# make a plot of the counts for each skill
+count_plot_marketing_analist <- ggplot(data=table_marketing_analist,
+                                       aes(x=count, y=skill)) +
+  geom_bar(stat="identity") +
+  xlab("Count") +
+  ylab("Skill") +
+  ggtitle("Counts per skill for Marketing Analist job listings") +
+  theme_minimal()
+                                       
+count_plot_marketing_analist
+```
+
+The clear winner for skills to learn for a marketing analist is Excel, being the only skill reaching a count over 200. Other important skills are SQL, Tableau, R and Python, with all of them being very close to each other in terms of relative importance. Then, after quite a big gap, skills such as PowerBI, AWS and Azure come, clearly seemingly not that meaningful to learn as a marketing analist.
+
+```{r}
+# get the count data from the entire dataset
+subset_marketing_analist <- skills_marketing_analist[15:31]  
+
+# count the number of advertisements in which each skill is mentioned
+occurences_marketing_analist <- colSums(subset_marketing_analist != 0)
+
+# percentage of total number of advertisements
+percentage_marketing_analist <- (occurences_marketing_analist / nrow(subset_marketing_analist)) * 100
+
+# add skill names into the dataframe 
+percentage_marketing_analist <- as.data.frame(percentage_marketing_analist)
+percentage_marketing_analist$skill <- c("SQL","HTML","SPSS","Power BI", "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "Big Data", "Machine Learning", "SAS", "R")
+
+# plot the percentage of occurrence per skill level
+percentage_plot_marketing_analist <- ggplot(data=percentage_marketing_analist,
+                                            aes(x=percentage_marketing_analist, y=skill)) +
+  geom_bar(stat="identity") +
+  xlab("Percentage") +
+  ylab("Skill") +
+  ggtitle("Percentage per skill for Marketing Analist job listings") +
+  theme_minimal()
+
+percentage_plot_marketing_analist
+```
+
+The percentage plot shows very similar results to the count plot. Again, Excel is the clear winner, which is mentioned in over 1/3 of the job descriptions. SQL, Python, R and Tableau follow on respected distance with all being roughly equally relevant for marketing analists to learn. 
+
+### 4.4 Getting the skill counts for the most important skills in marketeer jobs
+
+```{r}
+skills_marketeer <- marketeer %>%
+  mutate(SQL = str_count(marketeer$description, "SQL" )) %>%
+  mutate(HTML = str_count(marketeer$description, "HTML")) %>%
+  mutate(SPSS = str_count(marketeer$description, "SPSS")) %>%
+  mutate(PowerBI = str_count(marketeer$description, "Power BI")) %>%
+  mutate(AWS = str_count(marketeer$description, "AWS")) %>%
+  mutate(Python = str_count(marketeer$description, "Python" )) %>%
+  mutate(Hadoop = str_count(marketeer$description, "Hadoop" )) %>%
+  mutate(Java = str_count(marketeer$description, "Java" )) %>%
+  mutate(Apache = str_count(marketeer$description, "Apache" )) %>%
+  mutate(Excel = str_count(marketeer$description, "Excel")) %>%
+  mutate(AWS = str_count(marketeer$description, "AWS"))%>%
+  mutate(Azure = str_count(marketeer$description, "Azure"))%>% 
+  mutate(Tableau = str_count(marketeer$description, "Tableau" )) %>%
+  mutate(TensorFlow = str_count(marketeer$description, "TensorFlow" )) %>%  
+  mutate('Big Data' = str_count(marketeer$description, "big data" )) %>% 
+  mutate('Machine Learning' = str_count(marketeer$description, "machine learning" )) %>%
+  mutate(SAS = str_count(marketeer$description, "SAS" )) %>% 
+  mutate(R = str_count(marketeer$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
+```
+
+```{r}
+# get only skills and their counts from the entire skills dataframe
+table_marketeer <- gather(skills_marketeer,"skill", "count", 15:31) %>%
+  arrange(count)
+
+# make a plot of the counts for each skill
+count_plot_marketeer <- ggplot(data=table_marketeer, aes(x=count, y=skill)) +
+  geom_bar(stat="identity") +
+  xlab("Count") +
+  ylab("Skill") +
+  ggtitle("Counts per skill for Marketeer job listings") +
+  theme_minimal()
+
+count_plot_marketeer
+```
+For marketeers, it is clear that technical skills are less important than for the other jobs, which involve more data related tasks. Despite this fact, Excel is still valuable, being the clear winner for marketeers in terms of technical skills. The second spot is for HTML, which is seen as a valuable skill for marketeers to have. Other slightly important skills are R and SQL, with each of the other skills being almost equal to zero in terms of occurrences in the job ads for marketeers. 
+
+```{r}
+# get the count data from the entire dataset
+subset_marketeer <- skills_marketeer[15:31]
+
+# count the number of advertisements in which each skill is mentioned
+occurences_marketeer <- colSums(subset_marketeer != 0)
+
+# percentage of total number of advertisements
+percentage_marketeer <- (occurences_marketeer / nrow(subset_marketeer)) * 100
+
+# add skill names into the dataframe 
+percentage_marketeer <- as.data.frame(percentage_marketeer)
+percentage_marketeer$skill <- c("SQL","HTML","SPSS", "Power BI",  "AWS", "Python", "Hadoop", "Java", "Apache", "Excel", "Azure", "Tableau", "TensorFlow", "Big Data", "Machine Learning", "SAS", "R")
+
+# plot the percentage of occurrence per skill level
+percentage_plot_marketeer <- ggplot(data=percentage_marketeer,
+                                    aes(x=percentage_marketeer, y=skill)) +
+  geom_bar(stat="identity") +
+  xlab("Percentage") +
+  ylab("Skill") +
+  ggtitle("Percentage per skill for Marketeer job listings") +
+  theme_minimal()
+
+percentage_plot_marketeer
+```
+
+Similar results in percentage, which show that the technical skills get mentioned really infrequently in the job advertisements. Excel stays the winner in terms of technical skills but is still getting mentioned in only eight percent of the job listings. Compared with the winner skills for other job searches, that were reaching over 30-40 %, there is a clear difference in the job requirements for marketeers. 
+
+### 4.5 Getting insights into comparing the skills from the 4 job titles
+Combining the separate bar charts presented above into one bar graph, to conveniently compare the skills occurrence for our 4 job searches. In the following section we will provide a comprehensive graph which shows each skill percentage occurrence for each job next to each other in order to facilitate direct comparison.
+
+```{r}
+# merge different percentages for skills into one data frame
+percentage <- merge(percentage_marketeer, percentage_data_analist, by = "skill") 
+percentage <- merge(percentage, percentage_data_science, by = "skill")
+percentage <- merge(percentage, percentage_marketing_analist, by = "skill")
+
+colnames(percentage) <- c("skill", "marketeer", "data_analist", "data_scientist", "marketing_analist")
+```
+
+```{r}
+df <- melt(percentage, id.vars="skill")
+
+colnames(df) <- c("skill", "job", "occurence")
+
+plot_skills <- ggplot(df, aes(x= occurence, y = skill, fill=job)) +
+  geom_bar(stat='identity', position='dodge') +
+  xlab("Percentage") +
+  ylab("Skill") +
+  labs(fill = "Job title") +
+  ggtitle("Percentage per skill for all job listings") +
+  theme_minimal() +
+  scale_fill_discrete(labels=c('Marketeer', 'Data Analist', 'Data Scientist', 'Marketing Analist'))
+
+plot_skills
+```
+The top 4 skills in general are Python, R, SQL and Excel. With data scientist relying heavily on Python, for marketing and data analists it might be more fruitful to invest in your SQL skills. There seems to be a clear discrepancy between the R and SPSS heavy academic courses and the actual skills required by companies, more focused on SQL and Python to perform job tasks. Especially SQL is completely missing from the MSc Marketing Analytics curriculum. Similarly, Python is available in a few courses only. 
+
+# 5. Location frequency analysis
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+data_scientist_location <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist_location <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist_location <- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
+```
+
+### 5.1 Location frequency data scientist
+
+```{r}
+data_scientist_location <- as.data.frame(table(data_scientist$location))
+
+data_scientist_location <- data_scientist_location %>%
+  filter(Freq > 10)
+
+data_scientist_location$location <- data_scientist_location$Var1
+
+data_scientist_location_plot <- ggplot(data_scientist_location,
+                                       aes(x = Freq, y = location)) +
+  geom_bar(stat="identity") +
+  xlab("Frequency") +
+  ylab("Location") +
+  ggtitle("Data Science job listings per location") +
+  theme_minimal()
+
+data_scientist_location_plot 
+```
+Amsterdam seems the place to be as a data scientist, with counts over 200, or roughly 1/3 of the entire number of job listings posted being in Amsterdam. Furthermore, as expected, the Randstad features the most in job listings, with Utrecht, Rotterdam and Leiden coming in high as well. Outside of the Randstad, Noord-Brabant in the form of Eindhoven and Den Bosch provide a decent number of job opportunities. 
+
+### 5.2 Location frequency data analist
+
+```{r}
+data_analist_location <- as.data.frame(table(data_analist$location))
+
+data_analist_location <- data_analist_location %>%
+  filter(Freq > 10)
+
+data_analist_location$location <- data_analist_location$Var1
+
+data_analist_location_plot <- ggplot(data_analist_location,
+                                     aes(x = Freq, y = location)) +
+  geom_bar(stat="identity") +
+  xlab("Frequency") +
+  ylab("Location") +
+  ggtitle("Data Analist job listings per location") +
+  theme_minimal()
+
+data_analist_location_plot
+```
+For data analists, the picture is quite similar. Amsterdam again is the clear winner in terms of number of jobs offered. However, Utrecht seems relatively more important for data analists compared to data scientists. Rotterdam again is number 3, with Den Haag and Eindhoven completing the top 5 in terms of locations. 
+
+### 5.3 Location frequency marketing analist
+
+```{r}
+marketing_analist_location <- as.data.frame(table(marketing_analist$location))
+
+marketing_analist_location <- marketing_analist_location %>%
+  filter(Freq > 10)
+
+marketing_analist_location$location <- marketing_analist_location$Var1
+
+marketing_analist_location_plot <- ggplot(marketing_analist_location,
+                                          aes(x = Freq, y = location)) +
+  geom_bar(stat="identity") +
+  xlab("Frequency") +
+  ylab("Location") +
+  ggtitle("Marketing Analist job listings per location") +
+  theme_minimal()
+
+marketing_analist_location_plot
+```
+For Marketing analists we see the same top 5 as for data analists. However, Utrecht, Rotterdam and Den Haag all have almost equal counts of job offers and Amsterdam is a way more pronounced winner for Marketing analists than for the other jobs scrutinized before.
+
+### 5.4 Location frequency marketeer
+
+```{r}
+marketeer_location<- as.data.frame(table(marketeer$location))
+
+marketeer_location <- marketeer_location %>% filter(Freq > 10)
+
+marketeer_location$location <- marketeer_location$Var1
+
+marketeer_location_plot <- ggplot(marketeer_location, aes(x = Freq, y = location)) +
+  geom_bar(stat="identity") +
+  xlab("Frequency") +
+  ylab("Location") +
+  ggtitle("Marketeer job listings per location") +
+  theme_minimal()
+
+marketeer_location_plot
+```
+For Marketeers, it seems that there are more opportunities outside of the Randstad available compared to the three data related jobs. Cities as Breda, Arnhem, Deventer and Nijmegen come in quite close to the Randstad cities such as Rotterdam and Utrecht, suggesting that the job opportunities for marketeers are more evenly spread across the country. 
+
+### 5.5 Getting insights into comparing the locations of the 4 job titles
+```{r}
+location <- merge(marketeer_location, data_analist_location, by = "location")
+location <- merge(location, data_scientist_location, by = "location")
+location <- merge(location, marketing_analist_location, by = "location")
+
+location <- location[ , -which(names(location) %in% c("Var1.x","Var1.y"))]
+
+colnames(location) <- c("location", "marketeer", "data_analist", "data_scientist", "marketing_analist")
+
+location <- melt(location, id.vars="location")
+
+colnames(location) <- c("location", "job", "frequency")
+
+plot_location <- ggplot(location, aes(x= frequency, y = location, fill=job)) +
+  geom_bar(stat='identity', position='dodge') +
+  xlab("Frequency") +
+  ylab("Location") +
+  labs(fill = "Job title") +
+  ggtitle("Frequency per location") +
+  theme_minimal() +
+  scale_fill_discrete(labels=c('Marketeer', 'Data Analist', 'Data Scientist', 'Marketing Analist'))
+
+plot_location
+
+```
+This graph shows the top 5 (plus remote) locations for job listings. As expected, Amsterdam is the clear winner for each job in terms of number of job offers, however the difference is less pronounced for marketeer related jobs than for the other three jobs. Utrecht comes in second in terms of number of job listings whereas Rotterdam, Eindhoven and Den Haag are very equally ranked.
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+data_scientist <- read.csv("../../gen/data-preparation/output/data_scientist_clean.csv")
+data_analist <- read.csv("../../gen/data-preparation/output/data_analist_clean.csv")
+marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analist_clean.csv")
+marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
+```
+
+
+### 6 Salary analysis
+Now that we know what the most important skills are to learn for our four jobs titles and also what the best cities are to go to, we will analyze the best jobs and locations in terms of pay.
+
+```{r}
+data_scientist_salary <- data_scientist %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_ds = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+
+data_scientist_salary <- cbind(data_scientist, data_scientist_salary)
+
+data_scientist_salary <- data_scientist_salary[!is.na(data_scientist_salary$min_salary_ds),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+data_scientist_salary$X.1 <- NULL
+
+
+data_analist_salary <- data_analist %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_da = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+
+# join the two data frames
+data_analist_salary <- cbind(data_analist, data_analist_salary)
+data_analist_salary <- data_analist_salary[!is.na(data_analist_salary$min_salary_da),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+data_analist_salary$X.1 <- NULL
+
+
+
+marketing_analist_salary  <- marketing_analist %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_ma = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+
+# join the two data frames
+marketing_analist_salary   <- cbind(marketing_analist, marketing_analist_salary  )
+marketing_analist_salary  <- marketing_analist_salary  [!is.na(marketing_analist_salary$min_salary_ma),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+marketing_analist_salary$X.1 <- NULL
+
+
+marketeer_salary  <- marketeer %>% 
+  mutate(salary1 = str_remove_all(salary, '[^0-9-,ÃÂ¢,ÃÂ¬]+')) %>% 
+  separate(salary1, into = c('salary1', 'salary2'), convert = TRUE, extra = 'drop') %>%
+  mutate(across(c(salary1, salary2),
+                ~ case_when(str_detect(salary, "per maand") ~ . * 12, 
+                            str_detect(salary, 'per uur') ~ . * 40 * 4 * 12, 
+                            nchar(.) < 5 ~ as.numeric(str_pad(., pad = '0', 
+                                                              side = 'right', width = 5)),
+                            TRUE ~ as.numeric(.)))) %>% 
+  transmute(min_salary_m = rowMeans(select(., salary1, salary2), na.rm = TRUE))
+
+# join the two data frames
+marketeer_salary  <- cbind(marketeer, marketeer_salary )
+marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$min_salary_m),]
+
+# discard the column X.1 as it is a duplicate of the index column 
+marketeer_salary$X.1 <- NULL
+```
+
+### 6.1 Mean salaries per job 
+```{r}
+# finding the mean salary per job
+avg_salary_data_science <- mean(data_scientist_salary$salary_good)
+avg_salary_data_analist <- mean(data_analist_salary$salary_good)
+avg_salary_marketing_analist <- mean(marketing_analist_salary$salary_good)
+avg_salary_marketeer <- mean(marketeer_salary$salary_good)
+
+job <- c("Data Scientist","Data Analist",  "Marketing Analist", "Marketeer")
+salary <- c(avg_salary_data_science, avg_salary_data_analist, avg_salary_marketing_analist,
+            avg_salary_marketeer)
+
+df_salary <- data.frame(job, salary)
+
+plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) +
+                           geom_bar(stat='identity')) +
+  xlab("Job Title") +
+  ylab("Salary") +
+  ggtitle("Average salery per month") +
+  theme_minimal()
+
+plot_mean_salary
+```
+
+### 6.2 Top locations in terms of salary for data scientists
+
+```{r}
+# average salaries per location for top locations for data scientists
+data_scientist_avgsalary <- data_scientist_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+data_scientist_avgsalary  <- data_scientist_avgsalary %>%
+  filter(data_scientist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+data_scientist_salary_plot <- ggplot(data_scientist_avgsalary,
+                                     aes(x = average_salary, y = location)) +
+  geom_bar(stat='identity') +
+  xlab("Average salary") +
+  ylab("Location") +
+  ggtitle("Average salery per location for Data Scientists") +
+  theme_minimal()
+
+data_scientist_salary_plot
+```
+
+### 6.3 top locations in terms of salary for data analists
+
+```{r}
+# average salaries per location for top locations for data analists
+data_analist_avgsalary <- data_analist_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+data_analist_avgsalary <- data_analist_avgsalary  %>%
+  filter(data_analist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+data_analist_salary_plot <- ggplot(data_analist_avgsalary,
+                                   aes(x = average_salary, y = location)) +
+  geom_bar(stat='identity') +
+  xlab("Average salary") +
+  ylab("Location") +
+  ggtitle("Average salery per location for Data Analists") +
+  theme_minimal()  
+
+data_analist_salary_plot
+```
+
+### 6.4 top locations in terms of salary for marketing analists
+
+```{r}
+# average salaries per location for top locations for marketing analists
+marketing_analist_avgsalary <-marketing_analist_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
+  filter(marketing_analist_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary,
+                                        aes(x = average_salary, y = location)) +
+  geom_bar(stat='identity') +
+  xlab("Average salary") +
+  ylab("Location") +
+  ggtitle("Average salery per location for Marketing Analists") +
+  theme_minimal()
+
+marketing_analist_salary_plot
+```
+
+### 6.5 top locations in terms of salary for marketeers
+
+```{r}
+# average salaries per location for top locations for  marketeers
+marketeer_avgsalary <- marketeer_salary %>% 
+  group_by(location) %>%                 
+  summarise(average_salary = mean(salary_good)) 
+
+# filter cities with over 30000 euro's average yearly salary
+marketeer_avgsalary <- marketeer_avgsalary %>%
+  filter(marketeer_avgsalary$average_salary > 30000)
+
+# build a plot of the locations with the highest average salary in the Netherlands
+marketeer_salary_plot <- ggplot(marketeer_avgsalary,
+                                aes(x = average_salary, y = location)) +
+  geom_bar(stat='identity') +
+  xlab("Average salary") +
+  ylab("Location") +
+  ggtitle("Average salery per location for Marketeers") +
+  theme_minimal()
+
+marketeer_salary_plot
+```
+
+### 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations
+
+```{r}
+# combined plot
+# first merge the different files
+salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location")
+salary <- merge(salary, data_scientist_avgsalary, by = "location")
+salary <- merge(salary, marketing_analist_avgsalary, by = "location")
+colnames(salary) <- c("location", "Marketeer", "Data Analist", "Data Scientist", "Marketing Analist")
+
+# put all jobs in a column 
+salary <- melt(salary, id.vars="location")
+colnames(salary) <- c("location", "job", "salary")
+
+plot_salary <- ggplot(salary, aes(x= salary, y = location, fill=job)) +
+  geom_bar(stat='identity', position='dodge') +
+  xlab("Average salary") +
+  ylab("Location") +
+  ggtitle("Average salary per location") +
+  theme_minimal()
+  
+plot_salary
+```
+
+
+###7 Conclusion and discussion
+
+###7.1 Conclusion
+
+Our results show that the main skills required by jobs related to Data Analysis, Data Science and Marketing are Excel, SQL, R and Python. The curriculum of Marketing Analytics is focused more on R and SPSS, and completely ignores SQL. We believe that students would benefit from the inclusion of courses which develop skills in SQL and Python.
+
+For location
+
+For salary, data scientist seem to be in the best position, with on average the highest salaries compared to marketeers, data analists and marketing analists. 
+
+###7.2 Discussion 
+
+Our research is limited due to limited sample size. Scraping Indeed.com had its fair share of challenges and our focus on the Netherlands meant that we collected between 500 and 1100 observations per job search. However, after cleaning out duplicates these numbers got adjusted downward. Especially for the salary analysis, there was a lot of missing data which meant datasets with only a few hundred observations. This means that some of the location averages for salary could be very high or very low due to only one job being offered in that location with perhaps a very high or very low salary. This suggests that the salary analysis is sensitive to outlier datapoints. This limited sample is however difficult to overcome, since most job listings do not show salary data. 
+
+###7.3 Future research
+Our results can be reproduced for any job title and any location in the world. This makes it very interesting for future research to compare different countries with each other in terms of salary and job skills for the four jobs researched in this analysis. However, it also opens up the opportunity for students and job seekers in general to perform similar research in any kind of other field they are interested in. By tweaking the search term in the scraper and the skills being asked in the keyword analysis, it is possible to research for example what skills are important in a range of jobs and locations. Furthermore, we think that our analysis could be valuable over time by for example repeating the research on a monthly or yearly basis to observe possible developments over time in skills required, salaries offered and locations offering the most jobs.

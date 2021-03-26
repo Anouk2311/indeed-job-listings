@@ -519,7 +519,7 @@ data_scientist_avgsalary <- data_scientist_salary %>%
 
 # filter cities with over 30000 euro's average yearly salary, filtering for outliers
 data_scientist_avgsalary  <- data_scientist_avgsalary %>%
-  filter(data_scientist_avgsalary$average_salary > 30000 & average_salary < 300000)
+  filter(data_scientist_avgsalary$average_salary > 40000 & average_salary < 300000)
 # build a plot of the locations with the highest average salary in the Netherlands
 data_scientist_salary_plot <- ggplot(data_scientist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
 data_scientist_salary_plot
@@ -535,7 +535,7 @@ data_analist_avgsalary <- data_analist_salary %>%
 
 # filter cities with over 30000 euro's average yearly salary, filtering for outliers
 data_analist_avgsalary <- data_analist_avgsalary  %>%
-  filter(data_analist_avgsalary$average_salary > 30000 & average_salary < 300000)
+  filter(data_analist_avgsalary$average_salary > 40000 & average_salary < 300000)
 
 # build a plot of the locations with the highest average salary in the Netherlands
 data_analist_salary_plot <- ggplot(data_analist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
@@ -552,7 +552,7 @@ marketing_analist_avgsalary <-marketing_analist_salary %>%
 
 # filter cities with over 30000 euro's average yearly salary, filtering for outliers
 marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
-  filter(marketing_analist_avgsalary$average_salary > 30000 & average_salary < 300000)
+  filter(marketing_analist_avgsalary$average_salary > 40000 & average_salary < 300000)
 
 # build a plot of the locations with the highest average salary in the Netherlands
 marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
@@ -569,7 +569,7 @@ marketeer_avgsalary <- marketeer_salary %>%
 
 # filter cities with over 30000 euro's average yearly salary, filtering for outliers
 marketeer_avgsalary <- marketeer_avgsalary %>%
-  filter(marketeer_avgsalary$average_salary > 30000 & average_salary < 300000)
+  filter(marketeer_avgsalary$average_salary > 40000 & average_salary < 300000)
 # build a plot of the locations with the highest average salary in the Netherlands
 marketeer_salary_plot <- ggplot(marketeer_avgsalary, aes(x = location, y = average_salary)) + geom_bar(stat='identity') + coord_flip()
 marketeer_salary_plot

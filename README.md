@@ -34,7 +34,7 @@ In the following section we give a short overview of the main findings from our 
 
 - And lastly, for future marketing analists, it is useful to learn Excel, SQL, Python, R and Tableau. When searching for a job as a marketing analist, we found that Amsterdam has the most vacancies, followed by Rotterdam, Utrecht, Den Haag and Eindhoven.
 
-*How do we want to integrate salary in this?*
+!!!!*How do we want to integrate salary in this?*!!!!
 
 
 ## Repository overview

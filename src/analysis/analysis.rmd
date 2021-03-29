@@ -800,84 +800,85 @@ plot_salary
 ```{r, echo = FALSE}
 
 library(here)
-pdf(here("gen","data-preparation", "input", "plot_mean_salary.pdf"))
+dir.create("../../gen/analysis/temp")
+pdf(here("gen". "analysis", "temp", "plot_mean_salary.pdf"))
 print(plot_mean_salary)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "plot_salary.pdf"))
+pdf(here("gen". "analysis", "temp", "plot_salary.pdf"))
 print(plot_salary)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "plot_location.pdf"))
+pdf(here("gen". "analysis", "temp", "plot_location.pdf"))
 print(plot_location)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "data_scientist_location_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "data_scientist_location_plot.pdf"))
 print(data_scientist_location_plot)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "data_analist_location_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "data_analist_location_plot.pdf"))
 print(data_analist_location_plot)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "marketing_analist_location_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "marketing_analist_location_plot.pdf"))
 print(marketing_analist_location_plot)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "marketeer_location_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "marketeer_location_plot.pdf"))
 print(marketeer_location_plot)
 dev.off()
 
 
-pdf(here("gen","data-preparation", "input", "percentage_plot_data_scientist.pdf"))
+pdf(here("gen". "analysis", "temp", "percentage_plot_data_scientist.pdf"))
 print(percentage_plot_data_scientist)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "percentage_plot_data_analist.pdf"))
+pdf(here("gen". "analysis", "temp", "percentage_plot_data_analist.pdf"))
 print(percentage_plot_data_analist)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "percentage_plot_marketing_analist.pdf"))
+pdf(here("gen". "analysis", "temp", "percentage_plot_marketing_analist.pdf"))
 print(percentage_plot_marketing_analist)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "percentage_plot_marketeer.pdf"))
+pdf(here("gen". "analysis", "temp", "percentage_plot_marketeer.pdf"))
 print(percentage_plot_marketeer)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "count_plot_data_scientist.pdf"))
+pdf(here("gen". "analysis", "temp", "count_plot_data_scientist.pdf"))
 print(count_plot_data_scientist)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "count_plot_data_analist.pdf"))
+pdf(here("gen". "analysis", "temp", "count_plot_data_analist.pdf"))
 print(count_plot_data_analist)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "count_plot_marketing_analist.pdf"))
+pdf(here("gen". "analysis", "temp", "count_plot_marketing_analist.pdf"))
 print(count_plot_marketing_analist)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "count_plot_marketeer.pdf"))
+pdf(here("gen". "analysis", "temp", "count_plot_marketeer.pdf"))
 print(count_plot_marketeer)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "plot_skills.pdf"))
+pdf(here("gen". "analysis", "temp", "plot_skills.pdf"))
 print(plot_skills)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "data_scientist_salary_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "data_scientist_salary_plot.pdf"))
 print(data_scientist_salary_plot)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "data_analist_salary_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "data_analist_salary_plot.pdf"))
 print(data_analist_salary_plot)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "marketing_analist_salary_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "marketing_analist_salary_plot.pdf"))
 print(marketing_analist_salary_plot)
 dev.off()
 
-pdf(here("gen","data-preparation", "input", "marketeer_salary_plot.pdf"))
+pdf(here("gen". "analysis", "temp", "marketeer_salary_plot.pdf"))
 print(marketeer_salary_plot)
 dev.off()
 ```

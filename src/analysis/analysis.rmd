@@ -80,7 +80,6 @@ summary(data_analist)
 #### 3.3 This is what the marketing analist dataset looks like:
 
 We can see that there are `r length(marketing_analist$id)` job listings. It contains `r ncol(marketing_analist)` columns.
-
 ```{r, echo = FALSE}
 colnames(marketing_analist)
 ```
@@ -197,7 +196,7 @@ percentage_plot_data_scientist
 
 The percentage plot shows us that the percentage analysis bears quite similar results to the count analysis. Again, Python, R, machine learning and SQL are the most important skills. However, the difference between Python and the other skills became bigger in terms of percentage occurrence compared to count. Also in percentage terms, Excel is becoming more important, catching up with the top four skills and being almost equally important as machine learning. 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.align = 'left'}
 skills_data_analist <- data_analist %>%
   mutate(SQL = str_count(data_analist$description, "SQL" )) %>%
   mutate(HTML = str_count(data_analist$description, "HTML")) %>%
@@ -267,7 +266,7 @@ percentage_plot_data_analist
 
 Again similar results for the percentage analysis. However, the difference between SQL and Excel is declining, with both being almost equally important. Also the difference with number three, Python, seems slightly smaller than in the count analysis. Again, other important skills are R, PowerBI and Tableau. 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.align = 'left'}
 skills_marketing_analist <- marketing_analist %>%
   mutate(SQL = str_count(marketing_analist$description, "SQL" )) %>%
   mutate(HTML = str_count(marketing_analist$description, "HTML")) %>%
@@ -338,7 +337,7 @@ percentage_plot_marketing_analist
 
 The percentage plot shows very similar results to the count plot. Again, Excel is the clear winner, which is mentioned in over 1/3 of the job descriptions. SQL, Python, R and Tableau follow on respected distance with all being roughly equally relevant for marketing analists to learn. 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.align = 'left'}
 skills_marketeer <- marketeer %>%
   mutate(SQL = str_count(marketeer$description, "SQL" )) %>%
   mutate(HTML = str_count(marketeer$description, "HTML")) %>%
@@ -578,7 +577,7 @@ marketing_analist<- read.csv("../../gen/data-preparation/output/marketing_analis
 marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 data_scientist_salary <- data_scientist %>% 
   mutate(salary1 = str_remove_all(salary, '[^0-9-]+')) %>% 
   separate(salary1, into = c('salary1', 'salary2'), 
@@ -594,8 +593,9 @@ data_scientist_salary <- data_scientist %>%
 data_scientist_salary <- cbind(data_scientist, data_scientist_salary)
 
 data_scientist_salary <- data_scientist_salary[!is.na(data_scientist_salary$salary_good),]
-#filter out 2 wrong job ads in the data scientist job which showed job ads for warehouse jobs with a salary of over 2 million
+#filter out 2 wrong job ads in the data which showed job ads for warehouse jobs with a salary of over 2 million
 data_scientist_salary <- data_scientist_salary %>% filter(salary_good < 500000)
+
 
 # discard the column X.1 as it is a duplicate of the index column 
 data_scientist_salary$X.1 <- NULL
@@ -616,6 +616,8 @@ data_analist_salary <- data_analist %>%
 data_analist_salary <- cbind(data_analist, data_analist_salary)
 data_analist_salary <- data_analist_salary[!is.na(data_analist_salary$salary_good),]
 
+#filter out 2 wrong job ads in the data which showed job ads for warehouse jobs with a salary of over 2 million
+data_analist_salary <- data_analist_salary %>% filter(salary_good < 500000)
 # discard the column X.1 as it is a duplicate of the index column 
 data_analist_salary$X.1 <- NULL
 
@@ -636,6 +638,8 @@ marketing_analist_salary  <- marketing_analist %>%
 marketing_analist_salary   <- cbind(marketing_analist, marketing_analist_salary )
 marketing_analist_salary  <- marketing_analist_salary  [!is.na(marketing_analist_salary$salary_good),]
 
+#filter out 2 wrong job ads in the data which showed job ads for warehouse jobs with a salary of over 2 million
+marketing_analist_salary <- marketing_analist_salary %>% filter(salary_good < 500000)
 # discard the column X.1 as it is a duplicate of the index column 
 marketing_analist_salary$X.1 <- NULL
 
@@ -655,6 +659,8 @@ marketeer_salary  <- marketeer %>%
 marketeer_salary  <- cbind(marketeer, marketeer_salary )
 marketeer_salary <- marketeer_salary[!is.na(marketeer_salary$salary_good),]
 
+#filter out 2 wrong job ads in the data which showed job ads for warehouse jobs with a salary of over 2 million
+marketeer_salary <- marketeer_salary %>% filter(salary_good < 500000)
 # discard the column X.1 as it is a duplicate of the index column 
 marketeer_salary$X.1 <- NULL
 ```
@@ -681,23 +687,30 @@ plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) +
                            geom_bar(stat='identity')) +
   xlab("Job Title") +
   ylab("Salary") +
-  ggtitle("Average salery per month") +
+  ggtitle("Average salary per month") +
   theme_minimal()
 
 plot_mean_salary
 
 ```
+Data Scientists on average have the highest salaries, earning around 50000 annually on average. The difference with Marketing Analysts and Data Analysts is small however, with both analyst jobs having a mean salary of well over 40000 per year. Marketeers seem to fall behind in terms of salary, earning less than 40000 per year. 
 
+<<<<<<< HEAD
+In the next section we analyse the top locations based on average salaries. Due to limited salary data, many locations have only a single job ad with salary data included, this number does not really represent an average. Therefore, we decided to only incorporate locations with a minimum of 3 job ads into the analysis.
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
-# average salaries per location for top locations for data analists
+data_scientist_salary <- transform(data_scientist_salary, freq.loc = ave(seq(nrow(data_scientist_salary)), location, FUN=length))
+
+data_scientist_salary <- data_scientist_salary  %>%  filter(freq.loc > 2)
+# average salaries per location for top locations for data scientists
+
 data_scientist_avgsalary <- data_scientist_salary %>% 
   group_by(location) %>%                 
   summarise(average_salary = mean(salary_good)) 
 
-# filter cities with over 37500 euro's average yearly salary, filter for outliers
+# filter cities with over 25000 euro's average yearly salary
 data_scientist_avgsalary <- data_scientist_avgsalary  %>%
-  filter(data_scientist_avgsalary$average_salary > 37500 & average_salary < 300000)
-4
+  filter(data_scientist_avgsalary$average_salary > 25000 )
+
 # build a plot of the locations with the highest average salary in the Netherlands
 data_scientist_salary_plot <- ggplot(data_scientist_avgsalary,
                                    aes(x = average_salary, y = location)) +
@@ -711,17 +724,23 @@ data_scientist_salary_plot
 ```
 
 #### 6.2 Top locations in terms of salary for data scientists
+Top locations for Data Scientists in terms of salary are are Amsterdam and Zaandam. In each of these places the average salary for Data Scientists is over 60000 annually, which is well above the average earnings for the entire country. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 # average salaries per location for top locations for data analists
+data_analist_salary <- transform(data_analist_salary, freq.loc = ave(seq(nrow(data_analist_salary)), location, FUN=length))
+
+data_analist_salary <- data_analist_salary  %>%  filter(freq.loc > 2)
+
 data_analist_avgsalary <- data_analist_salary %>% 
   group_by(location) %>%                 
   summarise(average_salary = mean(salary_good)) 
 
-# filter cities with over 37500 euro's average yearly salary, filter for outliers
+# filter cities with over 25000 euro's average yearly salary
 data_analist_avgsalary <- data_analist_avgsalary  %>%
-  filter(data_analist_avgsalary$average_salary > 37500 & average_salary < 300000)
-4
+  filter(data_analist_avgsalary$average_salary > 25000) 
+
+
 # build a plot of the locations with the highest average salary in the Netherlands
 data_analist_salary_plot <- ggplot(data_analist_avgsalary,
                                    aes(x = average_salary, y = location)) +
@@ -735,16 +754,22 @@ data_analist_salary_plot
 ```
 
 #### 6.3 Top locations in terms of salary for data analysts
+For Data Analysts, again Zaandam and Amsterdam re the cities with highest average salaries. Another attractive option is Apeldoorn. These top 3 cities all have average salaries close to or even over 60000 euro's per year. Quite more than the national average. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
+marketing_analist_salary <- transform(marketing_analist_salary, freq.loc = ave(seq(nrow(marketing_analist_salary)), location, FUN=length))
+
+marketing_analist_salary <- marketing_analist_salary  %>%  filter(freq.loc > 2)
+
+
 # average salaries per location for top locations for marketing analists
 marketing_analist_avgsalary <-marketing_analist_salary %>% 
   group_by(location) %>%                 
   summarise(average_salary = mean(salary_good)) 
 
-# filter cities with over 37500 euro's average yearly salary, filter for outliers
+# filter cities with over 25000 euro's average yearly salary, filter for outliers
 marketing_analist_avgsalary <-   marketing_analist_avgsalary %>%
-  filter(marketing_analist_avgsalary$average_salary > 37500 & average_salary < 300000)
+  filter(marketing_analist_avgsalary$average_salary > 25000 )
 
 # build a plot of the locations with the highest average salary in the Netherlands
 marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary,
@@ -759,16 +784,23 @@ marketing_analist_salary_plot
 ```
 
 #### 6.4 Top locations in terms of salary for marketing analysts
-
+For Marketing Analysts, the best places to find a job are Amsterdam, Almere, Den Haag and Utrecht. 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
+marketeer_salary <- transform(marketeer_salary, freq.loc = ave(seq(nrow(marketeer_salary)), location, FUN=length))
+
+
+marketeer_salary <- marketeer_salary  %>%  filter(freq.loc > 2)
+
+
+
 # average salaries per location for top locations for  marketeers
 marketeer_avgsalary <- marketeer_salary %>% 
   group_by(location) %>%                 
   summarise(average_salary = mean(salary_good)) 
 
-# filter cities with over 37500 euro's average yearly salary, filter for outliers
+# filter cities with over 25000 euro's average yearly salary, filter for outliers
 marketeer_avgsalary <- marketeer_avgsalary %>%
-  filter(marketeer_avgsalary$average_salary > 37500 & average_salary < 300000 )
+  filter(marketeer_avgsalary$average_salary > 25000 )
 
 # build a plot of the locations with the highest average salary in the Netherlands
 marketeer_salary_plot <- ggplot(marketeer_avgsalary,
@@ -783,6 +815,8 @@ marketeer_salary_plot
 ```
 
 #### 6.5 Top locations in terms of salary for marketeers
+<<<<<<< HEAD
+The highest paid jobs for marketeers generally are found in Zaandam and Schiedam, with Zaandam having salaries over 60000, which is nearly twice the average salary for marketeers. Besides these 2 cities, there are numerous other cities including Utrecht, Amsterdam, Rotterdam, Nijmegen and Eindhoven all pretty similar to each other in terms of salaries, coming close to 40000 average salaries. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 # combined plot
@@ -807,9 +841,10 @@ plot_salary <- ggplot(salary, aes(x= salary, y = location, fill=job)) +
 plot_salary
 ```
 
+
 #### 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations
 
-This plot shows that data scientists in general dominate salaries in each location, shortly followed by data analists and marketing analists. However, in Leiden, there seems to be a particularly attractive marketing analist position opening up.
+This plot shows that data scientists in general dominate salaries in each location, shortly followed by data analists and marketing analists. Marketeers in general lag quite behind in terms of salaries. 
 
 ### 7 Conclusion and discussion
 

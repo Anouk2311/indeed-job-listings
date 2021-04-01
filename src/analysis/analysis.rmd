@@ -48,8 +48,7 @@ marketeer <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv", h
 
 After downloading and merging data we have four datasets in total. One dataset per search term for the following search terms: Data Scientist, Data Analist, Marketing Analist and Marketeer. The following section will provide a short overview of how the datasets look like. 
 
-#### 3.1 This is what the data scientist dataset looks like:
-
+### 3.1 This is what the data scientist dataset looks like
 We can see that there are `r length(data_scientist$id)` job listings. It contains `r ncol(data_scientist)` columns.
 
 ```{r, echo = FALSE}
@@ -63,7 +62,7 @@ summary(data_scientist)
 ```
 
 
-#### 3.2 This is what the data analist dataset looks like:
+### 3.2 This is what the data analist dataset looks like:
 
 We can see that there are `r length(data_analist$id)` job listings. It contains `r ncol(data_analist)` columns.
 
@@ -77,7 +76,7 @@ Here, a summary of the data analist dataset can be observed.
 summary(data_analist)
 ```
 
-#### 3.3 This is what the marketing analist dataset looks like:
+### 3.3 This is what the marketing analist dataset looks like:
 
 We can see that there are `r length(marketing_analist$id)` job listings. It contains `r ncol(marketing_analist)` columns.
 ```{r, echo = FALSE}
@@ -90,7 +89,7 @@ Here, a summary of the data analist dataset can be observed.
 summary(marketing_analist)
 ```
 
-#### 3.4 This is what the marketeer data set looks like:
+### 3.4 This is what the marketeer data set looks like:
 
 We can see that there are `r length(marketeer$id)` job listings. It contains `r ncol(marketeer)` columns.
 
@@ -143,7 +142,7 @@ skills_data_science <- data_scientist %>%
   mutate(R = str_count(data_scientist$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 
-#### 4.1 Getting the skill counts for the most important skills in data science jobs
+### 4.1 Getting the skill counts for the most important skills in data science jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
 # get only skills and their counts from the entire skills dataframe and arrange by count
@@ -218,7 +217,7 @@ skills_data_analist <- data_analist %>%
   mutate(R = str_count(data_analist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 \newpage
-#### 4.2 Getting the skill counts for the most important skills in data analist jobs
+### 4.2 Getting the skill counts for the most important skills in data analist jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
 # get only skills and their counts from the entire skills dataframe
@@ -288,7 +287,7 @@ skills_marketing_analist <- marketing_analist %>%
   mutate(R = str_count(marketing_analist$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 \newpage
-#### 4.3 Getting the skill counts for the most important skills in marketing analist jobs
+### 4.3 Getting the skill counts for the most important skills in marketing analist jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
 # get only skills and their counts from the entire skills dataframe
@@ -359,7 +358,7 @@ skills_marketeer <- marketeer %>%
   mutate(R = str_count(marketeer$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
 \newpage
-#### 4.4 Getting the skill counts for the most important skills in marketeer jobs
+### 4.4 Getting the skill counts for the most important skills in marketeer jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
 # get only skills and their counts from the entire skills dataframe
@@ -408,7 +407,7 @@ percentage_plot_marketeer
 Similar results in percentage, which show that the technical skills get mentioned really infrequently in the job advertisements. Excel stays the winner in terms of technical skills but is still getting mentioned in only eight percent of the job listings. Compared with the winner skills for other job searches, that were reaching over 30-40%, there is a clear difference in the job requirements for marketeers. 
 \newpage
 
-#### 4.5 Getting insights into comparing the skills from the 4 job titles
+### 4.5 Getting insights into comparing the skills from the 4 job titles
 
 Combining the separate bar charts presented above into one bar graph, to conveniently compare the skills occurrence for our 4 job searches. In the following section we will provide a comprehensive graph which shows each skill percentage occurrence for each job next to each other in order to facilitate direct comparison.
 
@@ -452,7 +451,7 @@ marketing_analist_location <- read.csv("../../gen/data-preparation/output/market
 marketeer_location <- read.csv("../../gen/data-preparation/output/marketeer_clean.csv")
 ```
 
-#### 5.1 Location frequency data science
+### 5.1 Location frequency data science
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 data_scientist_location <- as.data.frame(table(data_scientist$location))
@@ -494,7 +493,7 @@ data_analist_location_plot <- ggplot(data_analist_location,
 data_analist_location_plot
 ```
 
-#### 5.2 Location frequency data analist
+### 5.2 Location frequency data analist
 
 For data analists, the picture is quite similar. Amsterdam again is the clear winner in terms of number of jobs offered. However, Utrecht seems relatively more important for data analists compared to data scientists. Rotterdam again is number 3, with Den Haag and Eindhoven completing the top 5 in terms of locations. 
 
@@ -517,7 +516,7 @@ marketing_analist_location_plot <- ggplot(marketing_analist_location,
 marketing_analist_location_plot
 ```
 
-#### 5.3 Location frequency marketing analist
+### 5.3 Location frequency marketing analist
 
 For marketing analists we see the same top 5 as for data analists. However, Utrecht, Rotterdam and Den Haag all have almost equal counts of job offers and Amsterdam is a way more pronounced winner for Marketing analists than for the other jobs scrutinized before.
 
@@ -538,7 +537,7 @@ marketeer_location_plot <- ggplot(marketeer_location, aes(x = Freq, y = location
 marketeer_location_plot
 ```
 
-#### 5.4 Location frequency marketeer
+### 5.4 Location frequency marketeer
 
 For marketeers, it seems that there are more opportunities outside of the Randstad available compared to the three data related jobs. Cities as Breda, Arnhem, Deventer and Nijmegen come in quite close to the Randstad cities such as Rotterdam and Utrecht, suggesting that the job opportunities for marketeers are more evenly spread across the country.
 
@@ -568,7 +567,7 @@ plot_location
 
 ```
 
-#### 5.5 Getting insights into comparing the locations of the 4 job titles
+### 5.5 Getting insights into comparing the locations of the 4 job titles
 
 This graph shows the top 5 (plus remote) locations for job listings. As expected, Amsterdam is the clear winner for each job in terms of number of job offers, however the difference is less pronounced for marketeer related jobs than for the other three jobs. Utrecht comes in second in terms of number of job listings whereas Rotterdam, Eindhoven and Den Haag are very equally ranked.
 
@@ -671,7 +670,7 @@ marketeer_salary$X.1 <- NULL
 ### 6. Salary analysis
 Now that we know what the most important skills are to learn for our four jobs titles and also what the best cities are to go to, we will analyze the best jobs and locations in terms of pay.
 
-#### 6.1 Mean salaries per job 
+### 6.1 Mean salaries per job 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 # finding the mean salary per job
@@ -726,8 +725,8 @@ data_scientist_salary_plot <- ggplot(data_scientist_avgsalary,
 data_scientist_salary_plot
 ```
 
-#### 6.2 Top locations in terms of salary for data scientists
-Top locations for Data Scientists in terms of salary are are Amsterdam and Zaandam. In each of these places the average salary for Data Scientists is over 60000 annually, which is well above the average earnings for the entire country. 
+### 6.2 Top locations in terms of salary for data scientists  
+Top locations for Data Scientists in terms of salary are Amsterdam and Zaandam. In each of these places the average salary for Data Scientists is over 60000 annually, which is well above the average earnings for the entire country. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 # average salaries per location for top locations for data analists
@@ -756,7 +755,7 @@ data_analist_salary_plot <- ggplot(data_analist_avgsalary,
 data_analist_salary_plot
 ```
 
-#### 6.3 Top locations in terms of salary for data analysts
+### 6.3 Top locations in terms of salary for data analysts
 For Data Analysts, again Zaandam and Amsterdam re the cities with highest average salaries. Another attractive option is Apeldoorn. These top 3 cities all have average salaries close to or even over 60000 euro's per year. Quite more than the national average. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
@@ -786,7 +785,7 @@ marketing_analist_salary_plot <- ggplot(marketing_analist_avgsalary,
 marketing_analist_salary_plot
 ```
 
-#### 6.4 Top locations in terms of salary for marketing analysts
+### 6.4 Top locations in terms of salary for marketing analysts
 For Marketing Analysts, the best places to find a job are Amsterdam, Almere, Den Haag and Utrecht. 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 marketeer_salary <- transform(marketeer_salary, freq.loc = ave(seq(nrow(marketeer_salary)), location, FUN=length))
@@ -817,8 +816,7 @@ marketeer_salary_plot <- ggplot(marketeer_avgsalary,
 marketeer_salary_plot
 ```
 
-#### 6.5 Top locations in terms of salary for marketeers
-<<<<<<< HEAD
+### 6.5 Top locations in terms of salary for marketeers
 The highest paid jobs for marketeers generally are found in Zaandam and Schiedam, with Zaandam having salaries over 60000, which is nearly twice the average salary for marketeers. Besides these 2 cities, there are numerous other cities including Utrecht, Amsterdam, Rotterdam, Nijmegen and Eindhoven all pretty similar to each other in terms of salaries, coming close to 40000 average salaries. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
@@ -845,14 +843,14 @@ plot_salary
 ```
 
 
-#### 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations
+### 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations
 
 This plot shows that data scientists in general dominate salaries in each location, shortly followed by data analists and marketing analists. Marketeers in general lag quite behind in terms of salaries. 
 \newpage
 
 ### 7 Conclusion and discussion
 
-#### 7.1 Conclusion
+### 7.1 Conclusion
 
 Our results show that the main skills required by jobs related to Data Analysis, Data Science and Marketing are Excel, SQL, R and Python. The curriculum of Marketing Analytics is focused more on R and SPSS, and completely ignores SQL. We believe that students would benefit from the inclusion of courses which develop skills in SQL and Python.
 
@@ -860,9 +858,9 @@ As for location, Amsterdam is the clear winner when it comes to number of job of
 
 As for salary, data scientists seem to be in the best position, with on average the highest salaries compared to marketeers, data analists and marketing analists. 
 
-#### 7.2 Discussion 
+### 7.2 Discussion 
 
 Our research is limited due to limited sample size. Scraping Indeed.com had its fair share of challenges and our focus on the Netherlands meant that we collected between 500 and 1100 observations per job search. However, after cleaning out duplicates these numbers got adjusted downward. Especially for the salary analysis, there was a lot of missing data which meant datasets with only a few hundred observations. This means that some of the location averages for salary could be very high or very low due to only one job being offered in that location with perhaps a very high or very low salary. This suggests that the salary analysis is sensitive to outlier datapoints. This limited sample is however difficult to overcome, since most job listings do not show salary data. 
 
-#### 7.3 Future research
+### 7.3 Future research
 Our results can be reproduced for any job title and any location in the world. This makes it very interesting for future research to compare different countries with each other in terms of salary and job skills for the four jobs researched in this analysis. However, it also opens up the opportunity for students and job seekers in general to perform similar research in any kind of other field they are interested in. By tweaking the search term in the scraper and the skills being asked in the keyword analysis, it is possible to research for example what skills are important in a range of jobs and locations. Furthermore, we think that our analysis could be valuable over time by for example repeating the research on a monthly or yearly basis to observe possible developments over time in skills required, salaries offered and locations offering the most jobs.

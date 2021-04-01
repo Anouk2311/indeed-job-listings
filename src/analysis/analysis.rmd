@@ -103,7 +103,7 @@ Here, a summary of the marketeer dataset can be observed.
 ```{r, echo = FALSE}
 summary(marketeer)
 ```
-
+\newpage
 ### 4. Keyword Analysis
 
 In the following section we provide the analysis for our research. We performed three types of analyses. 
@@ -217,7 +217,7 @@ skills_data_analist <- data_analist %>%
   mutate(SAS = str_count(data_analist$description, "SAS" )) %>% 
   mutate(R = str_count(data_analist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
-
+\newpage
 #### 4.2 Getting the skill counts for the most important skills in data analist jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
@@ -287,7 +287,7 @@ skills_marketing_analist <- marketing_analist %>%
   mutate(SAS = str_count(marketing_analist$description, "SAS" )) %>% 
   mutate(R = str_count(marketing_analist$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
-
+\newpage
 #### 4.3 Getting the skill counts for the most important skills in marketing analist jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
@@ -358,7 +358,7 @@ skills_marketeer <- marketeer %>%
   mutate(SAS = str_count(marketeer$description, "SAS" )) %>% 
   mutate(R = str_count(marketeer$description, "\\bR\\b" ))  # add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
-
+\newpage
 #### 4.4 Getting the skill counts for the most important skills in marketeer jobs
 
 ```{r, echo = FALSE, fig.align = 'left'}
@@ -406,6 +406,7 @@ percentage_plot_marketeer
 ```
 
 Similar results in percentage, which show that the technical skills get mentioned really infrequently in the job advertisements. Excel stays the winner in terms of technical skills but is still getting mentioned in only eight percent of the job listings. Compared with the winner skills for other job searches, that were reaching over 30-40%, there is a clear difference in the job requirements for marketeers. 
+\newpage
 
 #### 4.5 Getting insights into comparing the skills from the 4 job titles
 
@@ -440,6 +441,7 @@ plot_skills
 ```
 
 The top 4 skills in general are Python, R, SQL and Excel. With data scientist relying heavily on Python, for marketing and data analists it might be more fruitful to invest in your SQL skills. There seems to be a clear discrepancy between the R and SPSS heavy academic courses and the actual skills required by companies, more focused on SQL and Python to perform job tasks. Especially SQL is completely missing from the MSc Marketing Analytics curriculum. Similarly, Python is available in a few courses only.  
+\newpage
 
 ### 5. Location frequency analysis
 
@@ -664,6 +666,7 @@ marketeer_salary <- marketeer_salary %>% filter(salary_good < 500000)
 # discard the column X.1 as it is a duplicate of the index column 
 marketeer_salary$X.1 <- NULL
 ```
+\newpage
 
 ### 6. Salary analysis
 Now that we know what the most important skills are to learn for our four jobs titles and also what the best cities are to go to, we will analyze the best jobs and locations in terms of pay.
@@ -845,6 +848,7 @@ plot_salary
 #### 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations
 
 This plot shows that data scientists in general dominate salaries in each location, shortly followed by data analists and marketing analists. Marketeers in general lag quite behind in terms of salaries. 
+\newpage
 
 ### 7 Conclusion and discussion
 

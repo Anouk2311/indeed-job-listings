@@ -50,7 +50,7 @@ After downloading and merging data we have four datasets in total. One dataset p
 
 #### 3.1 This is what the data scientist dataset looks like:
 
-We can see that there are `r length(data_scientist$X)` job listings. It contains `r ncol(data_scientist)` columns.
+We can see that there are `r length(data_scientist$id)` job listings. It contains `r ncol(data_scientist)` columns.
 
 ```{r, echo = FALSE}
 colnames(data_scientist)
@@ -65,7 +65,7 @@ summary(data_scientist)
 
 #### 3.2 This is what the data analist dataset looks like:
 
-We can see that there are `r length(data_analist$X)` job listings. It contains `r ncol(data_analist)` columns.
+We can see that there are `r length(data_analist$id)` job listings. It contains `r ncol(data_analist)` columns.
 
 ```{r, echo = FALSE}
 colnames(data_analist)
@@ -79,7 +79,7 @@ summary(data_analist)
 
 #### 3.3 This is what the marketing analist dataset looks like:
 
-We can see that there are `r length(marketing_analist$X)` job listings. It contains `r ncol(marketing_analist)` columns.
+We can see that there are `r length(marketing_analist$id)` job listings. It contains `r ncol(marketing_analist)` columns.
 
 ```{r, echo = FALSE}
 colnames(marketing_analist)
@@ -93,7 +93,7 @@ summary(marketing_analist)
 
 #### 3.4 This is what the marketeer data set looks like:
 
-We can see that there are `r length(marketeer$X)` job listings. It contains `r ncol(marketeer)` columns.
+We can see that there are `r length(marketeer$id)` job listings. It contains `r ncol(marketeer)` columns.
 
 ```{r, echo = FALSE}
 colnames(marketeer)

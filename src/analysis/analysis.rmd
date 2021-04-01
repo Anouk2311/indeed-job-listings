@@ -586,6 +586,8 @@ data_scientist_salary <- data_scientist %>%
 data_scientist_salary <- cbind(data_scientist, data_scientist_salary)
 
 data_scientist_salary <- data_scientist_salary[!is.na(data_scientist_salary$salary_good),]
+#filter out 2 wrong job ads in the data scientist job which showed job ads for warehouse jobs with a salary of over 2 million
+data_scientist_salary <- data_scientist_salary %>% filter(salary_good < 500000)
 
 # discard the column X.1 as it is a duplicate of the index column 
 data_scientist_salary$X.1 <- NULL
@@ -795,92 +797,6 @@ plot_salary <- ggplot(salary, aes(x= salary, y = location, fill=job)) +
   theme_minimal()
   
 plot_salary
-```
-
-```{r, echo = FALSE}
-
-library(here)
-dir.create("../../gen/analysis/temp")
-pdf(here("gen". "analysis", "temp", "plot_mean_salary.pdf"))
-print(plot_mean_salary)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "plot_salary.pdf"))
-print(plot_salary)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "plot_location.pdf"))
-print(plot_location)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "data_scientist_location_plot.pdf"))
-print(data_scientist_location_plot)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "data_analist_location_plot.pdf"))
-print(data_analist_location_plot)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "marketing_analist_location_plot.pdf"))
-print(marketing_analist_location_plot)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "marketeer_location_plot.pdf"))
-print(marketeer_location_plot)
-dev.off()
-
-
-pdf(here("gen". "analysis", "temp", "percentage_plot_data_scientist.pdf"))
-print(percentage_plot_data_scientist)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "percentage_plot_data_analist.pdf"))
-print(percentage_plot_data_analist)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "percentage_plot_marketing_analist.pdf"))
-print(percentage_plot_marketing_analist)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "percentage_plot_marketeer.pdf"))
-print(percentage_plot_marketeer)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "count_plot_data_scientist.pdf"))
-print(count_plot_data_scientist)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "count_plot_data_analist.pdf"))
-print(count_plot_data_analist)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "count_plot_marketing_analist.pdf"))
-print(count_plot_marketing_analist)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "count_plot_marketeer.pdf"))
-print(count_plot_marketeer)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "plot_skills.pdf"))
-print(plot_skills)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "data_scientist_salary_plot.pdf"))
-print(data_scientist_salary_plot)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "data_analist_salary_plot.pdf"))
-print(data_analist_salary_plot)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "marketing_analist_salary_plot.pdf"))
-print(marketing_analist_salary_plot)
-dev.off()
-
-pdf(here("gen". "analysis", "temp", "marketeer_salary_plot.pdf"))
-print(marketeer_salary_plot)
-dev.off()
 ```
 
 6.6 Getting insights into comparing the salaries of the 4 job titles on the best locations

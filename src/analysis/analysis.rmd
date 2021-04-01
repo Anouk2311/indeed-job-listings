@@ -697,7 +697,6 @@ plot_mean_salary
 ```
 Data Scientists on average have the highest salaries, earning around 50000 annually on average. The difference with Marketing Analysts and Data Analysts is small however, with both analyst jobs having a mean salary of well over 40000 per year. Marketeers seem to fall behind in terms of salary, earning less than 40000 per year. 
 
-<<<<<<< HEAD
 In the next section we analyse the top locations based on average salaries. Due to limited salary data, many locations have only a single job ad with salary data included, this number does not really represent an average. Therefore, we decided to only incorporate locations with a minimum of 3 job ads into the analysis.
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 data_scientist_salary <- transform(data_scientist_salary, freq.loc = ave(seq(nrow(data_scientist_salary)), location, FUN=length))

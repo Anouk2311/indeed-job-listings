@@ -83,4 +83,4 @@ For this project, we did not use related papers or previous studies. [Tilburg sc
 
 ## About
 
-This project has been conducted by students from Tilburg University for the two courses Data Preparation & Workflow Management and Online Data Collection & Management, both instructed by Hannes Datta. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana HuÅ£anu, Anouk Heemskerk, Alan Rijnders and RenÃ©e Nieuwkoop.
+This project has been conducted by students from Tilburg University for the two courses Data Preparation & Workflow Management and Online Data Collection & Management, both instructed by Hannes Datta. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana Hutanu, Anouk Heemskerk, Alan Rijnders and Renee Nieuwkoop.

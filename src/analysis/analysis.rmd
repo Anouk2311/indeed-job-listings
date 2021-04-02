@@ -545,7 +545,7 @@ marketeer_location_plot
 
 ### 5.5 Getting insights into comparing the locations of the 4 job titles
 
-This graph shows the top 5 (plus remote) locations for job listings. As expected, Amsterdam is the clear winner for each job in terms of number of job offers, however the difference is less pronounced for marketeer related jobs than for the other three jobs. Utrecht comes in second in terms of number of job listings whereas Rotterdam, Eindhoven and Den Haag are very equally ranked.
+This graph shows the top 5 (plus online) locations for job listings. As expected, Amsterdam is the clear winner for each job in terms of number of job offers, however the difference is less pronounced for marketeer related jobs than for the other three jobs. Utrecht comes in second in terms of number of job listings whereas Rotterdam, Eindhoven and Den Haag are very equally ranked.
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 location <- merge(marketeer_location, data_analist_location, by = "location")

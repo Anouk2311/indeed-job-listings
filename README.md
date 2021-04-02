@@ -45,7 +45,6 @@ Our repository has the following structure:
 └───src
     ├───analysis
     ├───collection
-    │   └───.ipynb_checkpoints
     └───data-preparation
     
 ```

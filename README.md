@@ -91,7 +91,7 @@ For R:
     install.packages("reshape")
 ```
 
-Next to these packages, you will need Chromedriver to run the scraper. Because Chromedriver is operating-system specific, we would like to refer you to the following [tutorial](https://tilburgsciencehub.com/building-blocks/configure-your-computer/task-specific-configurations/configuring-python-for-webscraping/).
+Next to these packages, you will need Chromedriver to run the scraper. Because Chromedriver is operating-system specific, we would like to refer you to the following [tutorial](https://tilburgsciencehub.com/building-blocks/configure-your-computer/task-specific-configurations/configuring-python-for-webscraping/). Next to Chromedriver you will also need to install Tex distribution. See the [tutorial](https://tilburgsciencehub.com/building-blocks/configure-your-computer/statistics-and-computation/latex/) on how to install the Tex distribution.
 
 ## More resources
 

@@ -755,7 +755,7 @@ data_analist_salary_plot
 ```
 
 ### 6.3 Top locations in terms of salary for data analysts
-For Data Analysts, again Zaandam and Amsterdam re the cities with highest average salaries. Another attractive option is Apeldoorn. These top 3 cities all have average salaries close to or even over 60000 euro's per year. Quite more than the national average. 
+For Data Analysts, again Zaandam and Amsterdam are the cities with highest average salaries. Another attractive option is Apeldoorn. These top 3 cities all have average salaries close to or even over 60000 euro's per year. Quite more than the national average. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 marketing_analist_salary <- transform(marketing_analist_salary, freq.loc = ave(seq(nrow(marketing_analist_salary)), location, FUN=length))
@@ -785,7 +785,7 @@ marketing_analist_salary_plot
 ```
 
 ### 6.4 Top locations in terms of salary for marketing analysts
-For Marketing Analysts, the best places to find a job are Amsterdam, Almere, Den Haag and Utrecht. 
+For Marketing Analysts, when looking for the highest salaries on average, the best places to find a job are Amsterdam, Almere, Den Haag and Utrecht. 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 marketeer_salary <- transform(marketeer_salary, freq.loc = ave(seq(nrow(marketeer_salary)), location, FUN=length))
 
@@ -816,9 +816,9 @@ marketeer_salary_plot
 ```
 
 ### 6.5 Top locations in terms of salary for marketeers
-The highest paid jobs for marketeers generally are found in Zaandam and Schiedam, with Zaandam having salaries over 60000, which is nearly twice the average salary for marketeers. Besides these 2 cities, there are numerous other cities including Utrecht, Amsterdam, Rotterdam, Nijmegen and Eindhoven all pretty similar to each other in terms of salaries, coming close to 40000 average salaries. 
+The highest paid jobs for marketeers generally are found in Zaandam and Schiedam, with Zaandam having salaries over 60000, which is nearly twice the average salary for marketeers. Besides these 2 cities, there are numerous other cities including Utrecht, Amsterdam, Rotterdam, Nijmegen and Eindhoven all pretty similar to each other in terms of salaries, coming close to 40000 euro average annual income. 
 
-```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
+```{r echo=FALSE, fig.align=, warning=FALSE}
 # combined plot
 # first merge the different files
 salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location")

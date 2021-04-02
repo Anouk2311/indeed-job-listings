@@ -125,7 +125,7 @@ skills_data_science <- data_scientist %>%
   mutate(SQL = str_count(data_scientist$description, "SQL" )) %>%
   mutate(HTML = str_count(data_scientist$description, "HTML")) %>%
   mutate(SPSS = str_count(data_scientist$description, "SPSS")) %>%
-  mutate(PowerBI = str_count(data_scientist$description, "Power BI")) %>%
+  mutate('Power BI' = str_count(data_scientist$description, "Power BI")) %>%
   mutate(AWS = str_count(data_scientist$description, "AWS")) %>%
   mutate(Python = str_count(data_scientist$description, "Python" )) %>%
   mutate(Hadoop = str_count(data_scientist$description, "Hadoop" )) %>%
@@ -200,7 +200,7 @@ skills_data_analist <- data_analist %>%
   mutate(SQL = str_count(data_analist$description, "SQL" )) %>%
   mutate(HTML = str_count(data_analist$description, "HTML")) %>%
   mutate(SPSS = str_count(data_analist$description, "SPSS")) %>%
-  mutate(PowerBI = str_count(data_analist$description, "Power BI")) %>%
+  mutate('Power BI' = str_count(data_analist$description, "Power BI")) %>%
   mutate(AWS = str_count(data_analist$description, "AWS")) %>%
   mutate(Python = str_count(data_analist$description, "Python" )) %>%
   mutate(Hadoop = str_count(data_analist$description, "Hadoop" )) %>%
@@ -211,8 +211,8 @@ skills_data_analist <- data_analist %>%
   mutate(Azure = str_count(data_analist$description, "Azure"))%>% 
   mutate(Tableau = str_count(data_analist$description, "Tableau" )) %>%
   mutate(TensorFlow = str_count(data_analist$description, "TensorFlow" )) %>%  
-  mutate(big_data = str_count(data_analist$description, "big data" )) %>% 
-  mutate(machine_learning = str_count(data_analist$description, "machine learning" )) %>%
+  mutate('Big Data' = str_count(data_analist$description, "big data" )) %>% 
+  mutate('Machine Learning' = str_count(data_analist$description, "machine learning" )) %>%
   mutate(SAS = str_count(data_analist$description, "SAS" )) %>% 
   mutate(R = str_count(data_analist$description, "\\bR\\b" ))# add\\bR\\b because otherwise words all capital letter R's will be counted, which includes any r at the beginning of a sentence.
 ```
@@ -235,7 +235,7 @@ count_plot_data_analist <- ggplot(data=table_data_analist, aes(x = count, y = sk
 count_plot_data_analist
 ```
 
-As we can see, quite a different picture for data analist jobs compared to the data scientist jobs. The clear winner is SQL, which approaches a count of 500. After SQL, Excel is the second most sought after skill with over 350 counts. In third and fourth place come the two programming languages Python and R, with Python slightly edging R in terms of importance. Other important skills include Tableau, PowerBI and Azure.
+As we can see, quite a different picture for data analist jobs compared to the data scientist jobs. The clear winner is SQL, which approaches a count of 500. After SQL, Excel is the second most sought after skill with over 350 counts. In third and fourth place come the two programming languages Python and R, with Python slightly edging R in terms of importance. Other important skills include Tableau, Power BI and Azure.
 
 ```{r, echo = FALSE, fig.align = 'left'}
 # get the count data from the entire dataset
@@ -263,14 +263,14 @@ percentage_plot_data_analist <- ggplot(data = percentage_data_analist,
 percentage_plot_data_analist
 ```
 
-Again similar results for the percentage analysis. However, the difference between SQL and Excel is declining, with both being almost equally important. Also the difference with number three, Python, seems slightly smaller than in the count analysis. Again, other important skills are R, PowerBI and Tableau. 
+Again similar results for the percentage analysis. However, the difference between SQL and Excel is declining, with both being almost equally important. Also the difference with number three, Python, seems slightly smaller than in the count analysis. Again, other important skills are R, Power BI and Tableau. 
 
 ```{r, echo = FALSE, fig.align = 'left'}
 skills_marketing_analist <- marketing_analist %>%
   mutate(SQL = str_count(marketing_analist$description, "SQL" )) %>%
   mutate(HTML = str_count(marketing_analist$description, "HTML")) %>%
   mutate(SPSS = str_count(marketing_analist$description, "SPSS")) %>%
-  mutate(PowerBI = str_count(marketing_analist$description, "Power BI")) %>%
+  mutate('Power BI' = str_count(marketing_analist$description, "Power BI")) %>%
   mutate(AWS = str_count(marketing_analist$description, "AWS")) %>%
   mutate(Python = str_count(marketing_analist$description, "Python" )) %>%
   mutate(Hadoop = str_count(marketing_analist$description, "Hadoop" )) %>%
@@ -306,7 +306,7 @@ count_plot_marketing_analist <- ggplot(data=table_marketing_analist,
 count_plot_marketing_analist
 ```
 
-The clear winner for skills to learn for a marketing analist is Excel, being the only skill reaching a count over 200. Other important skills are SQL, Tableau, R and Python, with all of them being very close to each other in terms of relative importance. Then, after quite a big gap, skills such as PowerBI, AWS and Azure come, clearly seem not that meaningful to learn as a marketing analist.
+The clear winner for skills to learn for a marketing analist is Excel, being the only skill reaching a count over 200. Other important skills are SQL, Tableau, R and Python, with all of them being very close to each other in terms of relative importance. Then, after quite a big gap, skills such as Power BI, AWS and Azure come, clearly seem not that meaningful to learn as a marketing analist.
 
 ```{r, echo = FALSE, fig.align = 'left'}
 ## get the count data from the entire dataset
@@ -341,7 +341,7 @@ skills_marketeer <- marketeer %>%
   mutate(SQL = str_count(marketeer$description, "SQL" )) %>%
   mutate(HTML = str_count(marketeer$description, "HTML")) %>%
   mutate(SPSS = str_count(marketeer$description, "SPSS")) %>%
-  mutate(PowerBI = str_count(marketeer$description, "Power BI")) %>%
+  mutate('Power BI' = str_count(marketeer$description, "Power BI")) %>%
   mutate(AWS = str_count(marketeer$description, "AWS")) %>%
   mutate(Python = str_count(marketeer$description, "Python" )) %>%
   mutate(Hadoop = str_count(marketeer$description, "Hadoop" )) %>%
@@ -697,7 +697,7 @@ plot_mean_salary
 ```
 Data Scientists on average have the highest salaries, earning around 50000 annually on average. The difference with Marketing Analysts and Data Analysts is small however, with both analyst jobs having a mean salary of well over 40000 per year. Marketeers seem to fall behind in terms of salary, earning less than 40000 per year. 
 
-In the next section we analyse the top locations based on average salaries. Due to limited salary data, many locations have only a single job ad with salary data included, this number does not really represent an average. Therefore, we decided to only incorporate locations with a minimum of 3 job ads into the analysis.
+In the next section we analyze the top locations based on average salaries. Due to limited salary data, many locations have only a single job ad with salary data included, this number does not really represent an average. Therefore, we decided to only incorporate locations with a minimum of 3 job ads into the analysis.
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 data_scientist_salary <- transform(data_scientist_salary, freq.loc = ave(seq(nrow(data_scientist_salary)), location, FUN=length))
 

@@ -672,7 +672,11 @@ marketeer_salary$X.1 <- NULL
 ### 6. Salary analysis
 Now that we know what the most important skills are to learn for our four jobs titles and also what the best cities are to go to, we will analyze the best jobs and locations in terms of pay.
 
-### 6.1 Mean salaries per job 
+### 6.1 Mean salaries per job
+
+Data Scientists on average have the highest salaries, earning around 50000 annually on average. The difference with Marketing Analysts and Data Analysts is small however, with both analyst jobs having a mean salary of well over 40000 per year. Marketeers seem to fall behind in terms of salary, earning less than 40000 per year. 
+
+In the next section we analyze the top locations based on average salaries. Due to limited salary data, many locations have only a single job ad with salary data included, this number does not really represent an average. Therefore, we decided to only incorporate locations with a minimum of 3 job ads into the analysis.
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 # finding the mean salary per job
@@ -693,13 +697,8 @@ plot_mean_salary <- plot(ggplot(df_salary, aes(x = job, y = salary)) +
   ylab("Salary") +
   ggtitle("Average salary per month") +
   theme_minimal()
-
-plot_mean_salary
-
 ```
-Data Scientists on average have the highest salaries, earning around 50000 annually on average. The difference with Marketing Analysts and Data Analysts is small however, with both analyst jobs having a mean salary of well over 40000 per year. Marketeers seem to fall behind in terms of salary, earning less than 40000 per year. 
 
-In the next section we analyze the top locations based on average salaries. Due to limited salary data, many locations have only a single job ad with salary data included, this number does not really represent an average. Therefore, we decided to only incorporate locations with a minimum of 3 job ads into the analysis.
 
 ### 6.2 Top locations in terms of salary for data scientist  
 

@@ -725,7 +725,6 @@ data_scientist_salary_plot
 ```
 
 ### 6.2 Top locations in terms of salary for data scientists  
-Top locations for Data Scientists in terms of salary are Amsterdam and Zaandam. In each of these places the average salary for Data Scientists is over 60000 annually, which is well above the average earnings for the entire country. 
 
 ```{r, echo = FALSE, warning = FALSE, fig.align = 'left'}
 # average salaries per location for top locations for data analists
@@ -818,7 +817,7 @@ marketeer_salary_plot
 ### 6.5 Top locations in terms of salary for marketeers
 The highest paid jobs for marketeers generally are found in Zaandam and Schiedam, with Zaandam having salaries over 60000, which is nearly twice the average salary for marketeers. Besides these 2 cities, there are numerous other cities including Utrecht, Amsterdam, Rotterdam, Nijmegen and Eindhoven all pretty similar to each other in terms of salaries, coming close to 40000 euro average annual income. 
 
-```{r echo=FALSE, fig.align=, warning=FALSE}
+```{r echo=FALSE, warning = FALSE, fig.align = 'left'}
 # combined plot
 # first merge the different files
 salary <- merge(marketeer_avgsalary, data_analist_avgsalary, by = "location")

@@ -33,7 +33,7 @@ remove_duplicates <- function(dataset) {
 }
 
 ## 2.2 remove dirty location strings ------------------------------------------
-words_to_remove <- c("-Zuidoost","-Zuidwest","Zuidoost","Zuidwest",  "oost" ,"Centrum", "noord", "zuid",  "Binnenstad","-West", "-Oost", " West", " Oost" ,"-Zuid", "-Noord", " Noord"," Zuid","West", "wijk", "Westpoort") 
+words_to_remove <- c("-Zuidoost","-Zuidwest","Zuidoost","Zuidwest",  "oost" ,"Centrum", "noord", "zuid",  "Binnenstad","-West", "-Oost", " West", " Oost" ,"-Zuid", "-Noord", " Noord"," Zuid","West", " wijk", "Westpoort", "Leidsche Rijn") 
 
 remove_dirty_location <- function(dataset) {
   dataset <- dataset %>%
@@ -45,20 +45,20 @@ remove_dirty_location <- function(dataset) {
 ## 2.3 replace dirty location strings -----------------------------------------
 replace_dirty_location <- function(dataset){ 
   dataset <- dataset %>%
-    mutate(location = str_replace_all(location, "Holland-", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "Zuid-Holland", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "Noord-Holland", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "Noord-Brabant", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "-Brabant", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "-Holland", "Unknown")) %>%
+    mutate(location = str_replace_all(location, "Holland-", "Online")) %>%
+    mutate(location = str_replace_all(location, "Zuid-Holland", "Online")) %>%
+    mutate(location = str_replace_all(location, "Noord-Holland", "Online")) %>%
+    mutate(location = str_replace_all(location, "Noord-Brabant", "Online")) %>%
+    mutate(location = str_replace_all(location, "-Brabant", "Online")) %>%
+    mutate(location = str_replace_all(location, "-Holland", "Online")) %>%
     mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Schiphol ", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Amsterdam ", "Amsterdam")) %>%
     mutate(location = str_replace_all(location, "Schiphol", "Amsterdam")) %>%
-    mutate(location = str_replace_all(location, "Randstad", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "Nederland", "Unknown")) %>%
-    mutate(location = str_replace_all(location, "Werk van thuis", "Unknown")) %>%
+    mutate(location = str_replace_all(location, "Randstad", "Online")) %>%
+    mutate(location = str_replace_all(location, "Nederland", "Online")) %>%
+    mutate(location = str_replace_all(location, "Werk van thuis", "Online")) %>%
     mutate(location = str_replace_all(location, "Utrecht ", "Utrecht"))
  }
 

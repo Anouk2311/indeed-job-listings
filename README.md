@@ -26,15 +26,14 @@ Afterwards, we proceeded with location analysis. At this stage, we scrutinized t
 
 In the following section we give a short overview of the main findings from our analysis. 
 
-- We find that for data analist jobs, handling databases with SQL is the most sought skill by employers, followed by Microsoft Excel, Python and R. Amsterdam momentarily has the most vacancies, where employers are searching for a data analist, followed by Utrecht, Rotterdam, Den Haag and Eindhoven.
+- We find that for data analist jobs, handling databases with SQL is the most sought skill by employers, followed by Microsoft Excel, Python and R. Amsterdam momentarily has the most vacancies, where employers are searching for a data analist, followed by Utrecht, Rotterdam, Den Haag and Eindhoven. For Data Analysts, again Zaandam and Amsterdam are the cities with highest average salaries. Another attractive option is Apeldoorn. These top 3 cities all have average salaries close to or even over 60000 euro's per year. Quite more than the national average. 
 
-- For becoming a data scientist, students will need to learn Python the most, followed by handling SQL, R, Machine learning and Microsoft Excel in that order. When searching for a job as data scientist, we found that Amsterdam currently has the most vacancies in the Netherlands, followed by Utrecht, Leiden, Rotterdam and Delft.
+- For becoming a data scientist, students will need to learn Python the most, followed by handling SQL, R, Machine learning and Microsoft Excel in that order. When searching for a job as data scientist, we found that Amsterdam currently has the most vacancies in the Netherlands, followed by Utrecht, Leiden, Rotterdam and Delft. Top locations for data scientists in terms of salary are Amsterdam and Zaandam. In each of these places the average salary for Data Scientists is over 60000 annually, which is well above the average earnings for the entire country. 
 
-- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle Excel the most, followed by HTML and a little bit of knowledge on SQL and R is also sought by employers. For future marketeers, Amsterdam is the place with the most vacancies at this moment, followed by Utrecht, Rotterdam, Eindhoven, Nijmegen and Den Bosch. 
+- If you have the ambition to become a marketeer in the future, your employer will ask you to be able to handle Excel the most, followed by HTML and a little bit of knowledge on SQL and R is also sought by employers. For future marketeers, Amsterdam is the place with the most vacancies at this moment, followed by Utrecht, Rotterdam, Eindhoven, Nijmegen and Den Bosch. The highest paid jobs for marketeers generally are found in Zaandam and Schiedam, with Zaandam having salaries over 60000, which is nearly twice the average salary for marketeers. Besides these 2 cities, there are numerous other cities including Utrecht, Amsterdam, Rotterdam, Nijmegen and Eindhoven all pretty similar to each other in terms of salaries, coming close to 40000 euro average annual income. 
 
-- And lastly, for future marketing analists, it is useful to learn Excel, SQL, Python, R and Tableau. When searching for a job as a marketing analist, we found that Amsterdam has the most vacancies, followed by Rotterdam, Utrecht, Den Haag and Eindhoven.
+- And lastly, for future marketing analists, it is useful to learn Excel, SQL, Python, R and Tableau. When searching for a job as a marketing analist, we found that Amsterdam has the most vacancies, followed by Rotterdam, Utrecht, Den Haag and Eindhoven. For Marketing Analysts, when looking for the highest salaries on average, the best places to find a job are Amsterdam, Almere, Den Haag and Utrecht. 
 
-!!!!*How do we want to integrate salary in this?*!!!!
 
 
 ## Repository overview

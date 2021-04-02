@@ -40,33 +40,16 @@ In the following section we give a short overview of the main findings from our 
 
 Our repository has the following structure:
 ```
-|--- datacollection
-|    |---data     
-|    |   |--- data-analist
-|    |   |--- data-prototype-scraper
-|    |   |--- data-scientist
-|    |   |--- marketeer
-|    |   |--- marketing-analist
-|    |---docs
-|    |---src
-|    |   |---collection
-|
-|--- workflow
-     |---data     
-     |   |--- data-analist
-     |   |--- data scientist
-     |   |--- marketeer
-     |   |--- marketing analist
-     |---gen
-     |   |--- data preparation
-     |        |--- output 
-     |        |--- temp 
-     |---src
-     |   |--- analysis
-     |   |--- datapreparation
-|--- .gitignore     
-|--- Readme   
+
+├───docs
+└───src
+    ├───analysis
+    ├───collection
+    │   └───.ipynb_checkpoints
+    └───data-preparation
+    
 ```
+
 ## Running instructions
 
 For this project. we made use of GNU make. This means that the whole process, from loading in the data to running the analyses, can be done at once by running the makefile. If you are not (yet) familiar with makefiles, we advice you to take a look at the following [tutorial](https://tilburgsciencehub.com/tutorials/reproducible-research/practicing-pipeline-automation-make/overview/) before running the makefile. Please make sure to have a look at the makefile before you start running the file.
@@ -100,4 +83,4 @@ For this project, we did not use related papers or previous studies. [Tilburg sc
 
 ## About
 
-This project has been conducted by students from Tilburg University for the two courses Data Preparation & Workflow Management and Online Data Collection & Management, both instructed by Hannes Datta. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana Huţanu, Anouk Heemskerk, Alan Rijnders and Renée Nieuwkoop.
+This project has been conducted by students from Tilburg University for the two courses Data Preparation & Workflow Management and Online Data Collection & Management, both instructed by Hannes Datta. All team members were involved in building, developing, optimizing, cleaning, analyzing and reporting of the data. The following 4 students contributed to the project: Georgiana HuÅ£anu, Anouk Heemskerk, Alan Rijnders and RenÃ©e Nieuwkoop.
